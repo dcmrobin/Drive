@@ -841,6 +841,9 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 200
+  carMask:
+    serializedVersion: 2
+    m_Bits: 128
   playerCamera: {fileID: 178745715}
 --- !u!136 &2066373024
 CapsuleCollider:
@@ -1021,6 +1024,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: car_root
+      objectReference: {fileID: 0}
+    - target: {fileID: 1578092033196411083, guid: 7b340ea548aaa1c409446a172c2baaea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3178055549615500326, guid: 7b340ea548aaa1c409446a172c2baaea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4270731337303978547, guid: 7b340ea548aaa1c409446a172c2baaea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4326171280348740870, guid: 7b340ea548aaa1c409446a172c2baaea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8382426640744523840, guid: 7b340ea548aaa1c409446a172c2baaea,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

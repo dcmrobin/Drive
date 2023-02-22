@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public float maxLookAngle = 90f;
     public float groundDistance = 0.1f;
     public LayerMask groundMask;
+    public LayerMask carMask;
     RaycastHit hit;
 
     public Camera playerCamera;
@@ -65,7 +66,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // check if player is looking at car
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 10f, 7) && !driving)
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, carMask) && !driving)
         {
             crosshair.GetComponent<Image>().sprite = carCrosshair;
             if (Input.GetMouseButtonDown(0))
@@ -73,9 +74,9 @@ public class PlayerController : MonoBehaviour
                 currentCar = hit.transform.gameObject;
                 driving = true;
                 GetComponent<CapsuleCollider>().isTrigger = true;
-                transform.parent = currentCar.transform;
+                transform.parent = currentCar.transform.Find("seatTarget");
                 GetComponent<Rigidbody>().isKinematic = true;
-                transform.position = hit.transform.position;
+                transform.position = currentCar.transform.Find("seatTarget").transform.position;
                 currentCar.GetComponent<SimpleCarController>().enabled = true;
             }
         }
