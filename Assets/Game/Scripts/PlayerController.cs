@@ -131,7 +131,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // drop override
-        if (driving)
+        if (driving && currentObject != null)
         {
             currentObject.GetComponent<Rigidbody>().isKinematic = false;
             currentObject.transform.parent = null;
