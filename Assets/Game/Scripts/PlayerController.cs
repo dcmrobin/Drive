@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         lookY = Mathf.Clamp(lookY - mouseY, -maxLookAngle, maxLookAngle);
 
         // rotate the player and camera based on the mouse input
-        transform.rotation = Quaternion.Euler(0f, lookX, 0f);
+        transform.localRotation = Quaternion.Euler(0f, lookX, 0f);
         playerCamera.transform.localRotation = Quaternion.Euler(lookY, 0f, 0f);
 
         if (!driving)
@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
             driving = false;
             transform.parent = null;
             GetComponent<Rigidbody>().isKinematic = false;
-            transform.position += new Vector3(0, 2, 0);
+            transform.position += new Vector3(0, 5, 0);
             GetComponent<CapsuleCollider>().isTrigger = false;
             currentCar.GetComponent<SimpleCarController>().enabled = false;
             currentCar = null;
