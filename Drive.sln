@@ -119,6 +119,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.EditorCoroutines.Edit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.VisualScripting.Shared.Editor", "Unity.VisualScripting.Shared.Editor.csproj", "{f1b5329e-66c4-29bd-fb8a-e3a025d83885}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unity.2D.Sprite.Editor", "Unity.2D.Sprite.Editor.csproj", "{3444af1f-e1d8-0fe2-296d-b03636d65965}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -242,6 +244,8 @@ Global
 		{1e943df1-16b4-9262-b7f4-4cee6f760261}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{f1b5329e-66c4-29bd-fb8a-e3a025d83885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{f1b5329e-66c4-29bd-fb8a-e3a025d83885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3444af1f-e1d8-0fe2-296d-b03636d65965}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3444af1f-e1d8-0fe2-296d-b03636d65965}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

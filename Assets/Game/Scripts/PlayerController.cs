@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public Sprite normalCrosshair;
     public Sprite carCrosshair;
     public Sprite pickupableCrosshair;
+    public Sprite pickedUpCrosshair;
     public float moveSpeed = 5f;
     public float jumpForce = 7f;
     public float lookSensitivity = 3f;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public float groundDistance = 0.1f;
     public LayerMask groundMask;
     public LayerMask carMask;
+    public LayerMask pickupableMask;
     RaycastHit hit;
 
     public Camera playerCamera;
@@ -26,6 +28,9 @@ public class PlayerController : MonoBehaviour
     private float lookY;
     private bool driving;
     private GameObject currentCar;
+    private GameObject currentObject;
+    private bool canGrabby;
+    private bool grabby;
 
     void Start()
     {
@@ -80,7 +85,7 @@ public class PlayerController : MonoBehaviour
                 currentCar.GetComponent<SimpleCarController>().enabled = true;
             }
         }
-        else
+        else if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, pickupableMask))
         {
             crosshair.GetComponent<Image>().sprite = normalCrosshair;
         }
@@ -93,6 +98,36 @@ public class PlayerController : MonoBehaviour
             GetComponent<CapsuleCollider>().isTrigger = false;
             currentCar.GetComponent<SimpleCarController>().enabled = false;
             currentCar = null;
+        }
+
+        // check if player is looking at pickupable
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, pickupableMask) && !driving)
+        {
+            currentObject = hit.transform.gameObject;
+            crosshair.GetComponent<Image>().sprite = pickupableCrosshair;
+            canGrabby = true;
+        }
+        else if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, carMask))
+        {
+            currentObject = null;
+            crosshair.GetComponent<Image>().sprite = normalCrosshair;
+            canGrabby = false;
+        }
+
+        // grab the object
+        if (canGrabby && Input.GetMouseButton(0))
+        {
+            crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
+            currentObject.GetComponent<Rigidbody>().isKinematic = true;
+            currentObject.transform.parent = playerCamera.transform.Find("objectTarget");
+            currentObject.transform.position = playerCamera.transform.Find("objectTarget").position;
+            grabby = true;
+        }
+        else if (grabby && Input.GetMouseButtonUp(0))
+        {
+            currentObject.GetComponent<Rigidbody>().isKinematic = false;
+            currentObject.transform.parent = null;
+            grabby = false;
         }
     }
 
