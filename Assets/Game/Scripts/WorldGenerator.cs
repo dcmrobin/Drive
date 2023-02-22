@@ -5,6 +5,7 @@ using UnityEngine;
 public class WorldGenerator : MonoBehaviour
 {
     public GameObject groundPrefab; // the prefab for the ground tiles
+    public GameObject thingPrefab;
     public int worldSize = 10; // the size of the world (in tiles) around the player
     public int tileSize = 1; // the size of each tile in world units
 
@@ -59,6 +60,8 @@ public class WorldGenerator : MonoBehaviour
                 if (!tiles.ContainsKey(tilePos))
                 {
                     GameObject tile = Instantiate(groundPrefab, new Vector3(tilePos.x * tileSize, 0, tilePos.y * tileSize), Quaternion.identity);
+                    GameObject thing = Instantiate(thingPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), tile.transform.position.y + Random.Range(1, 10), tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
+                    thing.transform.parent = new GameObject().transform.parent = tile.transform;
                     tiles.Add(tilePos, tile);
                 }
             }

@@ -129,6 +129,14 @@ public class PlayerController : MonoBehaviour
             currentObject.transform.parent = null;
             grabby = false;
         }
+
+        // drop override
+        if (driving)
+        {
+            currentObject.GetComponent<Rigidbody>().isKinematic = false;
+            currentObject.transform.parent = null;
+            grabby = false;
+        }
     }
 
     void FixedUpdate()
