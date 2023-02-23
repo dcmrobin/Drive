@@ -5,7 +5,7 @@ using UnityEngine;
 public class CarDoor : MonoBehaviour
 {
     public enum stat {Closed, Open};
-    public enum id {FrontLeft, FrontRight, BackLeft, BackRight};
+    public enum id {FrontLeft, FrontRight, BackLeft, BackRight, Boot};
     public stat status;
     public id identity;
 
@@ -28,6 +28,10 @@ public class CarDoor : MonoBehaviour
             {
                 transform.localRotation = Quaternion.Euler(0, 0, 0);
             }
+            else if (identity == id.Boot)
+            {
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
         }
         else if (status == stat.Open)
         {
@@ -46,6 +50,10 @@ public class CarDoor : MonoBehaviour
             else if (identity == id.BackRight)
             {
                 transform.localRotation = Quaternion.Euler(0, -90, 0);
+            }
+            else if (identity == id.Boot)
+            {
+                transform.localRotation = Quaternion.Euler(90, 0, 0);
             }
         }
     }

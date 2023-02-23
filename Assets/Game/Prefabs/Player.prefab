@@ -159,9 +159,9 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 200
-  carMask:
+  seatMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 1024
   pickupableMask:
     serializedVersion: 2
     m_Bits: 256

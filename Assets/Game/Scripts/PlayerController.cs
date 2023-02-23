@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     public float maxLookAngle = 90f;
     public float groundDistance = 0.1f;
     public LayerMask groundMask;
-    public LayerMask carMask;
+    public LayerMask seatMask;
     public LayerMask pickupableMask;
     public LayerMask doorMask;
     RaycastHit hit;
@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
             crosshair.GetComponent<Image>().sprite = pickupableCrosshair;
             canGrabby = true;
         }
-        else if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, carMask))
+        else if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, seatMask))
         {
             currentObject = null;
             crosshair.GetComponent<Image>().sprite = normalCrosshair;
@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
     public void drive()
     {
         // check if player is looking at car
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, carMask) && !driving)
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, seatMask) && !driving)
         {
             crosshair.GetComponent<Image>().sprite = carCrosshair;
             if (Input.GetMouseButtonDown(0))
