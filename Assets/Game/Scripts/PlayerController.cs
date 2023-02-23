@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundMask;
     public LayerMask carMask;
     public LayerMask pickupableMask;
+    public LayerMask doorMask;
     RaycastHit hit;
 
     public Camera playerCamera;
@@ -70,36 +71,32 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        // check if player is looking at car
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, carMask) && !driving)
-        {
-            crosshair.GetComponent<Image>().sprite = carCrosshair;
-            if (Input.GetMouseButtonDown(0))
-            {
-                currentCar = hit.transform.gameObject;
-                driving = true;
-                GetComponent<CapsuleCollider>().isTrigger = true;
-                transform.parent = currentCar.transform.Find("seatTarget");
-                GetComponent<Rigidbody>().isKinematic = true;
-                transform.position = currentCar.transform.Find("seatTarget").transform.position;
-                currentCar.GetComponent<SimpleCarController>().enabled = true;
-            }
-        }
-        else if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, pickupableMask))
-        {
-            crosshair.GetComponent<Image>().sprite = normalCrosshair;
-        }
-        if (driving && Input.GetKeyDown(KeyCode.E))
-        {
-            driving = false;
-            transform.parent = null;
-            GetComponent<Rigidbody>().isKinematic = false;
-            transform.position += new Vector3(0, 5, 0);
-            GetComponent<CapsuleCollider>().isTrigger = false;
-            currentCar.GetComponent<SimpleCarController>().enabled = false;
-            currentCar = null;
-        }
+        drive();
+        pickUp();
+    }
 
+    void FixedUpdate()
+    {
+        if (!driving)
+        {
+            // get the player's forward direction
+            Vector3 forward = transform.forward;
+            forward.y = 0;
+
+            // get the horizontal and vertical input
+            float horizontalInput = Input.GetAxis("Horizontal");
+            float verticalInput = Input.GetAxis("Vertical");
+
+            // normalize the movement input
+            Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+
+            // move the player in the direction they are facing
+            rb.MovePosition(transform.position + forward * movement.z * moveSpeed * Time.fixedDeltaTime + transform.right * movement.x * moveSpeed * Time.fixedDeltaTime);
+        }
+    }
+
+    public void pickUp()
+    {
         // check if player is looking at pickupable
         if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, pickupableMask) && !driving)
         {
@@ -139,23 +136,36 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
+    public void drive()
     {
-        if (!driving)
+        // check if player is looking at car
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, carMask) && !driving)
         {
-            // get the player's forward direction
-            Vector3 forward = transform.forward;
-            forward.y = 0;
-
-            // get the horizontal and vertical input
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
-
-            // normalize the movement input
-            Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-
-            // move the player in the direction they are facing
-            rb.MovePosition(transform.position + forward * movement.z * moveSpeed * Time.fixedDeltaTime + transform.right * movement.x * moveSpeed * Time.fixedDeltaTime);
+            crosshair.GetComponent<Image>().sprite = carCrosshair;
+            if (Input.GetMouseButtonDown(0))
+            {
+                currentCar = hit.transform.gameObject;
+                driving = true;
+                GetComponent<CapsuleCollider>().isTrigger = true;
+                transform.parent = currentCar.transform.Find("seatTarget");
+                GetComponent<Rigidbody>().isKinematic = true;
+                transform.position = currentCar.transform.Find("seatTarget").transform.position;
+                currentCar.GetComponent<SimpleCarController>().enabled = true;
+            }
+        }
+        else if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, pickupableMask))
+        {
+            crosshair.GetComponent<Image>().sprite = normalCrosshair;
+        }
+        if (driving && Input.GetKeyDown(KeyCode.E))
+        {
+            driving = false;
+            transform.parent = null;
+            GetComponent<Rigidbody>().isKinematic = false;
+            transform.position += new Vector3(0, 5, 0);
+            GetComponent<CapsuleCollider>().isTrigger = false;
+            currentCar.GetComponent<SimpleCarController>().enabled = false;
+            currentCar = null;
         }
     }
 }

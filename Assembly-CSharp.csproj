@@ -40,6 +40,7 @@
      <Compile Include="Assets\Game\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Game\Scripts\WorldGenerator.cs" />
      <Compile Include="Assets\Game\Scripts\WindyRoad.cs" />
+     <Compile Include="Assets\Game\Scripts\CarDoor.cs" />
     <Reference Include="UnityEngine">
         <HintPath>D:\Unity\Editor\2022.1.23f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
@@ -737,9 +738,9 @@
       <Project>{e8ee8a06-1794-8ee2-0fa9-8ed8ae0a751e}</Project>
       <Name>Unity.Burst.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="Unity.RenderPipelines.Core.Runtime.csproj">
-      <Project>{3cddc611-5a86-56e4-9bec-ac880c4ecae2}</Project>
-      <Name>Unity.RenderPipelines.Core.Runtime</Name>
+    <ProjectReference Include="Unity.2D.Sprite.Editor.csproj">
+      <Project>{3444af1f-e1d8-0fe2-296d-b03636d65965}</Project>
+      <Name>Unity.2D.Sprite.Editor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.SettingsProvider.Editor.csproj">
       <Project>{ba733399-9a07-a935-187a-07a9a2f32eb4}</Project>
@@ -780,6 +781,10 @@
     <ProjectReference Include="UnityEngine.UI.csproj">
       <Project>{a5375de6-a76a-36ec-6bb9-b743689d8c71}</Project>
       <Name>UnityEngine.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.RenderPipelines.Core.Runtime.csproj">
+      <Project>{3cddc611-5a86-56e4-9bec-ac880c4ecae2}</Project>
+      <Name>Unity.RenderPipelines.Core.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.VisualScripting.Core.csproj">
       <Project>{df4f10af-9ffc-1366-454b-107f2e6209b7}</Project>
