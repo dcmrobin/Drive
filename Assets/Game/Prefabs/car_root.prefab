@@ -832,7 +832,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1749522308341039538}
   - component: {fileID: 4039663119018677433}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: backLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -878,7 +878,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3252862163532506455}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: doors
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1108,7 +1108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1306184331773153899}
   - component: {fileID: 7954598417994794963}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: frontLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1253,7 +1253,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3465618619688480391}
   - component: {fileID: 5263765609747740437}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: frontRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1642,7 +1642,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5084512574222839636}
   - component: {fileID: 670259172555470281}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: backRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

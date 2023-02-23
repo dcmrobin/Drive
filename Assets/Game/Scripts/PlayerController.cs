@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     private bool driving;
     private GameObject currentCar;
     private GameObject currentObject;
+    private GameObject currentDoor;
     private bool canGrabby;
     private bool grabby;
 
@@ -73,6 +74,7 @@ public class PlayerController : MonoBehaviour
 
         drive();
         pickUp();
+        door();
     }
 
     void FixedUpdate()
@@ -166,6 +168,26 @@ public class PlayerController : MonoBehaviour
             GetComponent<CapsuleCollider>().isTrigger = false;
             currentCar.GetComponent<SimpleCarController>().enabled = false;
             currentCar = null;
+        }
+    }
+
+    public void door()
+    {
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, doorMask))
+        {
+            crosshair.GetComponent<Image>().sprite = pickupableCrosshair;
+            if (Input.GetMouseButtonDown(0))
+            {
+                currentDoor = hit.collider.transform.parent.gameObject;
+                if (currentDoor.GetComponent<CarDoor>().status == CarDoor.stat.Closed)
+                {
+                    currentDoor.GetComponent<CarDoor>().status = CarDoor.stat.Open;
+                }
+                else if (currentDoor.GetComponent<CarDoor>().status == CarDoor.stat.Open)
+                {
+                    currentDoor.GetComponent<CarDoor>().status = CarDoor.stat.Closed;
+                }
+            }
         }
     }
 }
