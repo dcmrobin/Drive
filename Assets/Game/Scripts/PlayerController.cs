@@ -122,7 +122,7 @@ public class PlayerController : MonoBehaviour
             currentObject.transform.position = playerCamera.transform.Find("objectTarget").position;
             grabby = true;
         }
-        else if (grabby && Input.GetMouseButtonUp(0))
+        else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null)
         {
             currentObject.GetComponent<Rigidbody>().isKinematic = false;
             currentObject.transform.parent = null;
