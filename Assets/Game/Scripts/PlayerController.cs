@@ -76,6 +76,12 @@ public class PlayerController : MonoBehaviour
         pickUp();
         drive();
         door();
+        if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, clickMask))
+        {
+            crosshair.GetComponent<Image>().sprite = normalCrosshair;
+            canGrabby = false;
+            currentObject = null;
+        }
     }
 
     void FixedUpdate()
@@ -109,10 +115,9 @@ public class PlayerController : MonoBehaviour
                 crosshair.GetComponent<Image>().sprite = pickupableCrosshair;
                 canGrabby = true;
             }
-            else if (!hit.collider.transform.CompareTag("pickupable"))
+            else if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, clickMask) || !hit.collider.transform.CompareTag("pickupable"))
             {
                 currentObject = null;
-                crosshair.GetComponent<Image>().sprite = normalCrosshair;
                 canGrabby = false;
             }
         }
@@ -193,10 +198,6 @@ public class PlayerController : MonoBehaviour
                         currentDoor.GetComponent<CarDoor>().status = CarDoor.stat.Closed;
                     }
                 }
-            }
-            else if (!hit.collider.transform.CompareTag("door") || !hit.collider.transform.CompareTag("pickupable"))
-            {
-                //
             }
         }
     }
