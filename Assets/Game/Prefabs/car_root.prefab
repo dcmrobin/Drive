@@ -471,9 +471,9 @@ GameObject:
   - component: {fileID: 6790616739427195652}
   - component: {fileID: 1260623864413913742}
   - component: {fileID: 715784023118552392}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Cube.002 (1)
-  m_TagString: Untagged
+  m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -860,9 +860,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5626945466242184683}
   - component: {fileID: 8327155867715119775}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: boot
-  m_TagString: Untagged
+  m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -910,9 +910,9 @@ GameObject:
   - component: {fileID: 1243342018006317422}
   - component: {fileID: 2381342725375411581}
   - component: {fileID: 6027252391490495263}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Cube.007 (1)
-  m_TagString: Untagged
+  m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1018,9 +1018,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1749522308341039538}
   - component: {fileID: 4039663119018677433}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: backLeft
-  m_TagString: Untagged
+  m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1064,9 +1064,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3252862163532506455}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: doors
-  m_TagString: Untagged
+  m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1103,9 +1103,9 @@ GameObject:
   - component: {fileID: 5579568573860647739}
   - component: {fileID: 481676291552498452}
   - component: {fileID: 5116562107202896304}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: seat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1200,9 +1200,9 @@ GameObject:
   - component: {fileID: 6661822628853927447}
   - component: {fileID: 2906019653459490089}
   - component: {fileID: 2454802163637016620}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: Cube
-  m_TagString: Untagged
+  m_TagString: seat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1295,9 +1295,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1306184331773153899}
   - component: {fileID: 7954598417994794963}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: frontLeft
-  m_TagString: Untagged
+  m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1344,9 +1344,9 @@ GameObject:
   - component: {fileID: 720411409332185731}
   - component: {fileID: 4495183362627740689}
   - component: {fileID: 7264441434131380737}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Cube.005 (1)
-  m_TagString: Untagged
+  m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1440,9 +1440,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3465618619688480391}
   - component: {fileID: 5263765609747740437}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: frontRight
-  m_TagString: Untagged
+  m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1531,9 +1531,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2397825127458151451}
-  m_Layer: 10
+  m_Layer: 7
   m_Name: seats
-  m_TagString: Untagged
+  m_TagString: seat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1571,9 +1571,9 @@ GameObject:
   - component: {fileID: 8702642409341922062}
   - component: {fileID: 8629267738456009127}
   - component: {fileID: 6055413109735975283}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Cube.001 (1)
-  m_TagString: Untagged
+  m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1733,9 +1733,9 @@ GameObject:
   - component: {fileID: 3524907059742463117}
   - component: {fileID: 3186160394879677522}
   - component: {fileID: 2811046325779214377}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: Cube.004 (1)
-  m_TagString: Untagged
+  m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1829,9 +1829,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5084512574222839636}
   - component: {fileID: 670259172555470281}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: backRight
-  m_TagString: Untagged
+  m_TagString: door
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2049,7 +2049,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d8010d85c8f2af9429b6f25f97226fee,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d8010d85c8f2af9429b6f25f97226fee,
+        type: 3}
+      propertyPath: m_TagString
+      value: seat
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -2183,7 +2188,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d8010d85c8f2af9429b6f25f97226fee,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d8010d85c8f2af9429b6f25f97226fee,
+        type: 3}
+      propertyPath: m_TagString
+      value: seat
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -2795,7 +2805,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d8010d85c8f2af9429b6f25f97226fee,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d8010d85c8f2af9429b6f25f97226fee,
+        type: 3}
+      propertyPath: m_TagString
+      value: seat
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []
@@ -2929,7 +2944,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d8010d85c8f2af9429b6f25f97226fee,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d8010d85c8f2af9429b6f25f97226fee,
+        type: 3}
+      propertyPath: m_TagString
+      value: seat
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects: []

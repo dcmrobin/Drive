@@ -159,18 +159,9 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 201
-  seatMask:
+  clickMask:
     serializedVersion: 2
-    m_Bits: 1024
-  pickupableMask:
-    serializedVersion: 2
-    m_Bits: 256
-  doorMask:
-    serializedVersion: 2
-    m_Bits: 512
-  defaultMask:
-    serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 128
   playerCamera: {fileID: 7511496888344844313}
 --- !u!54 &7511496887530303694
 Rigidbody:

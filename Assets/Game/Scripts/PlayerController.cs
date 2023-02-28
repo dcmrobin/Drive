@@ -16,9 +16,10 @@ public class PlayerController : MonoBehaviour
     public float maxLookAngle = 90f;
     public float groundDistance = 0.1f;
     public LayerMask groundMask;
-    public LayerMask seatMask;
+    public LayerMask clickMask;
+    /*public LayerMask seatMask;
     public LayerMask pickupableMask;
-    public LayerMask doorMask;
+    public LayerMask doorMask;*/
     RaycastHit hit;
 
     public Camera playerCamera;
@@ -72,8 +73,8 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        drive();
         pickUp();
+        drive();
         door();
     }
 
@@ -100,17 +101,20 @@ public class PlayerController : MonoBehaviour
     public void pickUp()
     {
         // check if player is looking at pickupable
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, pickupableMask) && !driving)
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, clickMask))
         {
-            currentObject = hit.transform.gameObject;
-            crosshair.GetComponent<Image>().sprite = pickupableCrosshair;
-            canGrabby = true;
-        }
-        else if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, seatMask))
-        {
-            currentObject = null;
-            crosshair.GetComponent<Image>().sprite = normalCrosshair;
-            canGrabby = false;
+            if (hit.collider.transform.CompareTag("pickupable") && !driving)
+            {
+                currentObject = hit.transform.gameObject;
+                crosshair.GetComponent<Image>().sprite = pickupableCrosshair;
+                canGrabby = true;
+            }
+            else if (!hit.collider.transform.CompareTag("pickupable"))
+            {
+                currentObject = null;
+                crosshair.GetComponent<Image>().sprite = normalCrosshair;
+                canGrabby = false;
+            }
         }
 
         // grab the object
@@ -141,23 +145,22 @@ public class PlayerController : MonoBehaviour
     public void drive()
     {
         // check if player is looking at car
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, seatMask) && !driving)
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, clickMask))
         {
-            crosshair.GetComponent<Image>().sprite = carCrosshair;
-            if (Input.GetMouseButtonDown(0))
+            if (hit.collider.transform.CompareTag("seat") && !driving)
             {
-                currentCar = hit.transform.gameObject;
-                driving = true;
-                GetComponent<CapsuleCollider>().isTrigger = true;
-                transform.parent = currentCar.transform.Find("seatTarget");
-                GetComponent<Rigidbody>().isKinematic = true;
-                transform.position = currentCar.transform.Find("seatTarget").transform.position;
-                currentCar.GetComponent<SimpleCarController>().enabled = true;
+                crosshair.GetComponent<Image>().sprite = carCrosshair;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    currentCar = hit.transform.gameObject;
+                    driving = true;
+                    GetComponent<CapsuleCollider>().isTrigger = true;
+                    transform.parent = currentCar.transform.Find("seatTarget");
+                    GetComponent<Rigidbody>().isKinematic = true;
+                    transform.position = currentCar.transform.Find("seatTarget").transform.position;
+                    currentCar.GetComponent<SimpleCarController>().enabled = true;
+                }
             }
-        }
-        else if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, pickupableMask))
-        {
-            crosshair.GetComponent<Image>().sprite = normalCrosshair;
         }
         if (driving && Input.GetKeyDown(KeyCode.E))
         {
@@ -173,20 +176,27 @@ public class PlayerController : MonoBehaviour
 
     public void door()
     {
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, doorMask))
+        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, clickMask))
         {
-            crosshair.GetComponent<Image>().sprite = pickupableCrosshair;
-            if (Input.GetMouseButtonDown(0))
+            if (hit.collider.transform.CompareTag("door"))
             {
-                currentDoor = hit.collider.transform.parent.gameObject;
-                if (currentDoor.GetComponent<CarDoor>().status == CarDoor.stat.Closed)
+                crosshair.GetComponent<Image>().sprite = pickupableCrosshair;
+                if (Input.GetMouseButtonDown(0))
                 {
-                    currentDoor.GetComponent<CarDoor>().status = CarDoor.stat.Open;
+                    currentDoor = hit.collider.transform.parent.gameObject;
+                    if (currentDoor.GetComponent<CarDoor>().status == CarDoor.stat.Closed)
+                    {
+                        currentDoor.GetComponent<CarDoor>().status = CarDoor.stat.Open;
+                    }
+                    else if (currentDoor.GetComponent<CarDoor>().status == CarDoor.stat.Open)
+                    {
+                        currentDoor.GetComponent<CarDoor>().status = CarDoor.stat.Closed;
+                    }
                 }
-                else if (currentDoor.GetComponent<CarDoor>().status == CarDoor.stat.Open)
-                {
-                    currentDoor.GetComponent<CarDoor>().status = CarDoor.stat.Closed;
-                }
+            }
+            else if (!hit.collider.transform.CompareTag("door") || !hit.collider.transform.CompareTag("pickupable"))
+            {
+                //
             }
         }
     }

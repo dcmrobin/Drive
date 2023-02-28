@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - pickupable
+  - seat
+  - door
   layers:
   - Default
   - TransparentFX
@@ -12,10 +15,10 @@ TagManager:
   - Water
   - UI
   - Ground
+  - clickable
   - 
-  - Pickupable
-  - Door
-  - Seat
+  - 
+  - 
   - 
   - 
   - 
