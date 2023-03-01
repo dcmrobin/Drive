@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask doorMask;*/
     RaycastHit hit;
 
-    public Camera playerCamera;
+    public GameObject playerCameraPivot;
 
     private Rigidbody rb;
     private bool isGrounded;
@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     private GameObject currentDoor;
     private bool canGrabby;
     private bool grabby;
+    private bool thirdPersonViewActive = false;
 
     void Start()
     {
@@ -53,7 +54,16 @@ public class PlayerController : MonoBehaviour
 
         // rotate the player and camera based on the mouse input
         transform.localRotation = Quaternion.Euler(0f, lookX, 0f);
-        playerCamera.transform.localRotation = Quaternion.Euler(lookY, 0f, 0f);
+        playerCameraPivot.transform.localRotation = Quaternion.Euler(lookY, 0f, 0f);
+
+        if (thirdPersonViewActive)
+        {
+            // switch to third person view by moving the camera away from playerCameraPivot
+        }
+        else if (!thirdPersonViewActive)
+        {
+            // switch to first person view by reseting the camera's position
+        }
 
         if (!driving)
         {
@@ -76,7 +86,7 @@ public class PlayerController : MonoBehaviour
         pickUp();
         drive();
         door();
-        if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, clickMask))
+        if (!Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask))
         {
             crosshair.GetComponent<Image>().sprite = normalCrosshair;
             canGrabby = false;
@@ -107,7 +117,7 @@ public class PlayerController : MonoBehaviour
     public void pickUp()
     {
         // check if player is looking at pickupable
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, clickMask))
+        if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask))
         {
             if (hit.collider.transform.CompareTag("pickupable") && !driving)
             {
@@ -115,7 +125,7 @@ public class PlayerController : MonoBehaviour
                 crosshair.GetComponent<Image>().sprite = pickupableCrosshair;
                 canGrabby = true;
             }
-            else if (!Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, clickMask) || !hit.collider.transform.CompareTag("pickupable"))
+            else if (!Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask) || !hit.collider.transform.CompareTag("pickupable"))
             {
                 currentObject = null;
                 canGrabby = false;
@@ -127,8 +137,8 @@ public class PlayerController : MonoBehaviour
         {
             crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
             currentObject.GetComponent<Rigidbody>().isKinematic = true;
-            currentObject.transform.parent = playerCamera.transform.Find("objectTarget");
-            currentObject.transform.position = playerCamera.transform.Find("objectTarget").position;
+            currentObject.transform.parent = playerCameraPivot.transform.Find("Camera").transform.Find("objectTarget");
+            currentObject.transform.position = playerCameraPivot.transform.Find("Camera").transform.Find("objectTarget").position;
             grabby = true;
         }
         else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null)
@@ -150,7 +160,7 @@ public class PlayerController : MonoBehaviour
     public void drive()
     {
         // check if player is looking at car
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, clickMask))
+        if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask))
         {
             if (hit.collider.transform.CompareTag("seat") && !driving)
             {
@@ -181,7 +191,7 @@ public class PlayerController : MonoBehaviour
 
     public void door()
     {
-        if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, Mathf.Infinity, clickMask))
+        if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask))
         {
             if (hit.collider.transform.CompareTag("door"))
             {
