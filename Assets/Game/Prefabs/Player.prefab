@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 7511496887530303733}
   - component: {fileID: 7511496887530303694}
   - component: {fileID: 7511496887530303695}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,6 +195,9 @@ MonoBehaviour:
   clickMask:
     serializedVersion: 2
     m_Bits: 235
+  camCollideMask:
+    serializedVersion: 2
+    m_Bits: 251
   playerCameraPivot: {fileID: 7290564772093562209}
   thirdPersonViewActive: 0
 --- !u!54 &7511496887530303694

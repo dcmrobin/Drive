@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     public float groundDistance = 0.1f;
     public LayerMask groundMask;
     public LayerMask clickMask;
+    public LayerMask camCollideMask;
     /*public LayerMask seatMask;
     public LayerMask pickupableMask;
     public LayerMask doorMask;*/
@@ -77,7 +78,7 @@ public class PlayerController : MonoBehaviour
         pickUp();
         drive();
         door();
-        thirdPersonToggle();
+        thirdPersonControl();
         if (!Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask) || hit.collider.gameObject.layer == 0 || hit.collider.gameObject.layer == 6 || hit.collider.gameObject.layer == 1 || hit.collider.gameObject.layer == 3)
         {
             crosshair.GetComponent<Image>().sprite = normalCrosshair;
@@ -204,7 +205,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void thirdPersonToggle()
+    public void thirdPersonControl()
     {
         if (thirdPersonViewActive)
         {
@@ -222,6 +223,11 @@ public class PlayerController : MonoBehaviour
         else if (thirdPersonViewActive && Input.GetKeyDown(KeyCode.F5))
         {
             thirdPersonViewActive = false;
+        }
+
+        while (thirdPersonViewActive && Physics.CheckBox(playerCameraPivot.transform.Find("Camera").transform.position, new Vector3(1, 1, 1), Quaternion.identity, camCollideMask))
+        {
+            playerCameraPivot.transform.Find("Camera").transform.localPosition += new Vector3(0, 0, 0.1f);
         }
     }
 }
