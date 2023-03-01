@@ -34,7 +34,7 @@ public class PlayerController : MonoBehaviour
     private GameObject currentDoor;
     private bool canGrabby;
     private bool grabby;
-    private bool thirdPersonViewActive = false;
+    public bool thirdPersonViewActive = false;
 
     void Start()
     {
@@ -55,15 +55,6 @@ public class PlayerController : MonoBehaviour
         // rotate the player and camera based on the mouse input
         transform.localRotation = Quaternion.Euler(0f, lookX, 0f);
         playerCameraPivot.transform.localRotation = Quaternion.Euler(lookY, 0f, 0f);
-
-        if (thirdPersonViewActive)
-        {
-            // switch to third person view by moving the camera away from playerCameraPivot
-        }
-        else if (!thirdPersonViewActive)
-        {
-            // switch to first person view by reseting the camera's position
-        }
 
         if (!driving)
         {
@@ -86,6 +77,7 @@ public class PlayerController : MonoBehaviour
         pickUp();
         drive();
         door();
+        thirdPersonToggle();
         if (!Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask))
         {
             crosshair.GetComponent<Image>().sprite = normalCrosshair;
@@ -137,8 +129,8 @@ public class PlayerController : MonoBehaviour
         {
             crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
             currentObject.GetComponent<Rigidbody>().isKinematic = true;
-            currentObject.transform.parent = playerCameraPivot.transform.Find("Camera").transform.Find("objectTarget");
-            currentObject.transform.position = playerCameraPivot.transform.Find("Camera").transform.Find("objectTarget").position;
+            currentObject.transform.parent = playerCameraPivot.transform.Find("objectTarget");
+            currentObject.transform.position = playerCameraPivot.transform.Find("objectTarget").position;
             grabby = true;
         }
         else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null)
@@ -209,6 +201,27 @@ public class PlayerController : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    public void thirdPersonToggle()
+    {
+        if (thirdPersonViewActive)
+        {
+            playerCameraPivot.transform.Find("Camera").transform.localPosition = new Vector3(0, 0, -7);
+        }
+        else if (!thirdPersonViewActive)
+        {
+            playerCameraPivot.transform.Find("Camera").transform.localPosition = new Vector3(0, 0, 0);
+        }
+
+        if (!thirdPersonViewActive && Input.GetKeyDown(KeyCode.F5))
+        {
+            thirdPersonViewActive = true;
+        }
+        else if (thirdPersonViewActive && Input.GetKeyDown(KeyCode.F5))
+        {
+            thirdPersonViewActive = false;
         }
     }
 }
