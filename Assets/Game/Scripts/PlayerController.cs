@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
         drive();
         door();
         thirdPersonToggle();
-        if (!Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask))
+        if (!Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask) || hit.collider.gameObject.layer == 0 || hit.collider.gameObject.layer == 6 || hit.collider.gameObject.layer == 1 || hit.collider.gameObject.layer == 3)
         {
             crosshair.GetComponent<Image>().sprite = normalCrosshair;
             canGrabby = false;

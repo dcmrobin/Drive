@@ -593,16 +593,6 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 806661812804695250, guid: 7b340ea548aaa1c409446a172c2baaea,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ad7b6c10e9d5c9f43b1cdc96b92d5fb9, type: 2}
-    - target: {fileID: 1187522621649868047, guid: 7b340ea548aaa1c409446a172c2baaea,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ad7b6c10e9d5c9f43b1cdc96b92d5fb9, type: 2}
     - target: {fileID: 1419521865633326213, guid: 7b340ea548aaa1c409446a172c2baaea,
         type: 3}
       propertyPath: m_RootOrder
@@ -668,11 +658,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 2695868151398665082, guid: 7b340ea548aaa1c409446a172c2baaea,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ad7b6c10e9d5c9f43b1cdc96b92d5fb9, type: 2}
     - target: {fileID: 3178055549615500326, guid: 7b340ea548aaa1c409446a172c2baaea,
         type: 3}
       propertyPath: m_Layer
@@ -688,21 +673,6 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 4482056819152723061, guid: 7b340ea548aaa1c409446a172c2baaea,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ad7b6c10e9d5c9f43b1cdc96b92d5fb9, type: 2}
-    - target: {fileID: 5057095146009909045, guid: 7b340ea548aaa1c409446a172c2baaea,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ad7b6c10e9d5c9f43b1cdc96b92d5fb9, type: 2}
-    - target: {fileID: 7164926495440543139, guid: 7b340ea548aaa1c409446a172c2baaea,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: ad7b6c10e9d5c9f43b1cdc96b92d5fb9, type: 2}
     - target: {fileID: 8382426640744523840, guid: 7b340ea548aaa1c409446a172c2baaea,
         type: 3}
       propertyPath: m_Layer

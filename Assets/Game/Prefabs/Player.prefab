@@ -194,7 +194,7 @@ MonoBehaviour:
     m_Bits: 201
   clickMask:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 235
   playerCameraPivot: {fileID: 7290564772093562209}
   thirdPersonViewActive: 0
 --- !u!54 &7511496887530303694
