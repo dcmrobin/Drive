@@ -6,8 +6,10 @@ public class WorldGenerator : MonoBehaviour
 {
     public GameObject groundPrefab; // the prefab for the ground tiles
     public GameObject thingPrefab;
+    public GameObject simpleStructurePrefab;
     public int worldSize = 10; // the size of the world (in tiles) around the player
     public int tileSize = 1; // the size of each tile in world units
+    private int probability = 0;
 
     private Dictionary<Vector2, GameObject> tiles = new Dictionary<Vector2, GameObject>(); // stores the generated ground tiles
     private Vector2 playerPos; // the position of the player
@@ -32,6 +34,7 @@ public class WorldGenerator : MonoBehaviour
 
     void GenerateWorld()
     {
+        probability = Random.Range(0, 1000);
         // Calculate the tile position of the player
         Vector2Int playerTilePos = new Vector2Int(Mathf.RoundToInt(transform.position.x / tileSize), Mathf.RoundToInt(transform.position.z / tileSize));
 
@@ -61,6 +64,12 @@ public class WorldGenerator : MonoBehaviour
                 {
                     GameObject tile = Instantiate(groundPrefab, new Vector3(tilePos.x * tileSize, 0, tilePos.y * tileSize), Quaternion.identity);
                     GameObject thing = Instantiate(thingPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), tile.transform.position.y + Random.Range(1, 10), tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
+                    if (probability >= 100)
+                    {
+                        GameObject simpleStructure = Instantiate(simpleStructurePrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
+                        simpleStructure.transform.parent = new GameObject().transform.parent = tile.transform;
+                        probability = 0;
+                    }
                     thing.transform.parent = new GameObject().transform.parent = tile.transform;
                     tiles.Add(tilePos, tile);
                 }

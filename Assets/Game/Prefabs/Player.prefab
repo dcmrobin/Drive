@@ -232,6 +232,8 @@ MonoBehaviour:
     type: 3}
   thingPrefab: {fileID: 5211390627342354442, guid: fd30c8dced025374cb9773f07f951ee1,
     type: 3}
+  simpleStructurePrefab: {fileID: 5365354367191539194, guid: 1b1388025b8871448b68bfc902e8432d,
+    type: 3}
   worldSize: 10
   tileSize: 20
 --- !u!1 &7511496888344844293
