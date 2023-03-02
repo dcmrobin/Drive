@@ -64,11 +64,11 @@ public class WorldGenerator : MonoBehaviour
                 {
                     GameObject tile = Instantiate(groundPrefab, new Vector3(tilePos.x * tileSize, 0, tilePos.y * tileSize), Quaternion.identity);
                     GameObject thing = Instantiate(thingPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), tile.transform.position.y + Random.Range(1, 10), tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
-                    if (probability == 999)
-                    {
-                        GameObject simpleStructure = Instantiate(simpleStructurePrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
-                        simpleStructure.transform.parent = new GameObject().transform.parent = tile.transform;
-                    }
+                    //if (probability == 999)
+                    //{
+                    //    GameObject simpleStructure = Instantiate(simpleStructurePrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
+                    //    simpleStructure.transform.parent = new GameObject().transform.parent = tile.transform;
+                    //}
                     thing.transform.parent = new GameObject().transform.parent = tile.transform;
                     tiles.Add(tilePos, tile);
                 }
