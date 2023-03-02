@@ -43,7 +43,7 @@ public class WorldGenerator : MonoBehaviour
         foreach (KeyValuePair<Vector2, GameObject> pair in tiles)
         {
             Vector2Int tilePos = new Vector2Int(Mathf.RoundToInt(pair.Key.x), Mathf.RoundToInt(pair.Key.y));
-            if (Vector2Int.Distance(tilePos, playerTilePos) > worldSize)
+            if (Vector2Int.Distance(tilePos, playerTilePos) > worldSize && !tiles.ContainsKey(tilePos))
             {
                 Destroy(pair.Value);
                 tilesToRemove.Add(pair.Key);
@@ -64,11 +64,10 @@ public class WorldGenerator : MonoBehaviour
                 {
                     GameObject tile = Instantiate(groundPrefab, new Vector3(tilePos.x * tileSize, 0, tilePos.y * tileSize), Quaternion.identity);
                     GameObject thing = Instantiate(thingPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), tile.transform.position.y + Random.Range(1, 10), tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
-                    if (probability >= 100)
+                    if (probability == 999)
                     {
                         GameObject simpleStructure = Instantiate(simpleStructurePrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
                         simpleStructure.transform.parent = new GameObject().transform.parent = tile.transform;
-                        probability = 0;
                     }
                     thing.transform.parent = new GameObject().transform.parent = tile.transform;
                     tiles.Add(tilePos, tile);
