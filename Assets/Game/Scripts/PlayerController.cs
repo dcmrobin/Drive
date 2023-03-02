@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         if (!driving)
         {
             // check if the player is grounded
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f, groundMask))
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f, groundMask))
             {
                 isGrounded = true;
             }
