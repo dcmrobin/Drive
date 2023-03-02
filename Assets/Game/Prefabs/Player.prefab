@@ -232,6 +232,8 @@ MonoBehaviour:
     type: 3}
   thingPrefab: {fileID: 5211390627342354442, guid: fd30c8dced025374cb9773f07f951ee1,
     type: 3}
+  wheelPrefab: {fileID: 3794456106794884274, guid: 31e9c2a1791e0fe419ede2516c54dfc0,
+    type: 3}
   simpleStructurePrefab: {fileID: 5365354367191539194, guid: 1b1388025b8871448b68bfc902e8432d,
     type: 3}
   worldSize: 10

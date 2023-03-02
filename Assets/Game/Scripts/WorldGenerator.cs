@@ -6,6 +6,7 @@ public class WorldGenerator : MonoBehaviour
 {
     public GameObject groundPrefab; // the prefab for the ground tiles
     public GameObject thingPrefab;
+    public GameObject wheelPrefab;
     public GameObject simpleStructurePrefab;
     public int worldSize = 10; // the size of the world (in tiles) around the player
     public int tileSize = 1; // the size of each tile in world units
@@ -64,10 +65,13 @@ public class WorldGenerator : MonoBehaviour
                     probability = Random.Range(0, 1000);
                     GameObject tile = Instantiate(groundPrefab, new Vector3(tilePos.x * tileSize, 0, tilePos.y * tileSize), Quaternion.identity);
                     GameObject thing = Instantiate(thingPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), tile.transform.position.y + Random.Range(1, 10), tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
-                    if (probability == Random.Range(1, 999))
+                    if (probability == Random.Range(0, 1000))
                     {
                         GameObject simpleStructure = Instantiate(simpleStructurePrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
+                        simpleStructure.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
                         simpleStructure.transform.parent = new GameObject().transform.parent = tile.transform;
+                        GameObject spareWheel = Instantiate(wheelPrefab, new Vector3(simpleStructure.transform.position.x, 2, simpleStructure.transform.position.z), Quaternion.identity);
+                        spareWheel.transform.parent = new GameObject().transform.parent = simpleStructure.transform;
                     }
                     thing.transform.parent = new GameObject().transform.parent = tile.transform;
                     tiles.Add(tilePos, tile);
