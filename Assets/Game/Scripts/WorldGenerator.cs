@@ -43,7 +43,7 @@ public class WorldGenerator : MonoBehaviour
         foreach (KeyValuePair<Vector2, GameObject> pair in tiles)
         {
             Vector2Int tilePos = new Vector2Int(Mathf.RoundToInt(pair.Key.x), Mathf.RoundToInt(pair.Key.y));
-            if (Vector2Int.Distance(tilePos, playerTilePos) > worldSize && !tiles.ContainsKey(tilePos))
+            if (Vector2Int.Distance(tilePos, playerTilePos) > worldSize + 10)
             {
                 Destroy(pair.Value);
                 tilesToRemove.Add(pair.Key);
