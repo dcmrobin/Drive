@@ -6,6 +6,7 @@ public class WorldGenerator : MonoBehaviour
 {
     public GameObject groundPrefab; // the prefab for the ground tiles
     public GameObject thingPrefab;
+    public GameObject rockPrefab;
     public GameObject wheelPrefab;
     public GameObject simpleStructurePrefab;
     public int worldSize = 10; // the size of the world (in tiles) around the player
@@ -67,11 +68,20 @@ public class WorldGenerator : MonoBehaviour
                     GameObject thing = Instantiate(thingPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), tile.transform.position.y + Random.Range(1, 10), tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
                     if (probability == Random.Range(0, 1000))
                     {
-                        GameObject simpleStructure = Instantiate(simpleStructurePrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
-                        simpleStructure.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-                        simpleStructure.transform.parent = new GameObject().transform.parent = tile.transform;
-                        GameObject spareWheel = Instantiate(wheelPrefab, new Vector3(simpleStructure.transform.position.x, 2, simpleStructure.transform.position.z), Quaternion.identity);
-                        spareWheel.transform.parent = new GameObject().transform.parent = simpleStructure.transform;
+                        if (probability > 730)
+                        {
+                            GameObject simpleStructure = Instantiate(simpleStructurePrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
+                            simpleStructure.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                            simpleStructure.transform.parent = new GameObject().transform.parent = tile.transform;
+                            GameObject spareWheel = Instantiate(wheelPrefab, new Vector3(simpleStructure.transform.position.x, 2, simpleStructure.transform.position.z), Quaternion.identity);
+                            spareWheel.transform.parent = new GameObject().transform.parent = simpleStructure.transform;
+                        }
+                        else if (probability < 730)
+                        {
+                            GameObject rock = Instantiate(rockPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
+                            rock.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                            rock.transform.parent = new GameObject().transform.parent = tile.transform;
+                        }
                     }
                     thing.transform.parent = new GameObject().transform.parent = tile.transform;
                     tiles.Add(tilePos, tile);

@@ -14,6 +14,7 @@ public class SimpleCarController : MonoBehaviour {
     public List<AxleInfo> axleInfos; 
     public float maxMotorTorque;
     public float maxSteeringAngle;
+    public Transform steeringWheel;
      
     // finds the corresponding visual wheel
     // correctly applies the transform
