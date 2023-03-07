@@ -180,6 +180,20 @@ public class PlayerController : MonoBehaviour
             currentCar.GetComponent<SimpleCarController>().enabled = false;
             currentCar = null;
         }
+        if (driving && Input.GetKey(KeyCode.Space))
+        {
+            currentCar.transform.Find("wheels").Find("frontLeft").GetComponent<WheelCollider>().brakeTorque = 10000;
+            currentCar.transform.Find("wheels").Find("frontRight").GetComponent<WheelCollider>().brakeTorque = 10000;
+            currentCar.transform.Find("wheels").Find("rearLeft").GetComponent<WheelCollider>().brakeTorque = 10000;
+            currentCar.transform.Find("wheels").Find("rearRight").GetComponent<WheelCollider>().brakeTorque = 10000;
+        }
+        else if (driving && Input.GetKeyUp(KeyCode.Space))
+        {
+            currentCar.transform.Find("wheels").Find("frontLeft").GetComponent<WheelCollider>().brakeTorque = 0;
+            currentCar.transform.Find("wheels").Find("frontRight").GetComponent<WheelCollider>().brakeTorque = 0;
+            currentCar.transform.Find("wheels").Find("rearLeft").GetComponent<WheelCollider>().brakeTorque = 0;
+            currentCar.transform.Find("wheels").Find("rearRight").GetComponent<WheelCollider>().brakeTorque = 0;
+        }
     }
 
     public void door()

@@ -43,6 +43,7 @@ public class SimpleCarController : MonoBehaviour {
             if (axleInfo.steering) {
                 axleInfo.leftWheel.steerAngle = steering;
                 axleInfo.rightWheel.steerAngle = steering;
+                steeringWheel.rotation = Quaternion.Euler(0, steering, 0);
             }
             if (axleInfo.motor) {
                 axleInfo.leftWheel.motorTorque = motor;
