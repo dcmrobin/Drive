@@ -36,11 +36,11 @@ public class PlayerController : MonoBehaviour
     private bool canGrabby;
     private bool grabby;
     public bool thirdPersonViewActive = false;
+    bool isPaused = false;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()
@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
         drive();
         door();
         thirdPersonControl();
+        handlePause();
         if (!Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask) || hit.collider.gameObject.layer == 0 || hit.collider.gameObject.layer == 6 || hit.collider.gameObject.layer == 1 || hit.collider.gameObject.layer == 3)
         {
             crosshair.GetComponent<Image>().sprite = normalCrosshair;
@@ -242,6 +243,29 @@ public class PlayerController : MonoBehaviour
         while (thirdPersonViewActive && Physics.CheckBox(playerCameraPivot.transform.Find("Camera").transform.position, new Vector3(1, 1, 1), Quaternion.identity, camCollideMask))
         {
             playerCameraPivot.transform.Find("Camera").transform.localPosition += new Vector3(0, 0, 0.1f);
+        }
+    }
+
+    public void handlePause()
+    {
+        if (!isPaused && Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        {
+            isPaused = true;
+            Time.timeScale = 0;
+        }
+        else if (isPaused && Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
+        {
+            isPaused = false;
+            Time.timeScale = 1;
+        }
+
+        if (!isPaused)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else if (isPaused)
+        {
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }
