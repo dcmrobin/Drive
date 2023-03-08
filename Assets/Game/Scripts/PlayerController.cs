@@ -5,12 +5,14 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject pauseMenu;
     public GameObject crosshair;
     public Sprite normalCrosshair;
     public Sprite carCrosshair;
     public Sprite pickupableCrosshair;
     public Sprite pickedUpCrosshair;
-    public float moveSpeed = 5f;
+    public float walkSpeed = 5f;
+    public float runSpeed = 10f;
     public float jumpForce = 7f;
     public float lookSensitivity = 3f;
     public float maxLookAngle = 90f;
@@ -36,7 +38,8 @@ public class PlayerController : MonoBehaviour
     private bool canGrabby;
     private bool grabby;
     public bool thirdPersonViewActive = false;
-    bool isPaused = false;
+    public bool isPaused = false;
+    public bool isRunning = false;
 
     void Start()
     {
@@ -49,13 +52,16 @@ public class PlayerController : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * lookSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * lookSensitivity;
 
-        // update the look angles
-        lookX += mouseX;
-        lookY = Mathf.Clamp(lookY - mouseY, -maxLookAngle, maxLookAngle);
-
-        // rotate the player and camera based on the mouse input
-        transform.localRotation = Quaternion.Euler(0f, lookX, 0f);
-        playerCameraPivot.transform.localRotation = Quaternion.Euler(lookY, 0f, 0f);
+        if (!isPaused)
+        {
+            // update the look angles
+            lookX += mouseX;
+            lookY = Mathf.Clamp(lookY - mouseY, -maxLookAngle, maxLookAngle);
+    
+            // rotate the player and camera based on the mouse input
+            transform.localRotation = Quaternion.Euler(0f, lookX, 0f);
+            playerCameraPivot.transform.localRotation = Quaternion.Euler(lookY, 0f, 0f);
+        }
 
         if (!driving)
         {
@@ -75,16 +81,22 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        pickUp();
-        drive();
-        door();
-        thirdPersonControl();
-        handlePause();
-        if (!Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask) || hit.collider.gameObject.layer == 0 || hit.collider.gameObject.layer == 6 || hit.collider.gameObject.layer == 1 || hit.collider.gameObject.layer == 3)
+        if (!isPaused)
         {
-            crosshair.GetComponent<Image>().sprite = normalCrosshair;
-            canGrabby = false;
-            currentObject = null;
+            pickUp();
+            drive();
+            door();
+            thirdPersonControl();
+        }
+        handlePause();
+        if (!isPaused)
+        {
+            if (!Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask) || hit.collider.gameObject.layer == 0 || hit.collider.gameObject.layer == 6 || hit.collider.gameObject.layer == 1 || hit.collider.gameObject.layer == 3)
+            {
+                crosshair.GetComponent<Image>().sprite = normalCrosshair;
+                canGrabby = false;
+                currentObject = null;
+            }
         }
     }
 
@@ -92,6 +104,14 @@ public class PlayerController : MonoBehaviour
     {
         if (!driving)
         {
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                isRunning = true;
+            }
+            else if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                isRunning = false;
+            }
             // get the player's forward direction
             Vector3 forward = transform.forward;
             forward.y = 0;
@@ -104,7 +124,14 @@ public class PlayerController : MonoBehaviour
             Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput).normalized;
 
             // move the player in the direction they are facing
-            rb.MovePosition(transform.position + forward * movement.z * moveSpeed * Time.fixedDeltaTime + transform.right * movement.x * moveSpeed * Time.fixedDeltaTime);
+            if (!isRunning)
+            {
+                rb.MovePosition(transform.position + forward * movement.z * walkSpeed * Time.fixedDeltaTime + transform.right * movement.x * walkSpeed * Time.fixedDeltaTime);
+            }
+            else if (isRunning)
+            {
+                rb.MovePosition(transform.position + forward * movement.z * runSpeed * Time.fixedDeltaTime + transform.right * movement.x * runSpeed * Time.fixedDeltaTime);
+            }
         }
     }
 
@@ -251,21 +278,18 @@ public class PlayerController : MonoBehaviour
         if (!isPaused && Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
             isPaused = true;
-            Time.timeScale = 0;
-        }
-        else if (isPaused && Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
-        {
-            isPaused = false;
-            Time.timeScale = 1;
+            pauseMenu.SetActive(true);
         }
 
         if (!isPaused)
         {
             Cursor.lockState = CursorLockMode.Locked;
+            Time.timeScale = 1;
         }
         else if (isPaused)
         {
             Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
         }
     }
 }
