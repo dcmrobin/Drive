@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -40,10 +41,15 @@ public class PlayerController : MonoBehaviour
     public bool thirdPersonViewActive = false;
     public bool isPaused = false;
     public bool isRunning = false;
+    PhotonView pv;
 
     void Start()
     {
+        pv = GetComponent<PhotonView>();
         rb = GetComponent<Rigidbody>();
+        //pauseMenu = GameObject.FindGameObjectWithTag("pausemenu");
+        //crosshair = GameObject.FindGameObjectWithTag("crosshair");
+        //pauseMenu.SetActive(false);
     }
 
     void Update()
@@ -81,12 +87,15 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (!isPaused)
+        if (pv.IsMine)
         {
-            pickUp();
-            drive();
-            door();
-            thirdPersonControl();
+            if (!isPaused)
+            {
+                pickUp();
+                drive();
+                door();
+                thirdPersonControl();
+            }
         }
         handlePause();
         if (!isPaused)
@@ -102,35 +111,38 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!driving)
+        if (pv.IsMine)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (!driving)
             {
-                isRunning = true;
-            }
-            else if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                isRunning = false;
-            }
-            // get the player's forward direction
-            Vector3 forward = transform.forward;
-            forward.y = 0;
-
-            // get the horizontal and vertical input
-            float horizontalInput = Input.GetAxis("Horizontal");
-            float verticalInput = Input.GetAxis("Vertical");
-
-            // normalize the movement input
-            Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput).normalized;
-
-            // move the player in the direction they are facing
-            if (!isRunning)
-            {
-                rb.MovePosition(transform.position + forward * movement.z * walkSpeed * Time.fixedDeltaTime + transform.right * movement.x * walkSpeed * Time.fixedDeltaTime);
-            }
-            else if (isRunning)
-            {
-                rb.MovePosition(transform.position + forward * movement.z * runSpeed * Time.fixedDeltaTime + transform.right * movement.x * runSpeed * Time.fixedDeltaTime);
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    isRunning = true;
+                }
+                else if (Input.GetKeyUp(KeyCode.LeftShift))
+                {
+                    isRunning = false;
+                }
+                // get the player's forward direction
+                Vector3 forward = transform.forward;
+                forward.y = 0;
+    
+                // get the horizontal and vertical input
+                float horizontalInput = Input.GetAxis("Horizontal");
+                float verticalInput = Input.GetAxis("Vertical");
+    
+                // normalize the movement input
+                Vector3 movement = new Vector3(horizontalInput, 0f, verticalInput).normalized;
+    
+                // move the player in the direction they are facing
+                if (!isRunning)
+                {
+                    rb.MovePosition(transform.position + forward * movement.z * walkSpeed * Time.fixedDeltaTime + transform.right * movement.x * walkSpeed * Time.fixedDeltaTime);
+                }
+                else if (isRunning)
+                {
+                    rb.MovePosition(transform.position + forward * movement.z * runSpeed * Time.fixedDeltaTime + transform.right * movement.x * runSpeed * Time.fixedDeltaTime);
+                }
             }
         }
     }

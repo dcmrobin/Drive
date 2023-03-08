@@ -7,6 +7,9 @@ public class PauseMenu : MonoBehaviour
     public GameObject player;
     public GameObject carPrefab;
 
+    private void Start() {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
     public void Continue()
     {
         player.GetComponent<PlayerController>().isPaused = false;

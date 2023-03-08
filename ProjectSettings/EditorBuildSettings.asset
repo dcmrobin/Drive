@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Game/Scenes/MenuScene.unity
+    guid: a54ceafd812c4da41bb3c1913f8ba023
   - enabled: 1
     path: Assets/Game/Scenes/infiniteWorld.unity
     guid: eed36ac43498a8342a1d7cd38d8f34d7

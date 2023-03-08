@@ -109,6 +109,11 @@ Library: lib_burst_generated
 --compilation-defines=NET_STANDARD_2_1
 --compilation-defines=NETSTANDARD
 --compilation-defines=NETSTANDARD2_1
+--compilation-defines=DEVELOPMENT_BUILD
+--compilation-defines=ENABLE_PROFILER
+--compilation-defines=DEBUG
+--compilation-defines=TRACE
+--compilation-defines=UNITY_ASSERTIONS
 --compilation-defines=ENABLE_CUSTOM_RENDER_TEXTURE
 --compilation-defines=ENABLE_DIRECTOR
 --compilation-defines=ENABLE_LOCALIZATION
@@ -117,6 +122,10 @@ Library: lib_burst_generated
 --compilation-defines=ENABLE_TILEMAP
 --compilation-defines=ENABLE_TIMELINE
 --compilation-defines=ENABLE_LEGACY_INPUT_MANAGER
+--compilation-defines=PHOTON_UNITY_NETWORKING
+--compilation-defines=PUN_2_0_OR_NEWER
+--compilation-defines=PUN_2_OR_NEWER
+--compilation-defines=PUN_2_19_OR_NEWER
 --compilation-defines=PACKAGE_PHYSICS
 --compilation-defines=PACKAGE_PHYSICS2D
 --compilation-defines=PACKAGE_TILEMAP
@@ -143,6 +152,7 @@ Library: lib_burst_generated
 --compilation-defines=VFX_HAS_AUDIO
 --linker-options=PdbAltPath="Drive_Data/Plugins/x86_64"
 --generate-link-xml=Temp\burst.link.xml
+--debug=Full
 --output=D:\unity projects\Drive\Temp\StagingArea\Data\Plugins\x86_64\lib_burst_generated
 --root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\UnityEngine.UI.dll
 --root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\Unity.RenderPipelines.Core.Runtime.dll
@@ -171,6 +181,12 @@ Library: lib_burst_generated
 --root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
 --root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\Unity.RenderPipelines.Core.ShaderLibrary.dll
 --root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\Unity.RenderPipelines.HighDefinition.Config.Runtime.dll
+--root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\PhotonUnityNetworking.Demos.dll
+--root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\Assembly-CSharp-firstpass.dll
+--root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\PhotonUnityNetworking.Utilities.dll
+--root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\PhotonChat.dll
+--root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\PhotonUnityNetworking.dll
+--root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\PhotonRealtime.dll
 --assembly-folder=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\
 --pdb-search-paths=Temp/ManagedSymbols/
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10
@@ -289,6 +305,11 @@ Library: lib_burst_generated
 --compilation-defines=NET_STANDARD_2_1
 --compilation-defines=NETSTANDARD
 --compilation-defines=NETSTANDARD2_1
+--compilation-defines=DEVELOPMENT_BUILD
+--compilation-defines=ENABLE_PROFILER
+--compilation-defines=DEBUG
+--compilation-defines=TRACE
+--compilation-defines=UNITY_ASSERTIONS
 --compilation-defines=ENABLE_CUSTOM_RENDER_TEXTURE
 --compilation-defines=ENABLE_DIRECTOR
 --compilation-defines=ENABLE_LOCALIZATION
@@ -297,6 +318,10 @@ Library: lib_burst_generated
 --compilation-defines=ENABLE_TILEMAP
 --compilation-defines=ENABLE_TIMELINE
 --compilation-defines=ENABLE_LEGACY_INPUT_MANAGER
+--compilation-defines=PHOTON_UNITY_NETWORKING
+--compilation-defines=PUN_2_0_OR_NEWER
+--compilation-defines=PUN_2_OR_NEWER
+--compilation-defines=PUN_2_19_OR_NEWER
 --compilation-defines=PACKAGE_PHYSICS
 --compilation-defines=PACKAGE_PHYSICS2D
 --compilation-defines=PACKAGE_TILEMAP
@@ -323,6 +348,7 @@ Library: lib_burst_generated
 --compilation-defines=VFX_HAS_AUDIO
 --linker-options=PdbAltPath="Drive_Data/Plugins/x86_64"
 --generate-link-xml=Temp\burst.link.xml
+--debug=Full
 --output=D:\unity projects\Drive\Temp\StagingArea\Data\Plugins\x86_64\lib_burst_generated
 --root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\UnityEngine.UI.dll
 --root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\Unity.RenderPipelines.Core.Runtime.dll
@@ -351,6 +377,12 @@ Library: lib_burst_generated
 --root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\Unity.RenderPipelines.ShaderGraph.ShaderGraphLibrary.dll
 --root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\Unity.RenderPipelines.Core.ShaderLibrary.dll
 --root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\Unity.RenderPipelines.HighDefinition.Config.Runtime.dll
+--root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\PhotonUnityNetworking.Demos.dll
+--root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\Assembly-CSharp-firstpass.dll
+--root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\PhotonUnityNetworking.Utilities.dll
+--root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\PhotonChat.dll
+--root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\PhotonUnityNetworking.dll
+--root-assembly=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\PhotonRealtime.dll
 --assembly-folder=D:\unity projects\Drive\Temp\StagingArea\Data\Managed\
 --pdb-search-paths=Temp/ManagedSymbols/
 --method=Unity.Burst.BurstCompiler+BurstCompilerHelper, Unity.Burst, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null::IsBurstEnabled()--8c2be93e18276203cbd918daa2748a10
