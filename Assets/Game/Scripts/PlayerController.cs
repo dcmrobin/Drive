@@ -99,8 +99,8 @@ public class PlayerController : MonoBehaviour
                 door();
                 thirdPersonControl();
             }
+            handlePause();
         }
-        handlePause();
         if (pv.IsMine)
         {
             if (!isPaused)
