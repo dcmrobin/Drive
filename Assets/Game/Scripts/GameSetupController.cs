@@ -24,7 +24,6 @@ public class GameSetupController : MonoBehaviour
     {
         Debug.Log("Creating Player");
         GameObject myPlayerGo = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), Vector3.zero, Quaternion.identity);
-        cameras = Resources.FindObjectsOfTypeAll<Camera>();
-        cameras[1].GetComponent<Camera>().enabled = true;
+        myPlayerGo.transform.Find("Camerapivot").Find("Camera").GetComponent<Camera>().enabled = true;
     }
 }

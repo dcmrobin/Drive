@@ -69,21 +69,24 @@ public class PlayerController : MonoBehaviour
             playerCameraPivot.transform.localRotation = Quaternion.Euler(lookY, 0f, 0f);
         }
 
-        if (!driving)
+        if (pv.IsMine)
         {
-            // check if the player is grounded
-            if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f, groundMask))
+            if (!driving)
             {
-                isGrounded = true;
-            }
-            else
-            {
-                isGrounded = false;
-            }
-    
-            if (isGrounded && Input.GetKeyDown(KeyCode.Space))
-            {
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                // check if the player is grounded
+                if (Physics.Raycast(transform.position, Vector3.down, out hit, 1.1f, groundMask))
+                {
+                    isGrounded = true;
+                }
+                else
+                {
+                    isGrounded = false;
+                }
+        
+                if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+                {
+                    rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+                }
             }
         }
 
@@ -98,13 +101,16 @@ public class PlayerController : MonoBehaviour
             }
         }
         handlePause();
-        if (!isPaused)
+        if (pv.IsMine)
         {
-            if (!Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask) || hit.collider.gameObject.layer == 0 || hit.collider.gameObject.layer == 6 || hit.collider.gameObject.layer == 1 || hit.collider.gameObject.layer == 3)
+            if (!isPaused)
             {
-                crosshair.GetComponent<Image>().sprite = normalCrosshair;
-                canGrabby = false;
-                currentObject = null;
+                if (!Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask) || hit.collider.gameObject.layer == 0 || hit.collider.gameObject.layer == 6 || hit.collider.gameObject.layer == 1 || hit.collider.gameObject.layer == 3)
+                {
+                    crosshair.GetComponent<Image>().sprite = normalCrosshair;
+                    canGrabby = false;
+                    currentObject = null;
+                }
             }
         }
     }
