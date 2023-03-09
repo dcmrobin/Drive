@@ -36,25 +36,19 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="D:\unity projects\Drive\Assets\Plugins\Photon\PhotonLibs\Photon3Unity3D.dll" />
-    <Analyzer Include="D:\unity projects\Drive\Assets\Plugins\Photon\PhotonLibs\Metro\Photon3Unity3D.dll" />
-    <Analyzer Include="D:\unity projects\Drive\Assets\Plugins\Photon\PhotonLibs\WebSocket\websocket-sharp.dll" />
-    <Analyzer Include="D:\unity projects\Drive\Assets\Plugins\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll" />
-  </ItemGroup>
-  <ItemGroup>
-     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatOperationCode.cs" />
-     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatAppSettings.cs" />
-     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatChannel.cs" />
-     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatDisconnectCause.cs" />
      <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatParameterCode.cs" />
      <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChannelWellKnownProperties.cs" />
      <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatClient.cs" />
-     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatUserStatus.cs" />
+     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\IChatClientListener.cs" />
+     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatOperationCode.cs" />
      <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatPeer.cs" />
-     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatEventCode.cs" />
+     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatAppSettings.cs" />
+     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatDisconnectCause.cs" />
+     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatUserStatus.cs" />
      <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatState.cs" />
      <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChannelCreationOptions.cs" />
-     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\IChatClientListener.cs" />
+     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatEventCode.cs" />
+     <Compile Include="Assets\Plugins\Photon\PhotonChat\Code\ChatChannel.cs" />
      <None Include="Assets\Plugins\Photon\PhotonChat\Code\changes-chat.txt" />
      <None Include="Assets\Plugins\Photon\PhotonChat\Code\PhotonChat.asmdef" />
     <Reference Include="UnityEngine">
@@ -321,6 +315,12 @@
     <Reference Include="Unity.VisualScripting.YamlDotNet">
         <HintPath>D:\unity projects\Drive\Library\PackageCache\com.unity.visualscripting@1.7.8\Editor\VisualScripting.Core\Dependencies\YamlDotNet\Unity.VisualScripting.YamlDotNet.dll</HintPath>
     </Reference>
+    <Reference Include="websocket-sharp">
+        <HintPath>D:\unity projects\Drive\Assets\Plugins\Photon\PhotonLibs\WebSocket\websocket-sharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Photon3Unity3D">
+        <HintPath>D:\unity projects\Drive\Assets\Plugins\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.Burst.Unsafe">
         <HintPath>D:\unity projects\Drive\Library\PackageCache\com.unity.burst@1.7.4\Unity.Burst.Unsafe.dll</HintPath>
     </Reference>
@@ -356,12 +356,6 @@
     </Reference>
     <Reference Include="Newtonsoft.Json">
         <HintPath>D:\unity projects\Drive\Library\PackageCache\com.unity.nuget.newtonsoft-json@3.0.2\Runtime\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="websocket-sharp">
-        <HintPath>D:\unity projects\Drive\Assets\Plugins\Photon\PhotonLibs\WebSocket\websocket-sharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Photon3Unity3D">
-        <HintPath>D:\unity projects\Drive\Assets\Plugins\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
         <HintPath>D:\Unity\Editor\2022.1.23f1\Editor\Data\NetStandard\ref\2.1.0\netstandard.dll</HintPath>

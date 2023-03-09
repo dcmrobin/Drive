@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public GameObject currentDriver;
     public GameObject pauseMenu;
     public GameObject crosshair;
     public Sprite normalCrosshair;
@@ -201,12 +202,14 @@ public class PlayerController : MonoBehaviour
         // check if player is looking at car
         if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask))
         {
-            if (hit.collider.transform.CompareTag("seat") && !driving)
+            if (hit.collider.transform.CompareTag("seat") && !driving && currentDriver == null)
             {
                 crosshair.GetComponent<Image>().sprite = carCrosshair;
                 if (Input.GetMouseButtonDown(0))
                 {
                     currentCar = hit.transform.gameObject;
+                    currentCar.GetComponent<PhotonView>().RequestOwnership();
+                    currentDriver = gameObject;
                     driving = true;
                     GetComponent<CapsuleCollider>().isTrigger = true;
                     transform.parent = currentCar.transform.Find("seatTarget");
@@ -219,6 +222,7 @@ public class PlayerController : MonoBehaviour
         if (driving && Input.GetKeyDown(KeyCode.E))
         {
             driving = false;
+            currentDriver = null;
             transform.parent = null;
             GetComponent<Rigidbody>().isKinematic = false;
             transform.position += new Vector3(0, 5, 0);
