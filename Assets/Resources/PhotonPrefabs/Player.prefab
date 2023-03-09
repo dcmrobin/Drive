@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abf3bf6922c239d4a984fe2c783a93ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentDriver: {fileID: 0}
   pauseMenu: {fileID: 2508726181124878228}
   crosshair: {fileID: 2508726181910623241}
   normalCrosshair: {fileID: 21300000, guid: bda7d8f40c0237548aaeb8dd1e5ab390, type: 3}
