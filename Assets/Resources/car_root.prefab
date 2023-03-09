@@ -127,7 +127,6 @@ GameObject:
   - component: {fileID: 1419521865633326212}
   - component: {fileID: 1419521865633326211}
   - component: {fileID: 4224813995677540476}
-  - component: {fileID: 71280397336198180}
   - component: {fileID: 4035111246130889161}
   m_Layer: 0
   m_Name: car_root
@@ -216,27 +215,10 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 71280397336198180}
   - {fileID: 4035111246130889161}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &71280397336198180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1419521865633326214}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &4035111246130889161
 MonoBehaviour:
   m_ObjectHideFlags: 0
