@@ -8,9 +8,6 @@ public class PauseMenu : MonoBehaviour
     public GameObject player;
     public GameObject carPrefab;
 
-    private void Start() {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
     public void Continue()
     {
         player.GetComponent<PlayerController>().isPaused = false;
@@ -20,6 +17,11 @@ public class PauseMenu : MonoBehaviour
     public void SpawnCar()
     {
         PhotonNetwork.Instantiate("car_root", new Vector3(player.transform.position.x + 5, player.transform.position.y, player.transform.position.z), Quaternion.identity);
+    }
+
+    public void Respawn()
+    {
+        player.transform.position = new Vector3(0, 0, 3);
     }
 
     public void Exit()
