@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 8360874859659282166}
   - component: {fileID: -2165964700722111580}
   - component: {fileID: 9071887524634447823}
+  - component: {fileID: -8058582591901776275}
   m_Layer: 7
   m_Name: cube
   m_TagString: pickupable
@@ -134,7 +135,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 1
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 9071887524634447823}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -154,3 +156,17 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &-8058582591901776275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2992085722208106396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2336381f54acc564c837a0335ca8c626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  players: []
+  distanceFromPlayer: 0

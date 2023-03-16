@@ -47,6 +47,7 @@
      <Compile Include="Assets\Game\Scripts\dontdoit.cs" />
      <Compile Include="Assets\Game\Scripts\NetworkController.cs" />
      <Compile Include="Assets\Game\Scripts\CarDoor.cs" />
+     <Compile Include="Assets\Game\Scripts\Despawn.cs" />
     <Reference Include="UnityEngine">
         <HintPath>D:\Unity\Editor\2022.1.23f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

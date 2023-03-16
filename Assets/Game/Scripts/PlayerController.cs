@@ -307,11 +307,13 @@ public class PlayerController : MonoBehaviour
         if (!isPaused)
         {
             Cursor.lockState = CursorLockMode.Locked;
+            crosshair.SetActive(true);
             Time.timeScale = 1;
         }
         else if (isPaused)
         {
             Cursor.lockState = CursorLockMode.None;
+            crosshair.SetActive(false);
             Time.timeScale = 0;
         }
     }
