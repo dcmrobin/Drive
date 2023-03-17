@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
+    public Text nickname;
+    GameObject[] playerCrosshairs;
     public GameObject currentDriver;
     public GameObject pauseMenu;
     public GameObject crosshair;
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         pv = GetComponent<PhotonView>();
         rb = GetComponent<Rigidbody>();
+        nickname.text = pv.Owner.NickName;
         //pauseMenu = GameObject.FindGameObjectWithTag("pausemenu");
         //crosshair = GameObject.FindGameObjectWithTag("crosshair");
         //pauseMenu.SetActive(false);
@@ -55,6 +58,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        playerCrosshairs = GameObject.FindGameObjectsWithTag("crosshair");
         // get the horizontal and vertical mouse input
         float mouseX = Input.GetAxis("Mouse X") * lookSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * lookSensitivity;
@@ -300,6 +304,13 @@ public class PlayerController : MonoBehaviour
     {
         if (!isPaused && Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
+            foreach (GameObject ch in playerCrosshairs)
+            {
+                if (ch != crosshair)
+                {
+                    Destroy(ch);
+                }
+            }
             isPaused = true;
             pauseMenu.SetActive(true);
         }
@@ -307,13 +318,11 @@ public class PlayerController : MonoBehaviour
         if (!isPaused)
         {
             Cursor.lockState = CursorLockMode.Locked;
-            crosshair.SetActive(true);
             Time.timeScale = 1;
         }
         else if (isPaused)
         {
             Cursor.lockState = CursorLockMode.None;
-            crosshair.SetActive(false);
             Time.timeScale = 0;
         }
     }

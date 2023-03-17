@@ -7,13 +7,13 @@ using UnityEngine.UI;
 
 public class LobbyController : MonoBehaviourPunCallbacks
 {
+    public Text userNmText;
     [SerializeField]
     private Text buttonText;
     [SerializeField]
     private int roomSize;
     private bool connected;
     private bool starting;
-    public Text usertext;
 
     void Awake()
     {
