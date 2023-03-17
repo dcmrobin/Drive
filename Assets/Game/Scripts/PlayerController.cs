@@ -63,15 +63,18 @@ public class PlayerController : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * lookSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * lookSensitivity;
 
-        if (!isPaused)
+        if (pv.IsMine)
         {
-            // update the look angles
-            lookX += mouseX;
-            lookY = Mathf.Clamp(lookY - mouseY, -maxLookAngle, maxLookAngle);
-    
-            // rotate the player and camera based on the mouse input
-            transform.localRotation = Quaternion.Euler(0f, lookX, 0f);
-            playerCameraPivot.transform.localRotation = Quaternion.Euler(lookY, 0f, 0f);
+            if (!isPaused)
+            {
+                // update the look angles
+                lookX += mouseX;
+                lookY = Mathf.Clamp(lookY - mouseY, -maxLookAngle, maxLookAngle);
+        
+                // rotate the player and camera based on the mouse input
+                transform.localRotation = Quaternion.Euler(0f, lookX, 0f);
+                playerCameraPivot.transform.localRotation = Quaternion.Euler(lookY, 0f, 0f);
+            }
         }
 
         if (pv.IsMine)
