@@ -21,7 +21,10 @@ public class PauseMenu : MonoBehaviour
 
     public void Respawn()
     {
-        player.transform.position = new Vector3(0, 2, 0);
+        if (!player.GetComponent<PlayerController>().driving)
+        {
+            player.transform.position = new Vector3(0, 2, 0);
+        }
     }
 
     public void Exit()

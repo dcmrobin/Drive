@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private float lookX;
     private float lookY;
-    private bool driving;
+    public bool driving;
     private GameObject currentCar;
     private GameObject currentObject;
     private GameObject currentDoor;
