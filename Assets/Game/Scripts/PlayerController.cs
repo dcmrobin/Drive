@@ -309,7 +309,7 @@ public class PlayerController : MonoBehaviour
         {
             foreach (GameObject ch in playerCrosshairs)
             {
-                if (ch != crosshair)
+                if (ch != crosshair && ch != null)
                 {
                     Destroy(ch);
                 }
