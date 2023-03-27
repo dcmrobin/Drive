@@ -14,11 +14,11 @@
 		</data>
 		<key>Resources/Data/Managed/Assembly-CSharp.dll</key>
 		<data>
-		3xpJmVGWw5DEwSbd6y+bQupPVBg=
+		9hEFcJF/2SA67UO+NETrnCBlHXE=
 		</data>
 		<key>Resources/Data/Managed/Assembly-CSharp.pdb</key>
 		<data>
-		IGA6l53epEIubBYFnveD8KTjAuQ=
+		zyq2pd7JaC9U/q3LdNiWL8jeKGw=
 		</data>
 		<key>Resources/Data/Managed/Mono.Security.dll</key>
 		<data>
@@ -842,15 +842,15 @@
 		</data>
 		<key>Resources/Data/boot.config</key>
 		<data>
-		yA4gTaTqQEPadmHDkt/VaOBf31s=
+		BQAzF5/5VjP+ffs+BIOA/6jyw4E=
 		</data>
 		<key>Resources/Data/globalgamemanagers</key>
 		<data>
-		+NpbwmM1tHMkxbpo2sJSX5WAAh4=
+		4NEMf0C7XhYF51Z3KNSCUIaytzo=
 		</data>
 		<key>Resources/Data/globalgamemanagers.assets</key>
 		<data>
-		NNJpJSLSglHdZ2k7O3a/xvFxsFU=
+		6rauq+Xw81vUAIc2bBv41aoP2nA=
 		</data>
 		<key>Resources/Data/globalgamemanagers.assets.resS</key>
 		<data>
@@ -858,7 +858,7 @@
 		</data>
 		<key>Resources/Data/level0</key>
 		<data>
-		O8mGYMe3P1MZcmUvOfg82f42Lmo=
+		2Dd2M2iOo5E/Qt0Rhy/Xbsdg8sE=
 		</data>
 		<key>Resources/Data/level1</key>
 		<data>
@@ -866,7 +866,7 @@
 		</data>
 		<key>Resources/Data/resources.assets</key>
 		<data>
-		7FZ6BQG+/cMCS0KqXn8NZKGb0wc=
+		CcZQbwXRyDNo1oKB85B8BF4k2js=
 		</data>
 		<key>Resources/Data/resources.assets.resS</key>
 		<data>
@@ -895,6 +895,10 @@
 		<key>Resources/MainMenu.nib/keyedobjects.nib</key>
 		<data>
 		0pKU0tdl1Ei4v7c0cAAQPj+MzEY=
+		</data>
+		<key>Resources/PlayerIcon.icns</key>
+		<data>
+		frvOHxXrfpPcfEGVd4+HuVoYHjI=
 		</data>
 		<key>Resources/unity default resources</key>
 		<data>
@@ -1069,10 +1073,10 @@
 		<dict>
 			<key>cdhash</key>
 			<data>
-			scOFDJVfY5Q/vWN1OkzWWuOlinQ=
+			1tTutlERcm8rIm9qYBXn801Q5vE=
 			</data>
 			<key>requirement</key>
-			<string>cdhash H"b1c3850c955f63943fbd63753a4cd65ae3a58a74"</string>
+			<string>cdhash H"d6d4eeb65111726f2b226f6a6015e7f34d50e6f1"</string>
 		</dict>
 		<key>Resources/Data/Managed/Assembly-CSharp-firstpass.dll</key>
 		<dict>
@@ -1092,14 +1096,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			wLt+5QaJWikX8/xNBttfApEY0TWBbI9SLjBv3HPj6r4=
+			pG0uOV6ZlGw/Fy04+TfyUDEVJ/VCTY5zP/WzqxCECiI=
 			</data>
 		</dict>
 		<key>Resources/Data/Managed/Assembly-CSharp.pdb</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1VnPEB5bb/4rb42auiTgqAn67kBCaHMWA6VKhFsrrk8=
+			VmOI/WCHoWOgZ7zjEyhHHeag+OKBdRQFtiyBb62/E3k=
 			</data>
 		</dict>
 		<key>Resources/Data/Managed/Mono.Security.dll</key>
@@ -2541,21 +2545,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5zq7hTR6+r/ugl4Xu61xuOeIo2Q1YiWEgcRAIXb8OEY=
+			GFitC7WlOyi8kjx1221jcB5ippwBI8x+jZWFaiDiCE4=
 			</data>
 		</dict>
 		<key>Resources/Data/globalgamemanagers</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			bBGAwfq8ou0rYBB8eoOIsKhvHHbG/BLZwxP+Xun0xGA=
+			WFSVsk+jL2l7LfBXhjumKNtlfYXxFYDIfgIoHWH0okQ=
 			</data>
 		</dict>
 		<key>Resources/Data/globalgamemanagers.assets</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			hEhe9ItwbOMit8VXQ8Bwv3VlIU5ov9c6ZSUcUpXykA0=
+			rqT6DZKI5NnKrWN1IlnzwyIBmB9SV8cUYw5PljI3UBo=
 			</data>
 		</dict>
 		<key>Resources/Data/globalgamemanagers.assets.resS</key>
@@ -2569,7 +2573,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			sC2RFhdjBAiipjoYv+Jp+pZ9288/rTWotUmKJKTKCi8=
+			fQ83FPVSmcRvvkfEqZiAM/oTUbFdmryJktynGhEDt3U=
 			</data>
 		</dict>
 		<key>Resources/Data/level1</key>
@@ -2583,7 +2587,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			OyxyTXwjvM8XvH8SiJy5WtfVFE21FCJGgCEv3voJlzg=
+			eVwodsu9G5Q3HxbEMotmoP04XSbiNIMxqiEw6BNDtgk=
 			</data>
 		</dict>
 		<key>Resources/Data/resources.assets.resS</key>
@@ -2633,6 +2637,13 @@
 			<key>hash2</key>
 			<data>
 			H65bfG7psXp2exY2hnpBs+ROr49lSxxeLK+jJhRjEE0=
+			</data>
+		</dict>
+		<key>Resources/PlayerIcon.icns</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			6pe6bt2DrLipSof77vyf+lfpjVGymWZJXtNaSV8+Pyc=
 			</data>
 		</dict>
 		<key>Resources/unity default resources</key>

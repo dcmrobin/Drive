@@ -169,7 +169,6 @@ public class PlayerController : MonoBehaviour
             if (hit.collider.transform.CompareTag("pickupable") && !driving)
             {
                 currentObject = hit.transform.gameObject;
-                currentObject.GetComponent<PhotonView>().RequestOwnership();
                 crosshair.GetComponent<Image>().sprite = pickupableCrosshair;
                 canGrabby = true;
             }
