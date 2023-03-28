@@ -7,6 +7,7 @@ public class PauseMenu : MonoBehaviour
 {
     public GameObject player;
     public GameObject carPrefab;
+    public bool buttonCooldown = false;
 
     public void Continue()
     {
@@ -16,7 +17,12 @@ public class PauseMenu : MonoBehaviour
 
     public void SpawnCar()
     {
-        PhotonNetwork.Instantiate("car_root", new Vector3(player.transform.position.x + 5, player.transform.position.y, player.transform.position.z), Quaternion.identity);
+        if (!buttonCooldown)
+        {
+            PhotonNetwork.Instantiate("car_root", new Vector3(player.transform.position.x + 5, player.transform.position.y, player.transform.position.z), Quaternion.identity);
+            Invoke("ResetCooldown", 5.0f);
+            buttonCooldown = true;
+        }
     }
 
     public void Respawn()
@@ -30,5 +36,10 @@ public class PauseMenu : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void ResetCooldown()
+    {
+        buttonCooldown = false;
     }
 }
