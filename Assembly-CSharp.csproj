@@ -52,6 +52,7 @@
      <Compile Include="Assets\Game\Scripts\SimpleCarController.cs" />
      <Compile Include="Assets\Game\Scripts\CarDoor.cs" />
      <Compile Include="Assets\Game\Scripts\WindyRoad.cs" />
+     <Compile Include="Assets\Game\Scripts\ColorPicker.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2022.2.11f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>

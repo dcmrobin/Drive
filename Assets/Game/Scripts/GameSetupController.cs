@@ -10,15 +10,14 @@ public class GameSetupController : MonoBehaviour
     //public Camera[] cameras;
     public Camera[] cameras;
     Text usrText;
+    Color playerCol;
     //public Camera SceneCam;
     // Start is called before the first frame update
     void Awake()
     {
+        playerCol = GameObject.Find("color").GetComponent<Image>().color;
         CreatePlayer();
-        //Destroy(GameObject.Find("theCanvas"));
-        //Destroy(GameObject.Find("LobbyController"));
         GameObject.Find("theCanvas").SetActive(false);
-        //GameObject.Find("LobbyController").SetActive(false);
     }
 
     private void CreatePlayer()
@@ -26,6 +25,7 @@ public class GameSetupController : MonoBehaviour
         Debug.Log("Creating Player");
         GameObject myPlayerGo = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), Vector3.zero, Quaternion.identity);
         myPlayerGo.transform.Find("Camerapivot").Find("Camera").GetComponent<Camera>().enabled = true;
+        myPlayerGo.GetComponent<MeshRenderer>().material.color = playerCol;
         usrText = GameObject.FindGameObjectWithTag("lobbyController").GetComponent<LobbyController>().userNmText;
         myPlayerGo.GetComponent<PhotonView>().Owner.NickName = usrText.text;
     }
