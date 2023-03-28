@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundMask;
     public LayerMask clickMask;
     public LayerMask camCollideMask;
+    Color playerColor;
     /*public LayerMask seatMask;
     public LayerMask pickupableMask;
     public LayerMask doorMask;*/
@@ -344,5 +345,11 @@ public class PlayerController : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
         }
+    }
+
+    [PunRPC]
+    void GetColor(float r, float g, float b)
+    {
+        gameObject.GetComponent<MeshRenderer>().material.color = new Color(r, g, b);
     }
 }
