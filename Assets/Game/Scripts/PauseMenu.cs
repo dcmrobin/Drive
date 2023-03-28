@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject player;
     public GameObject carPrefab;
     public bool buttonCooldown = false;
+    public bool antiRollEnabled = true;
 
     public void Continue()
     {
@@ -20,7 +21,7 @@ public class PauseMenu : MonoBehaviour
         if (!buttonCooldown)
         {
             PhotonNetwork.Instantiate("car_root", new Vector3(player.transform.position.x + 5, player.transform.position.y, player.transform.position.z), Quaternion.identity);
-            Invoke("ResetCooldown", 5.0f);
+            Invoke("ResetCooldown", .5f);
             buttonCooldown = true;
         }
     }
@@ -36,6 +37,11 @@ public class PauseMenu : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void enableAntiRoll(bool antiRoll)
+    {
+        antiRollEnabled = antiRoll;
     }
 
     public void ResetCooldown()

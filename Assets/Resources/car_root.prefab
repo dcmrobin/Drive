@@ -171,9 +171,10 @@ GameObject:
   - component: {fileID: 1419521865633326211}
   - component: {fileID: 4224813995677540476}
   - component: {fileID: 4035111246130889161}
+  - component: {fileID: 8761405568193001921}
   m_Layer: 0
   m_Name: car_root
-  m_TagString: Untagged
+  m_TagString: car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,6 +290,21 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &8761405568193001921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419521865633326214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbefee6dab9313a458312f17043ba531, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WheelL: {fileID: 1419521866528903518}
+  WheelR: {fileID: 1419521865882247565}
+  AntiRoll: 5000
 --- !u!1 &1419521865680269160
 GameObject:
   m_ObjectHideFlags: 0

@@ -47,6 +47,7 @@
      <Compile Include="Assets\Game\Scripts\PlayerController.cs" />
      <Compile Include="Assets\Game\Scripts\LobbyController.cs" />
      <Compile Include="Assets\Game\Scripts\RoomController.cs" />
+     <Compile Include="Assets\Game\Scripts\AntiRollBar.cs" />
      <Compile Include="Assets\Game\Scripts\dontdoit.cs" />
      <Compile Include="Assets\Game\Scripts\WorldGenerator.cs" />
      <Compile Include="Assets\Game\Scripts\SimpleCarController.cs" />

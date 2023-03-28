@@ -7,6 +7,10 @@ TagManager:
   - pickupable
   - seat
   - door
+  - lobbyController
+  - pausemenu
+  - crosshair
+  - car
   layers:
   - Default
   - TransparentFX

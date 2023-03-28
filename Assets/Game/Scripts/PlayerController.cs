@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     public Text nickname;
     GameObject[] playerCrosshairs;
+    public GameObject[] allCars;
     public GameObject currentDriver;
     public GameObject pauseMenu;
     public GameObject crosshair;
@@ -58,6 +59,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        allCars = GameObject.FindGameObjectsWithTag("car");
         playerCrosshairs = GameObject.FindGameObjectsWithTag("crosshair");
         // get the horizontal and vertical mouse input
         float mouseX = Input.GetAxis("Mouse X") * lookSensitivity;
@@ -65,6 +67,21 @@ public class PlayerController : MonoBehaviour
 
         if (pv.IsMine)
         {
+            if (pauseMenu.GetComponent<PauseMenu>().antiRollEnabled)
+            {
+                for (int i = 0; i < allCars.Length; i++)
+                {
+                    allCars[i].GetComponent<AntiRollBar>().enabled = true;
+                }
+            }
+            else if (!pauseMenu.GetComponent<PauseMenu>().antiRollEnabled)
+            {
+                for (int i = 0; i < allCars.Length; i++)
+                {
+                    allCars[i].GetComponent<AntiRollBar>().enabled = false;
+                }
+            }
+
             if (!isPaused)
             {
                 // update the look angles
