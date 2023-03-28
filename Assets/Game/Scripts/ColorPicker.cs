@@ -23,8 +23,8 @@ public class ColorPicker : MonoBehaviour
         float globalPosX = Input.mousePosition.x - imagePos.x;
         float globalPosY = Input.mousePosition.y - imagePos.y;
 
-        int localPosX = (int) (globalPosX*(_refSprite.width/_texture.rect.width*2.5));
-        int localPosY = (int) (globalPosY*(_refSprite.height/_texture.rect.height*2.5));
+        int localPosX = (int) (globalPosX*(_refSprite.width/_texture.rect.width*2.35));
+        int localPosY = (int) (globalPosY*(_refSprite.height/_texture.rect.height*2.35));
 
         Color c = _refSprite.GetPixel(localPosX, localPosY);
         SetActualColor(c);
