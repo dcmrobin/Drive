@@ -4,8 +4,9 @@ using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
 using Photon.Realtime;
+using System.IO;
 
-public class PlayerController : MonoBehaviourPunCallbacks
+public class PlayerController : MonoBehaviour
 {
     public Text nickname;
     GameObject[] playerCrosshairs;
@@ -47,21 +48,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool isPaused = false;
     public bool isRunning = false;
     public PhotonView pv;
-
-    /*public override void OnPlayerEnteredRoom(Player newPlayer)
-    {
-        base.OnPlayerEnteredRoom(newPlayer);
-        //PhotonNetwork.LocalPlayer.SetCustomProperties(WHAT DO I PUT IN HERE!!!!);
-        pv.RPC("UpdatePlayerColor", RpcTarget.All, playerColor.r, playerColor.g, playerColor.b);
-    }*/
+    int screenshotNum = 0;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         nickname.text = pv.Owner.NickName;
-        //pauseMenu = GameObject.FindGameObjectWithTag("pausemenu");
-        //crosshair = GameObject.FindGameObjectWithTag("crosshair");
-        //pauseMenu.SetActive(false);
     }
 
     void Update()
@@ -144,6 +136,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     currentObject = null;
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+            screenshotNum++;
+            string path = Application.dataPath;
+            string newPath = Path.GetFullPath(Path.Combine(path, @"..\"));
+            if (!Directory.Exists(newPath + "Screenshots"))
+            {
+                Directory.CreateDirectory(newPath + "Screenshots");
+            }
+            ScreenCapture.CaptureScreenshot(newPath + "Screenshots\\Screenshot" + screenshotNum + ".png");
         }
     }
 
