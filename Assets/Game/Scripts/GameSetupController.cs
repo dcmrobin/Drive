@@ -10,7 +10,7 @@ public class GameSetupController : MonoBehaviour
     //public Camera[] cameras;
     public Camera[] cameras;
     Text usrText;
-    Color playerCol;
+    public Color playerCol;
     //public Camera SceneCam;
     // Start is called before the first frame update
     void Awake()

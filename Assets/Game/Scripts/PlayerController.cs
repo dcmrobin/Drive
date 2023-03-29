@@ -7,7 +7,7 @@ using Photon.Realtime;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
-    public Color playerCol;
+    Color playerColor;
     public Text nickname;
     GameObject[] playerCrosshairs;
     public GameObject[] allCars;
@@ -27,7 +27,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public LayerMask groundMask;
     public LayerMask clickMask;
     public LayerMask camCollideMask;
-    Color playerColor;
     /*public LayerMask seatMask;
     public LayerMask pickupableMask;
     public LayerMask doorMask;*/
@@ -48,19 +47,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool thirdPersonViewActive = false;
     public bool isPaused = false;
     public bool isRunning = false;
-    PhotonView pv;
+    public PhotonView pv;
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
-        pv.RPC("UpdatePlayerColor", RpcTarget.All);
+        //PhotonNetwork.LocalPlayer.SetCustomProperties(WHAT DO I PUT IN HERE!!!!);
+        pv.RPC("UpdatePlayerColor", RpcTarget.All, playerColor.r, playerColor.g, playerColor.b);
     }
 
     void Start()
     {
-        pv = GetComponent<PhotonView>();
         rb = GetComponent<Rigidbody>();
         nickname.text = pv.Owner.NickName;
+        playerColor = GameObject.Find("GameSetup").GetComponent<GameSetupController>().playerCol;
         //pauseMenu = GameObject.FindGameObjectWithTag("pausemenu");
         //crosshair = GameObject.FindGameObjectWithTag("crosshair");
         //pauseMenu.SetActive(false);
@@ -359,12 +359,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void GetColor(float r, float g, float b)
     {
         gameObject.GetComponent<MeshRenderer>().material.color = new Color(r, g, b);
-        playerCol = gameObject.GetComponent<MeshRenderer>().material.color;
     }
 
     [PunRPC]
-    void UpdatePlayerColor()
+    void UpdatePlayerColor(float r, float g, float b)
     {
-        gameObject.GetComponent<MeshRenderer>().material.color = playerCol;
+        gameObject.GetComponent<MeshRenderer>().material.color = new Color(r, g, b);
     }
 }
