@@ -7,7 +7,6 @@ using Photon.Realtime;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
-    Color playerColor;
     public Text nickname;
     GameObject[] playerCrosshairs;
     public GameObject[] allCars;
@@ -49,18 +48,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool isRunning = false;
     public PhotonView pv;
 
-    public override void OnPlayerEnteredRoom(Player newPlayer)
+    /*public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
         //PhotonNetwork.LocalPlayer.SetCustomProperties(WHAT DO I PUT IN HERE!!!!);
         pv.RPC("UpdatePlayerColor", RpcTarget.All, playerColor.r, playerColor.g, playerColor.b);
-    }
+    }*/
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         nickname.text = pv.Owner.NickName;
-        playerColor = GameObject.Find("GameSetup").GetComponent<GameSetupController>().playerCol;
         //pauseMenu = GameObject.FindGameObjectWithTag("pausemenu");
         //crosshair = GameObject.FindGameObjectWithTag("crosshair");
         //pauseMenu.SetActive(false);

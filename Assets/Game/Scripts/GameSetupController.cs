@@ -4,13 +4,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Realtime;
 
-public class GameSetupController : MonoBehaviour
+public class GameSetupController : MonoBehaviourPunCallbacks
 {
     //public Camera[] cameras;
     public Camera[] cameras;
     Text usrText;
     public Color playerCol;
+    GameObject player;
     //public Camera SceneCam;
     // Start is called before the first frame update
     void Awake()
@@ -24,9 +26,16 @@ public class GameSetupController : MonoBehaviour
     {
         Debug.Log("Creating Player");
         GameObject myPlayerGo = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), Vector3.zero, Quaternion.identity);
+        player = myPlayerGo;
         myPlayerGo.transform.Find("Camerapivot").Find("Camera").GetComponent<Camera>().enabled = true;
         usrText = GameObject.FindGameObjectWithTag("lobbyController").GetComponent<LobbyController>().userNmText;
         myPlayerGo.GetComponent<PhotonView>().Owner.NickName = usrText.text;
         myPlayerGo.GetComponent<PhotonView>().RPC("GetColor", RpcTarget.All, playerCol.r, playerCol.g, playerCol.b);
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+        player.GetComponent<PhotonView>().RPC("UpdatePlayerColor", RpcTarget.All, playerCol.r, playerCol.g, playerCol.b);
     }
 }
