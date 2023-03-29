@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using Photon.Realtime;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
+    public Color playerCol;
     public Text nickname;
     GameObject[] playerCrosshairs;
     public GameObject[] allCars;
@@ -47,6 +49,12 @@ public class PlayerController : MonoBehaviour
     public bool isPaused = false;
     public bool isRunning = false;
     PhotonView pv;
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+        pv.RPC("UpdatePlayerColor", RpcTarget.All);
+    }
 
     void Start()
     {
@@ -351,5 +359,12 @@ public class PlayerController : MonoBehaviour
     void GetColor(float r, float g, float b)
     {
         gameObject.GetComponent<MeshRenderer>().material.color = new Color(r, g, b);
+        playerCol = gameObject.GetComponent<MeshRenderer>().material.color;
+    }
+
+    [PunRPC]
+    void UpdatePlayerColor()
+    {
+        gameObject.GetComponent<MeshRenderer>().material.color = playerCol;
     }
 }
