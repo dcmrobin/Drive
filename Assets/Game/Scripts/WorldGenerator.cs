@@ -5,13 +5,14 @@ using UnityEngine;
 public class WorldGenerator : MonoBehaviour
 {
     public GameObject groundPrefab; // the prefab for the ground tiles
-    //public GameObject thingPrefab;
+    public GameObject roadPrefab;
     public GameObject rockPrefab;
     public GameObject wheelPrefab;
     public GameObject simpleStructurePrefab;
     public int worldSize = 10; // the size of the world (in tiles) around the player
     public int tileSize = 1; // the size of each tile in world units
     private int probability = 0;
+    GameObject tile;
 
     private Dictionary<Vector2, GameObject> tiles = new Dictionary<Vector2, GameObject>(); // stores the generated ground tiles
     private Vector2 playerPos; // the position of the player
@@ -64,9 +65,16 @@ public class WorldGenerator : MonoBehaviour
                 if (!tiles.ContainsKey(tilePos))
                 {
                     probability = Random.Range(0, 1000);
-                    GameObject tile = Instantiate(groundPrefab, new Vector3(tilePos.x * tileSize, 0, tilePos.y * tileSize), Quaternion.identity);
+                    if (x == -1)
+                    {
+                        GameObject roadTile = Instantiate(roadPrefab, new Vector3(tilePos.x * tileSize, 0, tilePos.y * tileSize), Quaternion.identity);
+                    }
+                    else
+                    {
+                        tile = Instantiate(groundPrefab, new Vector3(tilePos.x * tileSize, 0, tilePos.y * tileSize), Quaternion.identity);
+                    }
                     //GameObject thing = Instantiate(thingPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), tile.transform.position.y + Random.Range(1, 10), tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
-                    if (probability == Random.Range(0, 1000))
+                    if (probability == Random.Range(0, 1000) && x != -1)
                     {
                         if (probability > 730)
                         {
@@ -83,7 +91,7 @@ public class WorldGenerator : MonoBehaviour
                             rock.transform.parent = new GameObject().transform.parent = tile.transform;
                         }
                     }
-                    else if (probability >= 900)
+                    else if (probability >= 900 && x != -1)
                     {
                         GameObject smallRock = Instantiate(rockPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), Random.Range(-2.3f, -0.7f), tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
                         smallRock.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);

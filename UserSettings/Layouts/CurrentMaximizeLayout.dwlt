@@ -238,9 +238,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 6cd0ffff
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 6cd0ffff24eaffff52ebffff00efffff32efffff26fbffff
+      m_ExpandedIDs: 6612fffff41dffff3c1fffff26fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -688,9 +688,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 370.7683, y: 275.3975, z: -4.1318893}
+    m_Target: {x: -107.92765, y: 22.092407, z: -55.392967}
     speed: 2
-    m_Value: {x: 370.7683, y: 275.3975, z: -4.1318893}
+    m_Value: {x: -107.92765, y: 22.092407, z: -55.392967}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -740,9 +740,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0.05545558, y: -0.023960706, z: 0.0013312041, w: 0.99817276}
   m_Size:
-    m_Target: 236.63977
+    m_Target: 112.134674
     speed: 2
-    m_Value: 236.63977
+    m_Value: 112.134674
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -878,23 +878,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/PhotonPrefabs
+    - Assets/Game/Prefabs
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources/PhotonPrefabs
+  - Assets/Game/Prefabs
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\unity projects\Drive
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 259}
-    m_SelectedIDs: de770000
-    m_LastClickedID: 30686
-    m_ExpandedIDs: 0000000090760000927600009476000096760000987600009a7600009c760000dc77000000ca9a3b
+    scrollPos: {x: 0, y: 191}
+    m_SelectedIDs: e6770000
+    m_LastClickedID: 30694
+    m_ExpandedIDs: 00000000da770000dc770000de770000e0770000e2770000e4770000e6770000f277000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -922,7 +922,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000090760000927600009476000096760000987600009a7600009c76000000ca9a3b
+    m_ExpandedIDs: 00000000da770000dc770000de770000e0770000e2770000e4770000e677000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -947,8 +947,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 6cd0ffff
-    m_LastClickedInstanceID: -12180
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
     m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000000000007c860000
     m_RenameOverlay:
