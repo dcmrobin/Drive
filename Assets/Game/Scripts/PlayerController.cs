@@ -5,6 +5,7 @@ using Photon.Pun;
 using UnityEngine.UI;
 using Photon.Realtime;
 using System.IO;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -140,12 +141,26 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F2))
         {
+            if (File.Exists(Application.dataPath + "screenshotIncrementer.txt"))
+            {
+                screenshotNum = Convert.ToInt32(File.ReadAllText(Application.dataPath + "\\screenshotIncrementer.txt"));
+            }
             screenshotNum++;
             string path = Application.dataPath;
             string newPath = Path.GetFullPath(Path.Combine(path, @"..\"));
             if (!Directory.Exists(newPath + "Screenshots"))
             {
                 Directory.CreateDirectory(newPath + "Screenshots");
+            }
+            if (!File.Exists(Application.dataPath + "screenshotIncrementer.txt"))
+            {
+                File.Create(Application.dataPath + "screenshotIncrementer.txt");
+                File.AppendAllText(Application.dataPath + "\\screenshotIncrementer.txt", screenshotNum.ToString());
+            }
+            else
+            {
+                File.WriteAllText(Application.dataPath + "\\screenshotIncrementer.txt", string.Empty);
+                File.AppendAllText(Application.dataPath + "\\screenshotIncrementer.txt", screenshotNum.ToString());
             }
             ScreenCapture.CaptureScreenshot(newPath + "Screenshots\\Screenshot" + screenshotNum + ".png");
         }
