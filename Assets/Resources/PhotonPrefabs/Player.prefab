@@ -2622,6 +2622,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundPrefab: {fileID: 7649976176123916822, guid: 7171eeffd178d9e45a4d34027be29867,
     type: 3}
+  roadPrefab: {fileID: 7649976176123916822, guid: 5dcb1e5038c379f439201acc3e95c99a,
+    type: 3}
   rockPrefab: {fileID: 3794456106794884274, guid: 7c7e2572e46e4004b884ece7cb8c99f3,
     type: 3}
   wheelPrefab: {fileID: 3794456106794884274, guid: 31e9c2a1791e0fe419ede2516c54dfc0,
