@@ -82,16 +82,19 @@ public class WorldGenerator : MonoBehaviour
                 if (!tiles.ContainsKey(tilePos) && !roadTiles.ContainsKey(roadTilePos))
                 {
                     probability = Random.Range(0, 1000);
-                    if (x == -1)
+                    tile = Instantiate(groundPrefab, new Vector3(tilePos.x * tileSize, 0, tilePos.y * tileSize), Quaternion.identity);
+                    if (tile.transform.position.x >= -1 || tile.transform.position.x <= 1)
                     {
+                        Destroy(tile);
                         roadTile = Instantiate(roadPrefab, new Vector3(roadTilePos.x * tileSize, 0, roadTilePos.y * tileSize), Quaternion.identity);
                     }
-                    else
+                    if (roadTile.transform.position.x < -1 || roadTile.transform.position.x > 1)
                     {
+                        Destroy(roadTile);
                         tile = Instantiate(groundPrefab, new Vector3(tilePos.x * tileSize, 0, tilePos.y * tileSize), Quaternion.identity);
                     }
                     //GameObject thing = Instantiate(thingPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), tile.transform.position.y + Random.Range(1, 10), tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
-                    if (probability == Random.Range(0, 1000) && x != -1)
+                    if (probability == Random.Range(0, 1000))
                     {
                         if (probability > 730)
                         {
@@ -108,7 +111,7 @@ public class WorldGenerator : MonoBehaviour
                             rock.transform.parent = new GameObject().transform.parent = tile.transform;
                         }
                     }
-                    else if (probability >= 900 && x != -1)
+                    else if (probability >= 900)
                     {
                         GameObject smallRock = Instantiate(rockPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), Random.Range(-2.3f, -0.7f), tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
                         smallRock.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
