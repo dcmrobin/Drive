@@ -13,8 +13,10 @@ public class WorldGenerator : MonoBehaviour
     public int tileSize = 1; // the size of each tile in world units
     private int probability = 0;
     GameObject tile;
+    GameObject roadTile;
 
     private Dictionary<Vector2, GameObject> tiles = new Dictionary<Vector2, GameObject>(); // stores the generated ground tiles
+    private Dictionary<Vector2, GameObject> roadTiles = new Dictionary<Vector2, GameObject>();
     private Vector2 playerPos; // the position of the player
 
     void Start()
@@ -42,6 +44,7 @@ public class WorldGenerator : MonoBehaviour
 
         // Destroy tiles that are too far away from the player
         List<Vector2> tilesToRemove = new List<Vector2>();
+        List<Vector2> roadTilesToRemove = new List<Vector2>();
         foreach (KeyValuePair<Vector2, GameObject> pair in tiles)
         {
             Vector2Int tilePos = new Vector2Int(Mathf.RoundToInt(pair.Key.x), Mathf.RoundToInt(pair.Key.y));
@@ -51,9 +54,22 @@ public class WorldGenerator : MonoBehaviour
                 tilesToRemove.Add(pair.Key);
             }
         }
+        foreach (KeyValuePair<Vector2, GameObject> pair in roadTiles)
+        {
+            Vector2Int roadTilePos = new Vector2Int(Mathf.RoundToInt(pair.Key.x), Mathf.RoundToInt(pair.Key.y));
+            if (Vector2Int.Distance(roadTilePos, playerTilePos) > worldSize + 10)
+            {
+                Destroy(pair.Value);
+                roadTilesToRemove.Add(pair.Key);
+            }
+        }
         foreach (Vector2 key in tilesToRemove)
         {
             tiles.Remove(key);
+        }
+        foreach (Vector2 key in roadTilesToRemove)
+        {
+            roadTiles.Remove(key);
         }
 
         // Generate new tiles within the world size around the player
@@ -62,12 +78,13 @@ public class WorldGenerator : MonoBehaviour
             for (int y = -worldSize; y <= worldSize; y++)
             {
                 Vector2Int tilePos = playerTilePos + new Vector2Int(x, y);
-                if (!tiles.ContainsKey(tilePos))
+                Vector2Int roadTilePos = playerTilePos + new Vector2Int(x, y);
+                if (!tiles.ContainsKey(tilePos) && !roadTiles.ContainsKey(roadTilePos))
                 {
                     probability = Random.Range(0, 1000);
                     if (x == -1)
                     {
-                        GameObject roadTile = Instantiate(roadPrefab, new Vector3(tilePos.x * tileSize, 0, tilePos.y * tileSize), Quaternion.identity);
+                        roadTile = Instantiate(roadPrefab, new Vector3(roadTilePos.x * tileSize, 0, roadTilePos.y * tileSize), Quaternion.identity);
                     }
                     else
                     {
@@ -99,6 +116,7 @@ public class WorldGenerator : MonoBehaviour
                     }
                     //thing.transform.parent = new GameObject().transform.parent = tile.transform;
                     tiles.Add(tilePos, tile);
+                    roadTiles.Add(roadTilePos, roadTile);
                 }
             }
         }

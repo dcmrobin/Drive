@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1440
     height: 817
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Scene
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -415,9 +415,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: 7073ffff
       m_LastClickedID: 0
-      m_ExpandedIDs: fee2fcff2ee4fcffdce7fcff0ee8fcff4e6cfdff7c6dfdff2a71fdff5c71fdff94aefdff9abbfdffc6bcfdff7cc0fdffb6c0fdff2ce3fdff48edfdffc8f6fdfff6f7fdffa4fbfdffd6fbfdfffe34feff0442feff3243feffe046feff1247feff2867feff50acfeff7eadfeff2cb1feff5eb1feff9eacffffccadffff82b1ffffbcb1ffff26fbffff
+      m_ExpandedIDs: 0671ffff9a8dffffb8a6ffffeaa7ffff98abffffd0abffffeec3ffff1ec5ffffd2c8ffff10c9ffff26fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -837,9 +837,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 307.40424, y: 222.13028, z: -13.116768}
+    m_Target: {x: -69.15137, y: 322.23404, z: 473.0531}
     speed: 2
-    m_Value: {x: 307.40424, y: 222.13028, z: -13.116768}
+    m_Value: {x: -69.15137, y: 322.23404, z: 473.0531}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -885,13 +885,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.055455614, y: -0.02396072, z: 0.0013312049, w: 0.99817336}
+    m_Target: {x: 0.28378522, y: -0.040258665, z: 0.011925451, w: 0.95796895}
     speed: 2
-    m_Value: {x: 0.05545558, y: -0.023960706, z: 0.0013312041, w: 0.99817276}
+    m_Value: {x: 0.2837668, y: -0.041695543, z: 0.012351108, w: 0.95790684}
   m_Size:
-    m_Target: 276.31674
+    m_Target: 14.150971
     speed: 2
-    m_Value: 276.31674
+    m_Value: 14.150971
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -999,23 +999,23 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/PhotonPrefabs
+    - Assets
     m_Globs: []
     m_OriginalText: 
     m_ImportLogFlags: 0
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources/PhotonPrefabs
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\unity projects\Drive
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 259}
-    m_SelectedIDs: 16780000
-    m_LastClickedID: 30742
-    m_ExpandedIDs: 0000000090760000927600009476000096760000987600009a7600009c760000f677000000ca9a3b
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: fa770000
+    m_LastClickedID: 30714
+    m_ExpandedIDs: 00000000e2770000e4770000e6770000e8770000ea770000ec770000ee77000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1043,7 +1043,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000090760000927600009476000096760000987600009a7600009c760000
+    m_ExpandedIDs: 00000000e2770000e4770000e6770000e8770000ea770000ec770000ee770000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
