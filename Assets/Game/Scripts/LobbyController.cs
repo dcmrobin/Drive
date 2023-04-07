@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class LobbyController : MonoBehaviourPunCallbacks
 {
@@ -14,6 +15,9 @@ public class LobbyController : MonoBehaviourPunCallbacks
     private int roomSize;
     private bool connected;
     private bool starting;
+    public int singleplayerSceneIndex = 2;
+    public enum mode{Singleplayer, Multiplayer};
+    public mode gameMode;
 
     void Awake()
     {
@@ -23,11 +27,19 @@ public class LobbyController : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.AutomaticallySyncScene = true;
         connected = true;
-        buttonText.text = "Begin Game";
+        buttonText.text = "Multiplayer";
+    }
+
+    public void LoadScene()
+    {
+        gameMode = mode.Singleplayer;
+        SceneManager.LoadScene(singleplayerSceneIndex);
+        GameObject.Find("theCanvas").SetActive(false);
     }
 
     public void GameButton()
     {
+        gameMode = mode.Multiplayer;
         if (connected)
         {
             Debug.Log("Clicked");
@@ -35,13 +47,13 @@ public class LobbyController : MonoBehaviourPunCallbacks
             if (!starting)
             {
                 starting = true;
-                buttonText.text = "Starting Game. Click Again to Cancel";
+                buttonText.text = "Starting...";
                 PhotonNetwork.JoinRandomOrCreateRoom(); // attempt joining a room
             }
             else
             {
                 starting = false;
-                buttonText.text = "Begin Game";
+                buttonText.text = "Multiplayer";
                 PhotonNetwork.LeaveRoom(); // cancel the request
             }
         }

@@ -50,11 +50,16 @@ public class PlayerController : MonoBehaviour
     public bool isRunning = false;
     public PhotonView pv;
     int screenshotNum = 0;
+    public GameObject lobbyController;
 
     void Start()
     {
+        lobbyController = GameObject.FindGameObjectWithTag("lobbyController");
         rb = GetComponent<Rigidbody>();
-        nickname.text = pv.Owner.NickName;
+        if (pv.Owner != null)
+        {
+            nickname.text = pv.Owner.NickName;
+        }
     }
 
     void Update()

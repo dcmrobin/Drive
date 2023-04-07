@@ -18,11 +18,15 @@ public class PauseMenu : MonoBehaviour
 
     public void SpawnCar()
     {
-        if (!buttonCooldown)
+        if (!buttonCooldown && player.GetComponent<PlayerController>().lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
         {
             PhotonNetwork.Instantiate("car_root", new Vector3(player.transform.position.x + 5, player.transform.position.y, player.transform.position.z), Quaternion.identity);
             Invoke("ResetCooldown", .5f);
             buttonCooldown = true;
+        }
+        else if (player.GetComponent<PlayerController>().lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
+        {
+            GameObject.Instantiate(carPrefab, new Vector3(player.transform.position.x + 5, player.transform.position.y, player.transform.position.z), Quaternion.identity);
         }
     }
 
