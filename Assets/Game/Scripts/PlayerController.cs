@@ -248,7 +248,7 @@ public class PlayerController : MonoBehaviour
                 grabby = false;
             }
         }
-        else if (currentObject.transform.GetChild(0).tag == "gun")
+        else if (canGrabby && currentObject.transform.GetChild(0).tag == "gun")
         {
             if (canGrabby && Input.GetMouseButton(0))
             {
