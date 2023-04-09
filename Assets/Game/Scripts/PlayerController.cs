@@ -51,6 +51,7 @@ public class PlayerController : MonoBehaviour
     public PhotonView pv;
     int screenshotNum = 0;
     public GameObject lobbyController;
+    bool holdingGun;
 
     void Start()
     {
@@ -113,7 +114,7 @@ public class PlayerController : MonoBehaviour
                     isGrounded = false;
                 }
         
-                if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+                if (isGrounded && Input.GetKeyDown(KeyCode.Space) && !holdingGun)
                 {
                     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 }
@@ -128,6 +129,7 @@ public class PlayerController : MonoBehaviour
                 drive();
                 door();
                 thirdPersonControl();
+                gunControl();
             }
             handlePause();
         }
@@ -228,19 +230,44 @@ public class PlayerController : MonoBehaviour
         }
 
         // grab the object
-        if (canGrabby && Input.GetMouseButton(0))
+        if (canGrabby && currentObject.transform.GetChild(0).tag != "gun")
         {
-            crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
-            currentObject.GetComponent<Rigidbody>().isKinematic = true;
-            currentObject.transform.parent = playerCameraPivot.transform.Find("objectTarget");
-            currentObject.transform.position = playerCameraPivot.transform.Find("objectTarget").position;
-            grabby = true;
+            if (canGrabby && Input.GetMouseButton(0))
+            {
+                crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
+                currentObject.GetComponent<Rigidbody>().isKinematic = true;
+                currentObject.GetComponent<PhotonView>().RequestOwnership();
+                currentObject.transform.parent = playerCameraPivot.transform.Find("objectTarget");
+                currentObject.transform.position = playerCameraPivot.transform.Find("objectTarget").position;
+                grabby = true;
+            }
+            else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null)
+            {
+                currentObject.GetComponent<Rigidbody>().isKinematic = false;
+                currentObject.transform.parent = null;
+                grabby = false;
+            }
         }
-        else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null)
+        else if (currentObject.transform.GetChild(0).tag == "gun")
         {
-            currentObject.GetComponent<Rigidbody>().isKinematic = false;
-            currentObject.transform.parent = null;
-            grabby = false;
+            if (canGrabby && Input.GetMouseButton(0))
+            {
+                crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
+                currentObject.GetComponent<Rigidbody>().isKinematic = true;
+                currentObject.GetComponent<PhotonView>().RequestOwnership();
+                currentObject.transform.parent = playerCameraPivot.transform.Find("objectTarget");
+                currentObject.transform.position = playerCameraPivot.transform.Find("objectTarget").position;
+                currentObject.transform.rotation = Quaternion.identity;
+                holdingGun = true;
+                grabby = true;
+            }
+            else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null)
+            {
+                currentObject.GetComponent<Rigidbody>().isKinematic = false;
+                currentObject.transform.parent = null;
+                holdingGun = false;
+                grabby = false;
+            }
         }
 
         // drop override
@@ -249,6 +276,7 @@ public class PlayerController : MonoBehaviour
             currentObject.GetComponent<Rigidbody>().isKinematic = false;
             currentObject.transform.parent = null;
             grabby = false;
+            holdingGun = false;
         }
     }
 
@@ -374,6 +402,21 @@ public class PlayerController : MonoBehaviour
         {
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;
+        }
+    }
+
+    public void gunControl()
+    {
+        if (holdingGun)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(currentObject.transform.GetChild(1).transform.position, currentObject.transform.GetChild(1).transform.forward, out hit, Mathf.Infinity))
+                {
+                    Debug.Log(hit.collider.transform.name);
+                }
+            }
         }
     }
 
