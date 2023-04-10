@@ -672,8 +672,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Player controls:\n   Move: WASD or arrow keys\n   Jump: Spacebar\n   Look
     around: Mouse\n   Click on objects to carry them\n   Click on a car seat to drive
-    the car\n\nCar controls:\n   Accelerate: W\n   Steer: W and D\n   Brake: Spacebar\n  
-    Exit car: E\n\nTake a screenshot: F2"
+    the car\n   Press space while holding the gun to shoot\n\nCar controls:\n   Accelerate:
+    W\n   Steer: W and D\n   Brake: Spacebar\n   Exit car: E\n\nTake a screenshot:
+    F2"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -2275,6 +2276,7 @@ MonoBehaviour:
   buttonText: {fileID: 231019626}
   roomSize: 10
   singleplayerSceneIndex: 2
+  gameMode: 0
 --- !u!1 &1987463273
 GameObject:
   m_ObjectHideFlags: 0

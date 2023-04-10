@@ -3084,6 +3084,7 @@ MonoBehaviour:
   camCollideMask:
     serializedVersion: 2
     m_Bits: 251
+  gunImpactForce: 500
   playerCameraPivot: {fileID: 7290564772093562209}
   driving: 0
   thirdPersonViewActive: 0

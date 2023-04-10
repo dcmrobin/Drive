@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundMask;
     public LayerMask clickMask;
     public LayerMask camCollideMask;
+    public float gunImpactForce = 30;
     /*public LayerMask seatMask;
     public LayerMask pickupableMask;
     public LayerMask doorMask;*/
@@ -415,9 +416,13 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 RaycastHit hit;
-                if (Physics.Raycast(currentObject.transform.GetChild(1).transform.position, currentObject.transform.GetChild(1).transform.forward, out hit, Mathf.Infinity))
+                if (Physics.Raycast(currentObject.transform.Find("muzzle").transform.position, currentObject.transform.Find("muzzle").transform.forward, out hit, Mathf.Infinity))
                 {
-                    Debug.Log(hit.collider.transform.name);
+                    currentObject.transform.Find("muzzleFlash").GetComponent<ParticleSystem>().Play();
+                    if (hit.rigidbody != null)
+                    {
+                        hit.rigidbody.AddForce(-hit.normal * gunImpactForce);
+                    }
                 }
             }
         }
