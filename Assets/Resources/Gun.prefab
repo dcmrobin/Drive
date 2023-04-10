@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1171440216685003542}
   m_Layer: 7
   m_Name: muzzle
-  m_TagString: Untagged
+  m_TagString: gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: -7563094929304141961}
   m_Layer: 7
   m_Name: Gun
-  m_TagString: pickupable
+  m_TagString: gun
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

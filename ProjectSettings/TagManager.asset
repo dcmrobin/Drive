@@ -11,6 +11,7 @@ TagManager:
   - pausemenu
   - crosshair
   - car
+  - gun
   layers:
   - Default
   - TransparentFX

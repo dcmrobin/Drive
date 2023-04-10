@@ -216,7 +216,7 @@ public class PlayerController : MonoBehaviour
         // check if player is looking at pickupable
         if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask))
         {
-            if (hit.collider.transform.CompareTag("pickupable") && !driving)
+            if (hit.collider.transform.CompareTag("pickupable") || hit.collider.transform.CompareTag("gun") && !driving)
             {
                 currentObject = hit.transform.gameObject;
                 crosshair.GetComponent<Image>().sprite = pickupableCrosshair;
@@ -230,7 +230,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // grab the object
-        if (canGrabby && currentObject.transform.GetChild(0).tag != "gun")
+        if (canGrabby && currentObject.transform.tag != "gun")
         {
             if (canGrabby && Input.GetMouseButton(0))
             {
@@ -248,16 +248,19 @@ public class PlayerController : MonoBehaviour
                 grabby = false;
             }
         }
-        else if (canGrabby && currentObject.transform.GetChild(0).tag == "gun")
+        else if (canGrabby && currentObject.transform.tag == "gun")
         {
+            if (canGrabby && Input.GetMouseButtonDown(0))
+            {
+                currentObject.GetComponent<PhotonView>().RequestOwnership();
+                currentObject.transform.parent = playerCameraPivot.transform.Find("objectTarget");
+                currentObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            }
             if (canGrabby && Input.GetMouseButton(0))
             {
                 crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
                 currentObject.GetComponent<Rigidbody>().isKinematic = true;
-                currentObject.GetComponent<PhotonView>().RequestOwnership();
-                currentObject.transform.parent = playerCameraPivot.transform.Find("objectTarget");
                 currentObject.transform.position = playerCameraPivot.transform.Find("objectTarget").position;
-                currentObject.transform.rotation = Quaternion.identity;
                 holdingGun = true;
                 grabby = true;
             }
