@@ -53,6 +53,7 @@ public class PlayerController : MonoBehaviour
     int screenshotNum = 0;
     public GameObject lobbyController;
     bool holdingGun;
+    public GameObject gunImactEffect;
 
     void Start()
     {
@@ -422,6 +423,8 @@ public class PlayerController : MonoBehaviour
                     if (hit.rigidbody != null)
                     {
                         hit.rigidbody.AddForce(-hit.normal * gunImpactForce);
+                        GameObject imactEffect = Instantiate(gunImactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                        Destroy(imactEffect, 2f);
                     }
                 }
             }
