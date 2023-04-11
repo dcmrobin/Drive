@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7585185690485310002}
-  - component: {fileID: 5539758398592642635}
+  - component: {fileID: 4114687472536148002}
   m_Layer: 0
   m_Name: RoomController
   m_TagString: Untagged
@@ -27,11 +27,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 103.81273, y: 84.241455, z: 7.903061}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5539758398592642635
+--- !u!114 &4114687472536148002
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8923731880354926320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e83b792092c813b4ea57c6cd6731d3ca, type: 3}
+  m_Script: {fileID: 11500000, guid: c306111932d21d544807f38248573e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   multiplayerSceneIndex: 1

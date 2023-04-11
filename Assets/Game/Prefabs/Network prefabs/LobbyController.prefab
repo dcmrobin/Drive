@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6350891243271602099}
-  - component: {fileID: 7967276477246572781}
+  - component: {fileID: 4301703469231740570}
   m_Layer: 0
   m_Name: LobbyController
-  m_TagString: Untagged
+  m_TagString: lobbyController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,11 +27,12 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 103.81273, y: 84.241455, z: 7.903061}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7967276477246572781
+--- !u!114 &4301703469231740570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -40,8 +41,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8925273334174957390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c2d77b945db08447a768810850f532e, type: 3}
+  m_Script: {fileID: 11500000, guid: dc67951ae07fd1042b4f4d8c61cb0919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userNmText: {fileID: 0}
   buttonText: {fileID: 0}
-  roomSize: 4
+  roomSize: 10
+  singleplayerSceneIndex: 2
+  gameMode: 0
