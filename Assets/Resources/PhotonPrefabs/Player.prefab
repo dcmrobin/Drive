@@ -3092,6 +3092,7 @@ MonoBehaviour:
   isRunning: 0
   pv: {fileID: 6252819527002492011}
   lobbyController: {fileID: 0}
+  gunImactEffect: {fileID: 100006, guid: 0438351a6e6422d43a09930e9be00ee9, type: 3}
 --- !u!54 &7511496887530303694
 Rigidbody:
   m_ObjectHideFlags: 0
