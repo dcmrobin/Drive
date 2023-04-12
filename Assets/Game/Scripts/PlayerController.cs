@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 {
     public Text nickname;
     public GameObject objTarget;
+    public GameObject gunTarget;
     GameObject[] playerCrosshairs;
     public GameObject[] allCars;
     public GameObject pauseMenu;
@@ -37,16 +38,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public GameObject playerCameraPivot;
 
     private Rigidbody rb;
-    private bool isGrounded;
+    public bool isGrounded;
     private float lookX;
     private float lookY;
     public bool driving;
     public GameObject currentCar;
     public GameObject currentObject;
+    public GameObject currentGun;
     public GameObject currentDoor;
-    private bool canGrabby;
+    public bool canGrabby;
     public bool grabby;
-    private bool holdingGun;
+    public bool holdingGun;
     public bool thirdPersonViewActive = false;
     public bool isPaused = false;
     public bool isRunning = false;
@@ -231,7 +233,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
 
         // grab the object
-        if (canGrabby && currentObject.transform.tag != "gun")
+        if (canGrabby && currentObject.transform.tag != "gun" && currentGun == null)
         {
             if (canGrabby && Input.GetMouseButtonDown(0))
             {
@@ -241,20 +243,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 grabby = true;
                 crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
-                //currentObject.GetComponent<Rigidbody>().isKinematic = true;
+                currentObject.GetComponent<Rigidbody>().isKinematic = true;
                 currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, true, pv.ViewID);
 
-                //currentObject.transform.parent = objTarget.transform;
-                //currentObject.transform.position = objTarget.transform.position;
+                currentObject.transform.parent = objTarget.transform;
+                currentObject.transform.position = objTarget.transform.position;
                 currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, true, pv.ViewID);
                 currentObject.GetComponent<PhotonView>().RPC("UpdatePosition", RpcTarget.All, pv.ViewID);
             }
-            else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null)
+            else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null && currentGun == null)
             {
                 grabby = false;
-                //currentObject.GetComponent<Rigidbody>().isKinematic = false;
+                currentObject.GetComponent<Rigidbody>().isKinematic = false;
                 currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
-                //currentObject.transform.parent = null;
+                currentObject.transform.parent = null;
                 currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
             }
         }
@@ -262,40 +264,54 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (canGrabby && Input.GetMouseButtonDown(0))
             {
-                currentObject.GetComponent<PhotonView>().RequestOwnership();
-                //currentObject.transform.parent = objTarget.transform;
-                currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, true, pv.ViewID);
-                currentObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                currentGun = currentObject;
+                currentGun.GetComponent<PhotonView>().RequestOwnership();
+                currentGun.transform.parent = gunTarget.transform;
+                currentGun.GetComponent<PhotonView>().RPC("UpdateGunParent", RpcTarget.All, true, pv.ViewID);
+                currentGun.transform.localRotation = Quaternion.Euler(0, 0, 0);
             }
             if (canGrabby && Input.GetMouseButton(0))
             {
                 crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
-                //currentObject.GetComponent<Rigidbody>().isKinematic = true;
-                currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, true, pv.ViewID);
-                //currentObject.transform.position = objTarget.transform.position;
-                currentObject.GetComponent<PhotonView>().RPC("UpdatePosition", RpcTarget.All, pv.ViewID);
+                currentGun.GetComponent<Rigidbody>().isKinematic = true;
+                currentGun.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, true, pv.ViewID);
+                currentGun.transform.position = gunTarget.transform.position;
+                currentGun.GetComponent<PhotonView>().RPC("UpdateGunPosition", RpcTarget.All, pv.ViewID);
                 holdingGun = true;
                 grabby = true;
             }
-            else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null)
+            else if (grabby && !Input.GetMouseButton(0) && currentGun != null)
             {
-                //currentObject.GetComponent<Rigidbody>().isKinematic = false;
-                currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
-                //currentObject.transform.parent = null;
-                currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
+                currentGun.GetComponent<Rigidbody>().isKinematic = false;
+                currentGun.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
+                currentGun.transform.parent = null;
+                currentGun.GetComponent<PhotonView>().RPC("UpdateGunParent", RpcTarget.All, false, pv.ViewID);
                 holdingGun = false;
                 grabby = false;
+                currentGun = null;
             }
         }
 
         // drop override
-        if (driving && currentObject != null)
+        if (currentObject != null && driving || Input.GetMouseButtonUp(0))
         {
-            //currentObject.GetComponent<Rigidbody>().isKinematic = false;
+            currentObject.GetComponent<Rigidbody>().isKinematic = false;
             currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
+            currentObject.transform.parent = null;
             currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
             grabby = false;
             holdingGun = false;
+        }
+        else if (currentGun != null && !Input.GetMouseButton(0))
+        {
+            Debug.Log("drop");
+            currentGun.GetComponent<Rigidbody>().isKinematic = false;
+            currentGun.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
+            currentGun.transform.parent = null;
+            currentGun.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
+            grabby = false;
+            holdingGun = false;
+            currentGun = null;
         }
     }
 
@@ -451,17 +467,26 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
                 if (currentObject != null)
                 {
-                    if (Physics.Raycast(currentObject.transform.Find("muzzle").transform.position, currentObject.transform.Find("muzzle").transform.forward, out hit, Mathf.Infinity))
+                    if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity))
                     {
                         if (hit.rigidbody != null)
                         {
+                            GameObject impactEffect;
                             if (hit.transform.GetComponent<PhotonView>() != null && hit.transform.CompareTag("pickupable"))
                             {
                                 hit.transform.GetComponent<PhotonView>().RequestOwnership();
                             }
                             hit.rigidbody.AddForce(-hit.normal * gunImpactForce);
-                            GameObject impactEffect = PhotonNetwork.Instantiate(gunImactEffect.name, hit.point, Quaternion.LookRotation(hit.normal));
-                            StartCoroutine(PhotonDestroy(impactEffect));
+                            if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
+                            {
+                                impactEffect = PhotonNetwork.Instantiate(gunImactEffect.name, hit.point, Quaternion.LookRotation(hit.normal));
+                                StartCoroutine(PhotonDestroy(impactEffect));
+                            }
+                            else if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
+                            {
+                                impactEffect = Instantiate(gunImactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                                Destroy(impactEffect, 3f);
+                            }
                         }
                     }
                 }
@@ -490,9 +515,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [PunRPC]
     void ShootGun()
     {
-        if (currentObject != null && currentObject.transform.Find("muzzleFlash") != null && currentObject.transform.Find("muzzleFlash").GetComponent<ParticleSystem>() != null)
+        if (currentGun != null && currentGun.transform.Find("muzzleFlash") != null && currentGun.transform.Find("muzzleFlash").GetComponent<ParticleSystem>() != null)
         {
-            currentObject.transform.Find("muzzleFlash").GetComponent<ParticleSystem>().Play();
+            currentGun.transform.Find("muzzleFlash").GetComponent<ParticleSystem>().Play();
         }
     }
 

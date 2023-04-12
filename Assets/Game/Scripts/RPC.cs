@@ -21,10 +21,31 @@ public class RPC : MonoBehaviour
     }
 
     [PunRPC]
+    void UpdateGunParent(bool boolean, int ID)
+    {
+        PhotonView id = PhotonView.Find(ID);
+        if (boolean)
+        {
+            transform.parent = id.GetComponent<PlayerController>().gunTarget.transform;
+        }
+        else if (!boolean)
+        {
+            transform.parent = null;
+        }
+    }
+
+    [PunRPC]
     void UpdatePosition(int ID)
     {
         PhotonView id = PhotonView.Find(ID);
         transform.position = id.GetComponent<PlayerController>().objTarget.transform.position;
+    }
+
+    [PunRPC]
+    void UpdateGunPosition(int ID)
+    {
+        PhotonView id = PhotonView.Find(ID);
+        transform.position = id.GetComponent<PlayerController>().gunTarget.transform.position;
     }
 
     [PunRPC]
