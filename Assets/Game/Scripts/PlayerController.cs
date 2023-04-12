@@ -241,7 +241,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 grabby = true;
                 crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
-                currentObject.GetComponent<Rigidbody>().isKinematic = true;
+                //currentObject.GetComponent<Rigidbody>().isKinematic = true;
+                currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, true, pv.ViewID);
 
                 //currentObject.transform.parent = objTarget.transform;
                 //currentObject.transform.position = objTarget.transform.position;
@@ -251,7 +252,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
             else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null)
             {
                 grabby = false;
-                currentObject.GetComponent<Rigidbody>().isKinematic = false;
+                //currentObject.GetComponent<Rigidbody>().isKinematic = false;
+                currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
                 //currentObject.transform.parent = null;
                 currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
             }
@@ -268,7 +270,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if (canGrabby && Input.GetMouseButton(0))
             {
                 crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
-                currentObject.GetComponent<Rigidbody>().isKinematic = true;
+                //currentObject.GetComponent<Rigidbody>().isKinematic = true;
+                currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, true, pv.ViewID);
                 //currentObject.transform.position = objTarget.transform.position;
                 currentObject.GetComponent<PhotonView>().RPC("UpdatePosition", RpcTarget.All, pv.ViewID);
                 holdingGun = true;
@@ -276,7 +279,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
             else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null)
             {
-                currentObject.GetComponent<Rigidbody>().isKinematic = false;
+                //currentObject.GetComponent<Rigidbody>().isKinematic = false;
+                currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
                 //currentObject.transform.parent = null;
                 currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
                 holdingGun = false;
@@ -287,7 +291,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         // drop override
         if (driving && currentObject != null)
         {
-            currentObject.GetComponent<Rigidbody>().isKinematic = false;
+            //currentObject.GetComponent<Rigidbody>().isKinematic = false;
+            currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
             currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
             grabby = false;
             holdingGun = false;
@@ -313,6 +318,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         GetComponent<CapsuleCollider>().isTrigger = true;
                         transform.parent = currentCar.transform.Find("seatTarget");
                         GetComponent<Rigidbody>().isKinematic = true;
+                        pv.RPC("UpdatePlayerRigidbody", RpcTarget.All, true);
                         transform.position = currentCar.transform.Find("seatTarget").transform.position;
                         currentCar.GetComponent<SimpleCarController>().enabled = true;
                     }
@@ -325,6 +331,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, pv.ViewID);
             transform.parent = null;
             GetComponent<Rigidbody>().isKinematic = false;
+            pv.RPC("UpdatePlayerRigidbody", RpcTarget.All, false);
             transform.position += new Vector3(0, 5, 0);
             GetComponent<CapsuleCollider>().isTrigger = false;
             currentCar.GetComponent<SimpleCarController>().enabled = false;
@@ -485,5 +492,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             currentObject.transform.Find("muzzleFlash").GetComponent<ParticleSystem>().Play();
         }
+    }
+
+    [PunRPC]
+    void UpdatePlayerRigidbody(bool boolean)
+    {
+        GetComponent<Rigidbody>().isKinematic = boolean;
     }
 }

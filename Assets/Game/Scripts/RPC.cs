@@ -26,4 +26,11 @@ public class RPC : MonoBehaviour
         PhotonView id = PhotonView.Find(ID);
         transform.position = id.GetComponent<PlayerController>().objTarget.transform.position;
     }
+
+    [PunRPC]
+    void UpdateRigidbody(bool boolean, int ID)
+    {
+        PhotonView id = PhotonView.Find(ID);
+        GetComponent<Rigidbody>().isKinematic = boolean;
+    }
 }
