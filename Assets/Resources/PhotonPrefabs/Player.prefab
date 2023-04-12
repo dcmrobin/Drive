@@ -3026,11 +3026,15 @@ MonoBehaviour:
     m_Bits: 251
   gunImpactForce: 500
   playerCameraPivot: {fileID: 7290564772093562209}
+  isGrounded: 0
   driving: 0
   currentCar: {fileID: 0}
   currentObject: {fileID: 0}
+  currentGun: {fileID: 0}
   currentDoor: {fileID: 0}
+  canGrabby: 0
   grabby: 0
+  holdingGun: 0
   thirdPersonViewActive: 0
   isPaused: 0
   isRunning: 0

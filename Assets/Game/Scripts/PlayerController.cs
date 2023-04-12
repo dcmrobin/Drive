@@ -304,7 +304,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         else if (currentGun != null && !Input.GetMouseButton(0))
         {
-            Debug.Log("drop");
             currentGun.GetComponent<Rigidbody>().isKinematic = false;
             currentGun.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
             currentGun.transform.parent = null;
