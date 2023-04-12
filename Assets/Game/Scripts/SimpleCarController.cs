@@ -58,14 +58,14 @@ public class SimpleCarController : MonoBehaviour {
     }
 
     [PunRPC]
-    void UpdateDriver(int playerViewID)
+    void UpdateDriver(bool isDriving, int playerViewID)
     {
         PhotonView playerView = PhotonView.Find(playerViewID);
-        if (playerView.gameObject.GetComponent<PlayerController>().driving)
+        if (isDriving)
         {
             currentDriver = playerView.gameObject;
         }
-        else if (!playerView.gameObject.GetComponent<PlayerController>().driving)
+        else if (!isDriving)
         {
             currentDriver = null;
         }

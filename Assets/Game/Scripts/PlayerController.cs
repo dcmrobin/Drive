@@ -314,8 +314,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     {
                         driving = true;
                         currentCar.GetComponent<PhotonView>().RequestOwnership();
-                        currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, pv.ViewID);
+                        currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, true, pv.ViewID);
                         GetComponent<CapsuleCollider>().isTrigger = true;
+                        pv.RPC("UpdatePlayerCollider", RpcTarget.All, true);
                         transform.parent = currentCar.transform.Find("seatTarget");
                         GetComponent<Rigidbody>().isKinematic = true;
                         pv.RPC("UpdatePlayerRigidbody", RpcTarget.All, true);
@@ -328,12 +329,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (driving && Input.GetKeyDown(KeyCode.E))
         {
             driving = false;
-            currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, pv.ViewID);
+            currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, false, pv.ViewID);
             transform.parent = null;
             GetComponent<Rigidbody>().isKinematic = false;
             pv.RPC("UpdatePlayerRigidbody", RpcTarget.All, false);
             transform.position += new Vector3(0, 5, 0);
             GetComponent<CapsuleCollider>().isTrigger = false;
+            pv.RPC("UpdatePlayerCollider", RpcTarget.All, false);
             currentCar.GetComponent<SimpleCarController>().enabled = false;
             currentCar = null;
         }
@@ -498,5 +500,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void UpdatePlayerRigidbody(bool boolean)
     {
         GetComponent<Rigidbody>().isKinematic = boolean;
+    }
+
+    [PunRPC]
+    void UpdatePlayerCollider(bool boolean)
+    {
+        GetComponent<Collider>().isTrigger = boolean;
     }
 }
