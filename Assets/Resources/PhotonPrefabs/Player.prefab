@@ -2926,8 +2926,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nickname: {fileID: 4043451770475331071}
+  objTarget: {fileID: 7511496887255828248}
   allCars: []
-  currentDriver: {fileID: 0}
   pauseMenu: {fileID: 2508726181124878228}
   crosshair: {fileID: 2508726181910623241}
   normalCrosshair: {fileID: 21300000, guid: bda7d8f40c0237548aaeb8dd1e5ab390, type: 3}
@@ -2953,6 +2953,10 @@ MonoBehaviour:
   gunImpactForce: 500
   playerCameraPivot: {fileID: 7290564772093562209}
   driving: 0
+  currentCar: {fileID: 0}
+  currentObject: {fileID: 0}
+  currentDoor: {fileID: 0}
+  grabby: 0
   thirdPersonViewActive: 0
   isPaused: 0
   isRunning: 0

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 
 [System.Serializable]
 public class AxleInfo {
@@ -15,6 +16,8 @@ public class SimpleCarController : MonoBehaviour {
     public float maxMotorTorque;
     public float maxSteeringAngle;
     public Transform steeringWheel;
+    public GameObject currentDriver;
+    public PhotonView pv;
      
     // finds the corresponding visual wheel
     // correctly applies the transform
@@ -51,6 +54,20 @@ public class SimpleCarController : MonoBehaviour {
             }
             ApplyLocalPositionToVisuals(axleInfo.leftWheel);
             ApplyLocalPositionToVisuals(axleInfo.rightWheel);
+        }
+    }
+
+    [PunRPC]
+    void UpdateDriver(int playerViewID)
+    {
+        PhotonView playerView = PhotonView.Find(playerViewID);
+        if (playerView.gameObject.GetComponent<PlayerController>().driving)
+        {
+            currentDriver = playerView.gameObject;
+        }
+        else if (!playerView.gameObject.GetComponent<PlayerController>().driving)
+        {
+            currentDriver = null;
         }
     }
 }

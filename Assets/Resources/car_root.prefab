@@ -490,6 +490,8 @@ MonoBehaviour:
   maxMotorTorque: 400
   maxSteeringAngle: 30
   steeringWheel: {fileID: 6808478748734193825}
+  currentDriver: {fileID: 0}
+  pv: {fileID: 0}
 --- !u!114 &4224813995677540476
 MonoBehaviour:
   m_ObjectHideFlags: 0

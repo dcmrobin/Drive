@@ -7,12 +7,12 @@ using Photon.Realtime;
 using System.IO;
 using System;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviourPunCallbacks
 {
     public Text nickname;
+    public GameObject objTarget;
     GameObject[] playerCrosshairs;
     public GameObject[] allCars;
-    public GameObject currentDriver;
     public GameObject pauseMenu;
     public GameObject crosshair;
     public Sprite normalCrosshair;
@@ -41,20 +41,19 @@ public class PlayerController : MonoBehaviour
     private float lookX;
     private float lookY;
     public bool driving;
-    private GameObject currentCar;
-    private GameObject currentObject;
-    private GameObject currentDoor;
+    public GameObject currentCar;
+    public GameObject currentObject;
+    public GameObject currentDoor;
     private bool canGrabby;
-    private bool grabby;
+    public bool grabby;
+    private bool holdingGun;
     public bool thirdPersonViewActive = false;
     public bool isPaused = false;
     public bool isRunning = false;
     public PhotonView pv;
     int screenshotNum = 0;
     public GameObject lobbyController;
-    bool holdingGun;
     public GameObject gunImactEffect;
-
     void Start()
     {
         lobbyController = GameObject.FindGameObjectWithTag("lobbyController");
@@ -240,21 +239,21 @@ public class PlayerController : MonoBehaviour
             }
             if (canGrabby && Input.GetMouseButton(0))
             {
+                grabby = true;
                 crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
                 currentObject.GetComponent<Rigidbody>().isKinematic = true;
 
-                if (pv.IsMine)
-                {
-                    currentObject.transform.parent = playerCameraPivot.transform.Find("objectTarget");
-                }
-                currentObject.transform.position = playerCameraPivot.transform.Find("objectTarget").position;
-                grabby = true;
+                //currentObject.transform.parent = objTarget.transform;
+                //currentObject.transform.position = objTarget.transform.position;
+                currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, true, pv.ViewID);
+                currentObject.GetComponent<PhotonView>().RPC("UpdatePosition", RpcTarget.All, pv.ViewID);
             }
             else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null)
             {
-                currentObject.GetComponent<Rigidbody>().isKinematic = false;
-                currentObject.transform.parent = null;
                 grabby = false;
+                currentObject.GetComponent<Rigidbody>().isKinematic = false;
+                //currentObject.transform.parent = null;
+                currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
             }
         }
         else if (canGrabby && currentObject.transform.tag == "gun")
@@ -262,27 +261,24 @@ public class PlayerController : MonoBehaviour
             if (canGrabby && Input.GetMouseButtonDown(0))
             {
                 currentObject.GetComponent<PhotonView>().RequestOwnership();
-                if (pv.IsMine)
-                {
-                    currentObject.transform.parent = playerCameraPivot.transform.Find("objectTarget");
-                }
+                //currentObject.transform.parent = objTarget.transform;
+                currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, true, pv.ViewID);
                 currentObject.transform.localRotation = Quaternion.Euler(0, 0, 0);
             }
             if (canGrabby && Input.GetMouseButton(0))
             {
                 crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
                 currentObject.GetComponent<Rigidbody>().isKinematic = true;
-                if (pv.IsMine)
-                {
-                    currentObject.transform.position = playerCameraPivot.transform.Find("objectTarget").position;
-                }
+                //currentObject.transform.position = objTarget.transform.position;
+                currentObject.GetComponent<PhotonView>().RPC("UpdatePosition", RpcTarget.All, pv.ViewID);
                 holdingGun = true;
                 grabby = true;
             }
             else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null)
             {
                 currentObject.GetComponent<Rigidbody>().isKinematic = false;
-                currentObject.transform.parent = null;
+                //currentObject.transform.parent = null;
+                currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
                 holdingGun = false;
                 grabby = false;
             }
@@ -292,7 +288,7 @@ public class PlayerController : MonoBehaviour
         if (driving && currentObject != null)
         {
             currentObject.GetComponent<Rigidbody>().isKinematic = false;
-            currentObject.transform.parent = null;
+            currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
             grabby = false;
             holdingGun = false;
         }
@@ -303,27 +299,30 @@ public class PlayerController : MonoBehaviour
         // check if player is looking at car
         if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask))
         {
-            if (hit.collider.transform.CompareTag("seat") && !driving && currentDriver == null)
+            if (hit.collider.transform.CompareTag("seat") && !driving)
             {
                 crosshair.GetComponent<Image>().sprite = carCrosshair;
                 if (Input.GetMouseButtonDown(0))
                 {
                     currentCar = hit.transform.gameObject;
-                    currentCar.GetComponent<PhotonView>().RequestOwnership();
-                    currentDriver = gameObject;
-                    driving = true;
-                    GetComponent<CapsuleCollider>().isTrigger = true;
-                    transform.parent = currentCar.transform.Find("seatTarget");
-                    GetComponent<Rigidbody>().isKinematic = true;
-                    transform.position = currentCar.transform.Find("seatTarget").transform.position;
-                    currentCar.GetComponent<SimpleCarController>().enabled = true;
+                    if (currentCar.GetComponent<SimpleCarController>().currentDriver == null)
+                    {
+                        driving = true;
+                        currentCar.GetComponent<PhotonView>().RequestOwnership();
+                        currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, pv.ViewID);
+                        GetComponent<CapsuleCollider>().isTrigger = true;
+                        transform.parent = currentCar.transform.Find("seatTarget");
+                        GetComponent<Rigidbody>().isKinematic = true;
+                        transform.position = currentCar.transform.Find("seatTarget").transform.position;
+                        currentCar.GetComponent<SimpleCarController>().enabled = true;
+                    }
                 }
             }
         }
         if (driving && Input.GetKeyDown(KeyCode.E))
         {
             driving = false;
-            currentDriver = null;
+            currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, pv.ViewID);
             transform.parent = null;
             GetComponent<Rigidbody>().isKinematic = false;
             transform.position += new Vector3(0, 5, 0);
@@ -447,7 +446,7 @@ public class PlayerController : MonoBehaviour
                     {
                         if (hit.rigidbody != null)
                         {
-                            if (hit.transform.GetComponent<PhotonView>() != null)
+                            if (hit.transform.GetComponent<PhotonView>() != null && hit.transform.CompareTag("pickupable"))
                             {
                                 hit.transform.GetComponent<PhotonView>().RequestOwnership();
                             }
