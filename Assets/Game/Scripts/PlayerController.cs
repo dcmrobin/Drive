@@ -293,8 +293,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
 
         // drop override
-        if (grabby)
-        {
+        //if (grabby)
+        //{
             if (currentObject != null && driving || Input.GetMouseButtonUp(0))
             {
                 currentObject.GetComponent<Rigidbody>().isKinematic = false;
@@ -314,7 +314,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 holdingGun = false;
                 currentGun = null;
             }
-        }
+        //}
     }
 
     public void drive()
