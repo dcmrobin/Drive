@@ -293,24 +293,27 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
 
         // drop override
-        if (currentObject != null && driving || Input.GetMouseButtonUp(0))
+        if (grabby)
         {
-            currentObject.GetComponent<Rigidbody>().isKinematic = false;
-            currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
-            currentObject.transform.parent = null;
-            currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
-            grabby = false;
-            holdingGun = false;
-        }
-        else if (currentGun != null && !Input.GetMouseButton(0))
-        {
-            currentGun.GetComponent<Rigidbody>().isKinematic = false;
-            currentGun.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
-            currentGun.transform.parent = null;
-            currentGun.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
-            grabby = false;
-            holdingGun = false;
-            currentGun = null;
+            if (currentObject != null && driving || Input.GetMouseButtonUp(0))
+            {
+                currentObject.GetComponent<Rigidbody>().isKinematic = false;
+                currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
+                currentObject.transform.parent = null;
+                currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
+                grabby = false;
+                holdingGun = false;
+            }
+            else if (currentGun != null &&!Input.GetMouseButton(0))
+            {
+                currentGun.GetComponent<Rigidbody>().isKinematic = false;
+                currentGun.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
+                currentGun.transform.parent = null;
+                currentGun.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
+                grabby = false;
+                holdingGun = false;
+                currentGun = null;
+            }
         }
     }
 
@@ -464,28 +467,28 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         ShootGun();
                     }
                 }
-                if (currentObject != null)
+                if (currentGun != null)
                 {
                     if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity))
                     {
+                        GameObject impactEffect;
+                        if (hit.transform.GetComponent<PhotonView>() != null && hit.transform.CompareTag("pickupable"))
+                        {
+                            hit.transform.GetComponent<PhotonView>().RequestOwnership();
+                        }
+                        if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
+                        {
+                            impactEffect = PhotonNetwork.Instantiate(gunImactEffect.name, hit.point, Quaternion.LookRotation(hit.normal));
+                            StartCoroutine(PhotonDestroy(impactEffect));
+                        }
+                        else if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
+                        {
+                            impactEffect = Instantiate(gunImactEffect, hit.point, Quaternion.LookRotation(hit.normal));
+                            Destroy(impactEffect, 3f);
+                        }
                         if (hit.rigidbody != null)
                         {
-                            GameObject impactEffect;
-                            if (hit.transform.GetComponent<PhotonView>() != null && hit.transform.CompareTag("pickupable"))
-                            {
-                                hit.transform.GetComponent<PhotonView>().RequestOwnership();
-                            }
                             hit.rigidbody.AddForce(-hit.normal * gunImpactForce);
-                            if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
-                            {
-                                impactEffect = PhotonNetwork.Instantiate(gunImactEffect.name, hit.point, Quaternion.LookRotation(hit.normal));
-                                StartCoroutine(PhotonDestroy(impactEffect));
-                            }
-                            else if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
-                            {
-                                impactEffect = Instantiate(gunImactEffect, hit.point, Quaternion.LookRotation(hit.normal));
-                                Destroy(impactEffect, 3f);
-                            }
                         }
                     }
                 }
