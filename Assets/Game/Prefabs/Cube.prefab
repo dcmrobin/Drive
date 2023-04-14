@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -1113732321184302107}
   - component: {fileID: 17364308804745902}
   - component: {fileID: 5536632805336481927}
+  - component: {fileID: 3508437894275957717}
   m_Layer: 7
   m_Name: Cube
   m_TagString: pickupable
@@ -187,3 +188,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aecf4a6d331ec742a31a0f6e74bb836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3508437894275957717
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2992085722208106396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410585bc6060af24f81d6e143ffba2ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 50
+  onDeath: 0
+  explosionEffect: {fileID: 19800004, guid: b69972c441e65954cb6bc4711d909596, type: 3}
+  steamEffect: {fileID: 19800004, guid: f8eb3a9d71d12a74ca3f9f9c2e194e02, type: 3}

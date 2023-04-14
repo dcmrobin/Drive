@@ -42,6 +42,7 @@
   <ItemGroup>
      <Compile Include="Assets\Game\Scripts\NetworkController.cs" />
      <Compile Include="Assets\Game\Scripts\GameSetupController.cs" />
+     <Compile Include="Assets\Game\Scripts\Damageable.cs" />
      <Compile Include="Assets\Game\Scripts\RPC.cs" />
      <Compile Include="Assets\Game\Scripts\Despawn.cs" />
      <Compile Include="Assets\Game\Scripts\PauseMenu.cs" />

@@ -1,6 +1,6 @@
 Make the gun have limited ammo so you have to reload, and not shoot as fast as you can press space.
 
-Make the car be destructable, like it's top speed goes down the more you shoot it, and when its health gets low enough, it explodes.
+Make the car be destructable, like it's top speed goes down the more you shoot it, and when its health gets low enough, it explodes or just breaks down. Also make the car repairable.
 
 Make the car have changable tires... so that maybe when a tire gets shot by the gun, it comes off?
 
@@ -12,4 +12,4 @@ Add sound!
 
 Make the car customizable. Maybe have spray-paint cans which can change the color of certain bits of the car?
 
-Maybe add hostile creatures that can be found all over the world?
+Maybe add creatures (Maybe some could be hostile?) that can be found all over the world?

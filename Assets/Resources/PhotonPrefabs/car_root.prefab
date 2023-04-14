@@ -411,6 +411,7 @@ GameObject:
   - component: {fileID: 4224813995677540476}
   - component: {fileID: 4035111246130889161}
   - component: {fileID: 2491442338842558504}
+  - component: {fileID: 8802258249852758341}
   m_Layer: 0
   m_Name: car_root
   m_TagString: car
@@ -564,6 +565,23 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &8802258249852758341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1419521865633326214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410585bc6060af24f81d6e143ffba2ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 300
+  onDeath: 1
+  explosionEffect: {fileID: 19800004, guid: b69972c441e65954cb6bc4711d909596, type: 3}
+  steamEffect: {fileID: 19800004, guid: f8eb3a9d71d12a74ca3f9f9c2e194e02, type: 3}
+  isSteaming: 0
 --- !u!1 &1419521865680269160
 GameObject:
   m_ObjectHideFlags: 0

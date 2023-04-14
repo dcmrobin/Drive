@@ -304,7 +304,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 grabby = false;
                 holdingGun = false;
             }
-            else if (currentGun != null &&!Input.GetMouseButton(0))
+            else if (currentGun != null && !Input.GetMouseButton(0))
             {
                 currentGun.GetComponent<Rigidbody>().isKinematic = false;
                 currentGun.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
@@ -346,6 +346,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         if (driving && Input.GetKeyDown(KeyCode.E))
         {
+            currentCar.transform.Find("wheels").Find("frontLeft").GetComponent<WheelCollider>().brakeTorque = 0;
+            currentCar.transform.Find("wheels").Find("frontRight").GetComponent<WheelCollider>().brakeTorque = 0;
+            currentCar.transform.Find("wheels").Find("rearLeft").GetComponent<WheelCollider>().brakeTorque = 0;
+            currentCar.transform.Find("wheels").Find("rearRight").GetComponent<WheelCollider>().brakeTorque = 0;
             driving = false;
             currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, false, pv.ViewID);
             transform.parent = null;
@@ -478,7 +482,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         }
                         if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
                         {
-                            impactEffect = PhotonNetwork.Instantiate(gunImactEffect.name, hit.point, Quaternion.LookRotation(hit.normal));
+                            impactEffect = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", gunImactEffect.name), hit.point, Quaternion.LookRotation(hit.normal));
                             StartCoroutine(PhotonDestroy(impactEffect));
                         }
                         else if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
@@ -489,6 +493,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         if (hit.rigidbody != null)
                         {
                             hit.rigidbody.AddForce(-hit.normal * gunImpactForce);
+                        }
+                        if (hit.transform.GetComponent<Damageable>() != null)
+                        {
+                            hit.transform.GetComponent<Damageable>().TakeDamage(25);
                         }
                     }
                 }
