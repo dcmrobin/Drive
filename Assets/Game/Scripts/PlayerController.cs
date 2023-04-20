@@ -66,6 +66,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
+    void OnConnectionFail(DisconnectCause cause)
+    {
+        Debug.Log(cause);
+    }
+
     void Update()
     {
         allCars = GameObject.FindGameObjectsWithTag("car");
@@ -496,7 +501,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         }
                         if (hit.transform.GetComponent<Damageable>() != null)
                         {
-                            hit.transform.GetComponent<Damageable>().TakeDamage(25);
+                            if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
+                            {
+                                hit.transform.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, 25);
+                            }
+                            else if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
+                            {
+                                hit.transform.GetComponent<Damageable>().TakeDamage(25);
+                            }
                         }
                     }
                 }

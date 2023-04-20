@@ -14,26 +14,31 @@ public class Damageable : MonoBehaviour
     public GameObject lobbyController;
     public bool isSteaming;
     bool hasExploded;
+    bool isDead = false;
 
     private void Start() {
         lobbyController = GameObject.FindGameObjectWithTag("lobbyController");
     }
 
     private void Update() {
-        if (health <= 0)
+        if (!isDead)
         {
-            if (onDeath == OnDead.Explode)
+            if (health <= 0)
             {
-                Explode();
-            }
-            else if (onDeath == OnDead.Disable)
-            {
-                Disable();
+                if (onDeath == OnDead.Explode)
+                {
+                    Explode();
+                }
+                else if (onDeath == OnDead.Disable)
+                {
+                    Disable();
+                }
+                isDead = true;
             }
         }
     }
 
-
+    [PunRPC]
     public void TakeDamage(int amount)
     {
         health -= amount;
@@ -96,6 +101,7 @@ public class Damageable : MonoBehaviour
         }
     }
 
+    [PunRPC]
     IEnumerator PhotonDestroy(GameObject thingToDestroy)
     {
         yield return new WaitForSeconds(0.1f);

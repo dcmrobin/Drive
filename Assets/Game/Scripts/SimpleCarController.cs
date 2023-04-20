@@ -39,6 +39,14 @@ public class SimpleCarController : MonoBehaviour {
      
     public void FixedUpdate()
     {
+        if (GetComponent<Damageable>() != null)
+        {
+            maxMotorTorque = GetComponent<Damageable>().health;
+        }
+        if (maxMotorTorque < 0)
+        {
+            maxMotorTorque = 0;
+        }
         float motor = maxMotorTorque * Input.GetAxis("Vertical");
         float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
      
@@ -54,7 +62,35 @@ public class SimpleCarController : MonoBehaviour {
             }
             ApplyLocalPositionToVisuals(axleInfo.leftWheel);
             ApplyLocalPositionToVisuals(axleInfo.rightWheel);
+            //IsSkidding(axleInfo.rightWheel);
+            //IsSkidding(axleInfo.leftWheel);
         }
+    }
+
+    public void IsSkidding(WheelCollider collider)
+    {
+        WheelHit hit = new WheelHit();
+
+        if (collider.isGrounded && collider.GetGroundHit(out hit))
+        {
+            if (hit.sidewaysSlip > 0.15 || hit.sidewaysSlip < -0.15)
+            {
+                StartEmitting(collider);
+            }
+            else
+            {
+                StopEmitting(collider);
+            }
+        }
+    }
+
+    void StartEmitting(WheelCollider collider)
+    {
+        collider.transform.Find("trail").GetComponent<TrailRenderer>().emitting = true;
+    }
+    void StopEmitting(WheelCollider collider)
+    {
+        collider.transform.Find("trail").GetComponent<TrailRenderer>().emitting = false;
     }
 
     [PunRPC]
