@@ -138,6 +138,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 door();
                 thirdPersonControl();
                 gunControl();
+                gunReloadControl();
             }
             handlePause();
         }
@@ -392,6 +393,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 if (Input.GetMouseButtonDown(0))
                 {
                     currentDoor = hit.collider.transform.parent.gameObject;
+                    currentDoor.GetComponent<PhotonView>().RequestOwnership();
                     if (currentDoor.GetComponent<CarDoor>().status == CarDoor.stat.Closed)
                     {
                         currentDoor.GetComponent<CarDoor>().status = CarDoor.stat.Open;
@@ -460,7 +462,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void gunControl()
     {
-        if (holdingGun)
+        if (holdingGun && currentGun.GetComponent<Gun>().ammo > 0 && currentGun != null)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
@@ -469,10 +471,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
                     {
+                        currentGun.GetComponent<PhotonView>().RPC("Shoot", RpcTarget.All, 1);
                         pv.RPC("ShootGun", RpcTarget.All);
                     }
                     else if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
                     {
+                        currentGun.GetComponent<Gun>().Shoot(1);
                         ShootGun();
                     }
                 }
@@ -511,6 +515,29 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+
+    public void gunReloadControl()
+    {
+        if (currentGun != null)
+        {
+            int originalAmmo = currentGun.GetComponent<Gun>().maxAmmo;
+            if (currentGun.GetComponent<Gun>().ammo <= 0)
+            {
+                if (currentGun.GetComponent<Gun>().reloadTimer < currentGun.GetComponent<Gun>().timeToReload)
+                {
+                    if (Input.GetKey(KeyCode.R))
+                    {
+                        currentGun.GetComponent<Gun>().reloadTimer += 0.25f;
+                    }
+                }
+                if (currentGun.GetComponent<Gun>().reloadTimer >= currentGun.GetComponent<Gun>().timeToReload)
+                {
+                    currentGun.GetComponent<Gun>().ammo = originalAmmo;
+                    currentGun.GetComponent<Gun>().reloadTimer = 0;
                 }
             }
         }

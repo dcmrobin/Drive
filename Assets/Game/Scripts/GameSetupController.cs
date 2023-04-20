@@ -13,6 +13,7 @@ public class GameSetupController : MonoBehaviourPunCallbacks
     Text usrText;
     public Color playerCol;
     GameObject player;
+    GameObject[] allGuns;
     //public Camera SceneCam;
     // Start is called before the first frame update
     void Awake()
@@ -20,6 +21,10 @@ public class GameSetupController : MonoBehaviourPunCallbacks
         playerCol = GameObject.Find("color").GetComponent<Image>().color;
         CreatePlayer();
         GameObject.Find("theCanvas").SetActive(false);
+    }
+
+    private void Update() {
+        allGuns = GameObject.FindGameObjectsWithTag("gun");
     }
 
     private void CreatePlayer()
@@ -47,5 +52,9 @@ public class GameSetupController : MonoBehaviourPunCallbacks
         {
             player.GetComponent<PlayerController>().currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, player.GetComponent<PhotonView>().ViewID);
         }*/
+        for (int i = 0; i < allGuns.Length; i++)
+        {
+            allGuns[i].GetComponent<PhotonView>().RPC("UpdateAmmo", RpcTarget.All);
+        }
     }
 }
