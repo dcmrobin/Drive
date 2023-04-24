@@ -10260,6 +10260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ammoNumber: {fileID: 7529765537029296928}
+  ammoCanvas: {fileID: 8709318029733425645}
   maxAmmo: 3
   timeToReload: 17
   ammo: 3

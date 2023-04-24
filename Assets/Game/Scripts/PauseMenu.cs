@@ -10,6 +10,7 @@ public class PauseMenu : MonoBehaviour
     public GameObject carPrefab;
     public bool buttonCooldown = false;
     public bool antiRollEnabled = true;
+    public bool gunAmmoVisible = true;
 
     public void Continue()
     {
@@ -47,6 +48,11 @@ public class PauseMenu : MonoBehaviour
     public void enableAntiRoll(bool antiRoll)
     {
         antiRollEnabled = antiRoll;
+    }
+
+    public void showAmmo(bool visible)
+    {
+        gunAmmoVisible = visible;
     }
 
     public void ResetCooldown()

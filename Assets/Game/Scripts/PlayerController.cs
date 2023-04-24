@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public GameObject gunTarget;
     GameObject[] playerCrosshairs;
     public GameObject[] allCars;
+    public GameObject[] allGuns;
     public GameObject pauseMenu;
     public GameObject crosshair;
     public Sprite normalCrosshair;
@@ -74,6 +75,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void Update()
     {
         allCars = GameObject.FindGameObjectsWithTag("car");
+        allGuns = GameObject.FindGameObjectsWithTag("gun");
         playerCrosshairs = GameObject.FindGameObjectsWithTag("crosshair");
         // get the horizontal and vertical mouse input
         float mouseX = Input.GetAxis("Mouse X") * lookSensitivity;
@@ -81,6 +83,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (pv.IsMine)
         {
+            // anti-roll bars enabled?
             if (pauseMenu.GetComponent<PauseMenu>().antiRollEnabled)
             {
                 for (int i = 0; i < allCars.Length; i++)
@@ -96,20 +99,28 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
             }
 
-            if (!isPaused)
+            // show ammo?
+            if (pauseMenu.GetComponent<PauseMenu>().gunAmmoVisible)
             {
-                // update the look angles
-                lookX += mouseX;
-                lookY = Mathf.Clamp(lookY - mouseY, -maxLookAngle, maxLookAngle);
-        
-                // rotate the player and camera based on the mouse input
-                transform.localRotation = Quaternion.Euler(0f, lookX, 0f);
-                playerCameraPivot.transform.localRotation = Quaternion.Euler(lookY, 0f, 0f);
+                for (int i = 0; i < allGuns.Length; i++)
+                {
+                    if (allGuns[i].GetComponent<Gun>() != null)
+                    {
+                        allGuns[i].GetComponent<Gun>().ammoCanvas.SetActive(true);
+                    }
+                }
             }
-        }
+            else if (!pauseMenu.GetComponent<PauseMenu>().gunAmmoVisible)
+            {
+                for (int i = 0; i < allGuns.Length; i++)
+                {
+                    if (allGuns[i].GetComponent<Gun>() != null)
+                    {
+                        allGuns[i].GetComponent<Gun>().ammoCanvas.SetActive(false);
+                    }
+                }
+            }
 
-        if (pv.IsMine)
-        {
             if (!driving)
             {
                 // check if the player is grounded
@@ -127,12 +138,18 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 }
             }
-        }
 
-        if (pv.IsMine)
-        {
             if (!isPaused)
             {
+                // update the look angles
+                lookX += mouseX;
+                lookY = Mathf.Clamp(lookY - mouseY, -maxLookAngle, maxLookAngle);
+        
+                // rotate the player and camera based on the mouse input
+                transform.localRotation = Quaternion.Euler(0f, lookX, 0f);
+                playerCameraPivot.transform.localRotation = Quaternion.Euler(lookY, 0f, 0f);
+
+                // execute methods
                 pickUp();
                 drive();
                 door();
@@ -142,6 +159,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
             handlePause();
         }
+
         if (pv.IsMine)
         {
             if (!isPaused)

@@ -7,6 +7,7 @@ using TMPro;
 public class Gun : MonoBehaviour
 {
     public TMP_Text ammoNumber;
+    public GameObject ammoCanvas;
     public int maxAmmo = 3;
     public float timeToReload = 17;
     public int ammo;
@@ -31,6 +32,9 @@ public class Gun : MonoBehaviour
     }
 
     private void Update() {
-        ammoNumber.text = ammo.ToString();
+        if (ammoNumber != null)
+        {
+            ammoNumber.text = ammo.ToString();
+        }
     }
 }

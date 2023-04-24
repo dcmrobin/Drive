@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1440
     height: 817
   m_ShowMode: 4
-  m_Title: Hierarchy
+  m_Title: Game
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -271,8 +271,8 @@ MonoBehaviour:
     y: 0
     width: 326
     height: 767
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
@@ -415,23 +415,23 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: 3ef7ffff
       m_LastClickedID: 0
-      m_ExpandedIDs: 881ffaffb02cfaffe22dfaffbe32faffc832faff0433faff4648faffaad5faffdc7efbffe893fbff1222fcff4cc5fcff786afdff560efeff2057ffff92f3ffff26fbffffba9e0000d89e0000
+      m_ExpandedIDs: 26fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
-        m_Name: ControlsTitle
-        m_OriginalName: ControlsTitle
+        m_Name: 
+        m_OriginalName: 
         m_EditFieldRect:
           serializedVersion: 2
           x: 0
           y: 0
           width: 0
           height: 0
-        m_UserData: 40664
+        m_UserData: 0
         m_IsWaitingForDelay: 0
         m_IsRenaming: 0
-        m_OriginalEventType: 0
+        m_OriginalEventType: 11
         m_IsRenamingFilename: 0
         m_ClientGUIView: {fileID: 8}
       m_SearchString: 
@@ -887,7 +887,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: -0.026987063, y: -0.026690787, z: 0.0007208117, w: -0.99927944}
     speed: 2
-    m_Value: {x: -0.03593736, y: -0.055139903, z: 0.0019858794, w: -0.99782974}
+    m_Value: {x: -0.026987057, y: -0.026690781, z: 0.00072081154, w: -0.9992792}
   m_Size:
     m_Target: 134.05573
     speed: 2
@@ -1015,7 +1015,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 387}
     m_SelectedIDs: aa780000
     m_LastClickedID: 30890
-    m_ExpandedIDs: 00000000627800006478000066780000687800006a7800006c7800006e780000707800007278000074780000767800008278000000ca9a3b
+    m_ExpandedIDs: 000000006478000066780000687800006a7800006c7800006e7800007078000072780000747800007678000078780000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1043,7 +1043,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000627800006478000066780000687800006a7800006c7800006e78000070780000727800007478000076780000
+    m_ExpandedIDs: 000000006478000066780000687800006a7800006c7800006e7800007078000072780000747800007678000078780000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
