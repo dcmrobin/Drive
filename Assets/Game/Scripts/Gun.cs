@@ -9,6 +9,7 @@ public class Gun : MonoBehaviour
     public TMP_Text ammoNumber;
     public GameObject ammoCanvas;
     public int maxAmmo = 3;
+    public int damage = 25;
     public float timeToReload = 17;
     public int ammo;
     public float reloadTimer = 0;

@@ -42,6 +42,7 @@ public class GameSetupController : MonoBehaviourPunCallbacks
     {
         base.OnPlayerEnteredRoom(newPlayer);
         player.GetComponent<PhotonView>().RPC("UpdatePlayerColor", RpcTarget.All, playerCol.r, playerCol.g, playerCol.b);
+        player.GetComponent<PhotonView>().RPC("UpdateHealth", RpcTarget.All);
         /*player.GetComponent<PlayerController>().currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, player.GetComponent<PhotonView>().ViewID);
         if (player.GetComponent<PlayerController>().grabby)
         {
@@ -54,7 +55,10 @@ public class GameSetupController : MonoBehaviourPunCallbacks
         }*/
         for (int i = 0; i < allGuns.Length; i++)
         {
-            allGuns[i].GetComponent<PhotonView>().RPC("UpdateAmmo", RpcTarget.All);
+            if (allGuns[i].GetComponent<PhotonView>() != null)
+            {
+                allGuns[i].GetComponent<PhotonView>().RPC("UpdateAmmo", RpcTarget.All);
+            }
         }
     }
 }

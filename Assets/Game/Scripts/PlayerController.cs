@@ -10,6 +10,7 @@ using System;
 public class PlayerController : MonoBehaviourPunCallbacks
 {
     public Text nickname;
+    public Slider healthbar;
     public GameObject objTarget;
     public GameObject gunTarget;
     GameObject[] playerCrosshairs;
@@ -27,6 +28,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public float lookSensitivity = 3f;
     public float maxLookAngle = 90f;
     public float groundDistance = 0.1f;
+    public float maxHealth = 100;
+    public float health;
     public LayerMask groundMask;
     public LayerMask clickMask;
     public LayerMask camCollideMask;
@@ -38,6 +41,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public GameObject playerCameraPivot;
 
+    private float myHealth;
     private Rigidbody rb;
     public bool isGrounded;
     private float lookX;
@@ -57,14 +61,20 @@ public class PlayerController : MonoBehaviourPunCallbacks
     int screenshotNum = 0;
     public GameObject lobbyController;
     public GameObject gunImactEffect;
+
+    public ExitGames.Client.Photon.Hashtable myProperties;
     void Start()
     {
+        myProperties = new ExitGames.Client.Photon.Hashtable();
+        health = maxHealth;
+        healthbar.maxValue = maxHealth;
         lobbyController = GameObject.FindGameObjectWithTag("lobbyController");
         rb = GetComponent<Rigidbody>();
         if (pv.Owner != null)
         {
             nickname.text = pv.Owner.NickName;
         }
+        myProperties.Add("health", health);
     }
 
     void OnConnectionFail(DisconnectCause cause)
@@ -74,6 +84,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     void Update()
     {
+        myHealth = health;
+        healthbar.value = health;
         allCars = GameObject.FindGameObjectsWithTag("car");
         allGuns = GameObject.FindGameObjectsWithTag("gun");
         playerCrosshairs = GameObject.FindGameObjectsWithTag("crosshair");
@@ -503,10 +515,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity))
                     {
                         GameObject impactEffect;
+
+                        // get ownership of the target
                         if (hit.transform.GetComponent<PhotonView>() != null && hit.transform.CompareTag("pickupable"))
                         {
                             hit.transform.GetComponent<PhotonView>().RequestOwnership();
                         }
+
+                        // spawn the impact effect
                         if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
                         {
                             impactEffect = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", gunImactEffect.name), hit.point, Quaternion.LookRotation(hit.normal));
@@ -517,19 +533,36 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             impactEffect = Instantiate(gunImactEffect, hit.point, Quaternion.LookRotation(hit.normal));
                             Destroy(impactEffect, 3f);
                         }
+
+                        // add impact force to the target
                         if (hit.rigidbody != null)
                         {
                             hit.rigidbody.AddForce(-hit.normal * gunImpactForce);
                         }
+
+                        // decrease health of the target if it isn't the player
                         if (hit.transform.GetComponent<Damageable>() != null)
                         {
                             if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
                             {
-                                hit.transform.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, 25);
+                                hit.transform.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, currentGun.GetComponent<Gun>().damage);
                             }
                             else if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
                             {
-                                hit.transform.GetComponent<Damageable>().TakeDamage(25);
+                                hit.transform.GetComponent<Damageable>().TakeDamage(currentGun.GetComponent<Gun>().damage);
+                            }
+                        }
+
+                        // decrease health of the target if it is the player
+                        if (hit.transform.CompareTag("Player") && hit.transform.GetComponent<PhotonView>() != null)
+                        {
+                            if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
+                            {
+                                hit.transform.GetComponent<PhotonView>().RPC("GetHurt", RpcTarget.All, currentGun.GetComponent<Gun>().damage);
+                                Debug.Log(hit.transform.GetComponent<PlayerController>().health);
+                                //hit.transform.GetComponent<PlayerController>().GetHurt(currentGun.GetComponent<Gun>().damage);
+                                //hit.transform.GetComponent<PhotonView>().Owner.SetCustomProperties(hit.transform.GetComponent<PlayerController>().myProperties);
+                                //hit.transform.GetComponent<PlayerController>().healthbar.value = hit.transform.GetComponent<PlayerController>().health;
                             }
                         }
                     }
@@ -589,6 +622,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
+    void GetHurt(int amt)
+    {
+        health -= amt;
+    }
+
+    [PunRPC]
     void UpdatePlayerRigidbody(bool boolean)
     {
         GetComponent<Rigidbody>().isKinematic = boolean;
@@ -598,5 +637,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void UpdatePlayerCollider(bool boolean)
     {
         GetComponent<Collider>().isTrigger = boolean;
+    }
+
+    [PunRPC]
+    void UpdateHealth()
+    {
+        health = myHealth;
     }
 }
