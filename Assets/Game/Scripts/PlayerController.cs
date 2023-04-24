@@ -294,7 +294,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 currentGun.GetComponent<PhotonView>().RPC("UpdateGunParent", RpcTarget.All, true, pv.ViewID);
                 currentGun.transform.localRotation = Quaternion.Euler(0, 0, 0);
             }
-            if (canGrabby && Input.GetMouseButton(0))
+            if (canGrabby && Input.GetMouseButton(0) && currentGun != null)
             {
                 crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
                 currentGun.GetComponent<Rigidbody>().isKinematic = true;
@@ -319,7 +319,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         // drop override
         //if (grabby)
         //{
-            if (currentObject != null && driving || Input.GetMouseButtonUp(0))
+            if (currentObject != null && Input.GetMouseButtonUp(0) || currentObject != null && driving)
             {
                 currentObject.GetComponent<Rigidbody>().isKinematic = false;
                 currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
