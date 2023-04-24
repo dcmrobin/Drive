@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Photon.Realtime;
 using System.IO;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -209,6 +210,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 File.AppendAllText(Application.dataPath + "\\screenshotIncrementer.txt", screenshotNum.ToString());
             }
             ScreenCapture.CaptureScreenshot(newPath + "Screenshots\\Screenshot" + screenshotNum + ".png");
+        }
+
+        if (pv.IsMine)
+        {
+            if (health <= 0)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                PhotonNetwork.Disconnect();
+                SceneManager.LoadScene(0);
+            }
         }
     }
 
@@ -559,7 +570,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                             if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
                             {
                                 hit.transform.GetComponent<PhotonView>().RPC("GetHurt", RpcTarget.All, currentGun.GetComponent<Gun>().damage);
-                                Debug.Log(hit.transform.GetComponent<PlayerController>().health);
                                 //hit.transform.GetComponent<PlayerController>().GetHurt(currentGun.GetComponent<Gun>().damage);
                                 //hit.transform.GetComponent<PhotonView>().Owner.SetCustomProperties(hit.transform.GetComponent<PlayerController>().myProperties);
                                 //hit.transform.GetComponent<PlayerController>().healthbar.value = hit.transform.GetComponent<PlayerController>().health;
