@@ -7,11 +7,14 @@ using Photon.Realtime;
 using System.IO;
 using System;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
     public Text nickname;
+    public TMP_Text screenspaceHealthNum;
     public Slider healthbar;
+    public Slider Screenspacehealthbar;
     public GameObject objTarget;
     public GameObject gunTarget;
     GameObject[] playerCrosshairs;
@@ -69,6 +72,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         myProperties = new ExitGames.Client.Photon.Hashtable();
         health = maxHealth;
         healthbar.maxValue = maxHealth;
+        Screenspacehealthbar.maxValue = maxHealth;
         lobbyController = GameObject.FindGameObjectWithTag("lobbyController");
         rb = GetComponent<Rigidbody>();
         if (pv.Owner != null)
@@ -87,6 +91,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         myHealth = health;
         healthbar.value = health;
+        Screenspacehealthbar.value = health;
+        screenspaceHealthNum.text = health.ToString();
         allCars = GameObject.FindGameObjectsWithTag("car");
         allGuns = GameObject.FindGameObjectsWithTag("gun");
         playerCrosshairs = GameObject.FindGameObjectsWithTag("crosshair");
@@ -217,10 +223,26 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if (health <= 0)
             {
                 Cursor.lockState = CursorLockMode.None;
-                PhotonNetwork.Disconnect();
-                SceneManager.LoadScene(0);
+                transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+                transform.rotation = Quaternion.Euler(90, 0, 0);
+                StartCoroutine(Die());
+                //PhotonNetwork.Disconnect();
+                //SceneManager.LoadScene(0);
             }
         }
+    }
+
+    public IEnumerator Die()
+    {
+        yield return new WaitForSeconds(1f);
+        SceneManager.LoadScene(0);
+        PhotonNetwork.LeaveRoom();
+    }
+
+    public IEnumerator Hurt(Quaternion rotation)
+    {
+        yield return new WaitForSeconds(0.1f);
+        playerCameraPivot.transform.rotation = Quaternion.Euler(rotation.x, rotation.y, rotation.z - 35);
     }
 
     void FixedUpdate()
@@ -635,6 +657,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void GetHurt(int amt)
     {
         health -= amt;
+        Quaternion origRot = playerCameraPivot.transform.rotation;
+        playerCameraPivot.transform.rotation = Quaternion.Euler(origRot.x, origRot.y, origRot.z + 35);
+        StartCoroutine(Hurt(origRot));
     }
 
     [PunRPC]
