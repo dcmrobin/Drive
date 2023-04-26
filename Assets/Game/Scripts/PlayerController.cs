@@ -460,10 +460,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     if (currentDoor.GetComponent<CarDoor>().status == CarDoor.stat.Closed)
                     {
                         currentDoor.GetComponent<CarDoor>().status = CarDoor.stat.Open;
+                        currentDoor.GetComponent<PhotonView>().RPC("UpdateDoorValue", RpcTarget.All, true);
                     }
                     else if (currentDoor.GetComponent<CarDoor>().status == CarDoor.stat.Open)
                     {
                         currentDoor.GetComponent<CarDoor>().status = CarDoor.stat.Closed;
+                        currentDoor.GetComponent<PhotonView>().RPC("UpdateDoorValue", RpcTarget.All, false);
                     }
                 }
             }
@@ -525,7 +527,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void gunControl()
     {
-        if (holdingGun && currentGun.GetComponent<Gun>().ammo > 0 && currentGun != null)
+        if (currentGun != null && currentGun.GetComponent<Gun>() != null && holdingGun && currentGun.GetComponent<Gun>().ammo > 0)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
