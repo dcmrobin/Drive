@@ -12,6 +12,7 @@ using TMPro;
 public class PlayerController : MonoBehaviourPunCallbacks
 {
     public Text nickname;
+    public string ncknm;
     public TMP_Text screenspaceHealthNum;
     public Slider healthbar;
     public Slider Screenspacehealthbar;
@@ -224,6 +225,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (health <= 0)
             {
+                Destroy(GameObject.Find("theCanvas"));
+                Destroy(GameObject.Find("LobbyController"));
                 Cursor.lockState = CursorLockMode.None;
                 transform.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
                 transform.rotation = Quaternion.Euler(90, 0, 0);
@@ -401,6 +404,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     currentCar = hit.transform.gameObject;
                     if (currentCar.GetComponent<SimpleCarController>().currentDriver == null)
                     {
+                        inBoot = false;
                         driving = true;
                         currentCar.GetComponent<PhotonView>().RequestOwnership();
                         currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, true, pv.ViewID);
@@ -422,6 +426,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     nickname.gameObject.SetActive(false);
                     healthbar.gameObject.SetActive(false);
                     currentCar = hit.collider.gameObject;
+                    driving = false;
                     inBoot = true;
                     GetComponent<CapsuleCollider>().isTrigger = true;
                     pv.RPC("UpdatePlayerCollider", RpcTarget.All, true);
@@ -438,6 +443,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
             currentCar.transform.Find("wheels").Find("frontRight").GetComponent<WheelCollider>().brakeTorque = 0;
             currentCar.transform.Find("wheels").Find("rearLeft").GetComponent<WheelCollider>().brakeTorque = 0;
             currentCar.transform.Find("wheels").Find("rearRight").GetComponent<WheelCollider>().brakeTorque = 0;
+            inBoot = false;
+            nickname.gameObject.SetActive(true);
+            healthbar.gameObject.SetActive(true);
             driving = false;
             currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, false, pv.ViewID);
             transform.parent = null;
@@ -453,6 +461,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             nickname.gameObject.SetActive(true);
             healthbar.gameObject.SetActive(true);
+            driving = false;
             inBoot = false;
             transform.parent = null;
             GetComponent<Rigidbody>().isKinematic = false;
