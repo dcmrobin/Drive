@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public Sprite carCrosshair;
     public Sprite pickupableCrosshair;
     public Sprite pickedUpCrosshair;
+    public Sprite getInCrosshair;
     public float walkSpeed = 5f;
     public float runSpeed = 10f;
     public float jumpForce = 7f;
@@ -51,6 +52,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private float lookX;
     private float lookY;
     public bool driving;
+    public bool inBoot;
     public GameObject currentCar;
     public GameObject currentObject;
     public GameObject currentGun;
@@ -152,7 +154,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     isGrounded = false;
                 }
         
-                if (isGrounded && Input.GetKeyDown(KeyCode.Space) && !holdingGun)
+                if (isGrounded && Input.GetKeyDown(KeyCode.Space))
                 {
                     rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 }
@@ -249,7 +251,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (pv.IsMine)
         {
-            if (!driving)
+            if (!driving && !inBoot)
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
@@ -412,6 +414,23 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     }
                 }
             }
+            else if (hit.collider.transform.CompareTag("bootSeat") && !driving)
+            {
+                crosshair.GetComponent<Image>().sprite = getInCrosshair;
+                if (Input.GetMouseButtonDown(0))
+                {
+                    nickname.gameObject.SetActive(false);
+                    healthbar.gameObject.SetActive(false);
+                    currentCar = hit.collider.gameObject;
+                    inBoot = true;
+                    GetComponent<CapsuleCollider>().isTrigger = true;
+                    pv.RPC("UpdatePlayerCollider", RpcTarget.All, true);
+                    transform.parent = currentCar.transform.Find("bootSeatTarget");
+                    GetComponent<Rigidbody>().isKinematic = true;
+                    pv.RPC("UpdatePlayerRigidbody", RpcTarget.All, true);
+                    transform.position = currentCar.transform.Find("bootSeatTarget").transform.position;
+                }
+            }
         }
         if (driving && Input.GetKeyDown(KeyCode.E))
         {
@@ -428,6 +447,19 @@ public class PlayerController : MonoBehaviourPunCallbacks
             GetComponent<CapsuleCollider>().isTrigger = false;
             pv.RPC("UpdatePlayerCollider", RpcTarget.All, false);
             currentCar.GetComponent<SimpleCarController>().enabled = false;
+            currentCar = null;
+        }
+        else if (inBoot && Input.GetKeyDown(KeyCode.E))
+        {
+            nickname.gameObject.SetActive(true);
+            healthbar.gameObject.SetActive(true);
+            inBoot = false;
+            transform.parent = null;
+            GetComponent<Rigidbody>().isKinematic = false;
+            pv.RPC("UpdatePlayerRigidbody", RpcTarget.All, false);
+            transform.position += new Vector3(0, 5, 0);
+            GetComponent<CapsuleCollider>().isTrigger = false;
+            pv.RPC("UpdatePlayerCollider", RpcTarget.All, false);
             currentCar = null;
         }
         if (driving && Input.GetKey(KeyCode.Space))
@@ -529,7 +561,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (currentGun != null && currentGun.GetComponent<Gun>() != null && holdingGun && currentGun.GetComponent<Gun>().ammo > 0)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetMouseButtonDown(1))
             {
                 RaycastHit hit;
                 if (pv.IsMine)

@@ -30,7 +30,7 @@ public class GameSetupController : MonoBehaviourPunCallbacks
     private void CreatePlayer()
     {
         Debug.Log("Creating Player");
-        GameObject myPlayerGo = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), Vector3.zero, Quaternion.identity);
+        GameObject myPlayerGo = (GameObject)PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "Player"), new Vector3(0, 5, 0), Quaternion.identity);
         player = myPlayerGo;
         myPlayerGo.transform.Find("Camerapivot").Find("Camera").GetComponent<Camera>().enabled = true;
         usrText = GameObject.FindGameObjectWithTag("lobbyController").GetComponent<LobbyController>().userNmText;

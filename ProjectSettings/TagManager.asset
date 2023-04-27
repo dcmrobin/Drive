@@ -12,6 +12,7 @@ TagManager:
   - crosshair
   - car
   - gun
+  - bootSeat
   layers:
   - Default
   - TransparentFX

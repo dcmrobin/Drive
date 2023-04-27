@@ -3853,6 +3853,7 @@ MonoBehaviour:
   pickupableCrosshair: {fileID: 21300000, guid: e709bc4c44b02ef46a2baed2829e8c6b,
     type: 3}
   pickedUpCrosshair: {fileID: 21300000, guid: f52e8f132eba46b4da23f704002177d2, type: 3}
+  getInCrosshair: {fileID: 21300000, guid: 772c8316a5d0ea643a28d2d8dfb3356f, type: 3}
   walkSpeed: 5
   runSpeed: 10
   jumpForce: 7
@@ -3874,6 +3875,7 @@ MonoBehaviour:
   playerCameraPivot: {fileID: 7290564772093562209}
   isGrounded: 0
   driving: 0
+  inBoot: 0
   currentCar: {fileID: 0}
   currentObject: {fileID: 0}
   currentGun: {fileID: 0}

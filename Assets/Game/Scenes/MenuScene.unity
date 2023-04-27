@@ -672,7 +672,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Player controls:\n   Move: WASD or arrow keys\n   Jump: Spacebar\n   Look
     around: Mouse\n   Click on objects to carry them\n   Click on a car seat to drive
-    the car\n   Press space while holding the gun to shoot\n   Hold R for 10 seconds
+    the car\n   Right click while holding the gun to shoot\n   Hold R for 10 seconds
     to reload the gun\n\nCar controls:\n   Accelerate: W\n   Steer: W and D\n   Brake:
     Spacebar\n   Exit car: E\n\nTake a screenshot: F2"
   m_isRightToLeft: 0
