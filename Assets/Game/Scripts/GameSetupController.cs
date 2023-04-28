@@ -42,17 +42,7 @@ public class GameSetupController : MonoBehaviourPunCallbacks
     {
         base.OnPlayerEnteredRoom(newPlayer);
         player.GetComponent<PhotonView>().RPC("UpdatePlayerColor", RpcTarget.All, playerCol.r, playerCol.g, playerCol.b);
-        player.GetComponent<PhotonView>().RPC("UpdateHealth", RpcTarget.All);
-        /*player.GetComponent<PlayerController>().currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, player.GetComponent<PhotonView>().ViewID);
-        if (player.GetComponent<PlayerController>().grabby)
-        {
-            player.GetComponent<PlayerController>().currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, true, player.GetComponent<PhotonView>().ViewID);
-            player.GetComponent<PlayerController>().currentObject.GetComponent<PhotonView>().RPC("UpdatePosition", RpcTarget.All, player.GetComponent<PhotonView>().ViewID);
-        }
-        else if (!player.GetComponent<PlayerController>().grabby)
-        {
-            player.GetComponent<PlayerController>().currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, player.GetComponent<PhotonView>().ViewID);
-        }*/
+        //player.GetComponent<PhotonView>().RPC("UpdateHealth", RpcTarget.All);
         for (int i = 0; i < allGuns.Length; i++)
         {
             if (allGuns[i].GetComponent<PhotonView>() != null)

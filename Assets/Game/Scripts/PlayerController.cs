@@ -90,6 +90,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
         Debug.Log(cause);
     }
 
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+        pv.Owner.SetCustomProperties(myProperties);
+    }
+
     void Update()
     {
         myHealth = health;
@@ -423,8 +429,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 crosshair.GetComponent<Image>().sprite = getInCrosshair;
                 if (Input.GetMouseButtonDown(0))
                 {
-                    nickname.gameObject.SetActive(false);
-                    healthbar.gameObject.SetActive(false);
+                    pv.RPC("DeactivateHealthbar", RpcTarget.All, false);
                     currentCar = hit.collider.gameObject;
                     driving = false;
                     inBoot = true;
@@ -444,8 +449,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             currentCar.transform.Find("wheels").Find("rearLeft").GetComponent<WheelCollider>().brakeTorque = 0;
             currentCar.transform.Find("wheels").Find("rearRight").GetComponent<WheelCollider>().brakeTorque = 0;
             inBoot = false;
-            nickname.gameObject.SetActive(true);
-            healthbar.gameObject.SetActive(true);
+            pv.RPC("DeactivateHealthbar", RpcTarget.All, true);
             driving = false;
             currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, false, pv.ViewID);
             transform.parent = null;
@@ -459,8 +463,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
         else if (inBoot && Input.GetKeyDown(KeyCode.E))
         {
-            nickname.gameObject.SetActive(true);
-            healthbar.gameObject.SetActive(true);
+            pv.RPC("DeactivateHealthbar", RpcTarget.All, true);
             driving = false;
             inBoot = false;
             transform.parent = null;
@@ -657,11 +660,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     if (Input.GetKey(KeyCode.R))
                     {
+                        currentGun.GetComponent<Gun>().reloadSlider.gameObject.SetActive(true);
                         currentGun.GetComponent<Gun>().reloadTimer += 0.25f;
                     }
                 }
                 if (currentGun.GetComponent<Gun>().reloadTimer >= currentGun.GetComponent<Gun>().timeToReload)
                 {
+                    currentGun.GetComponent<Gun>().reloadSlider.gameObject.SetActive(false);
                     currentGun.GetComponent<Gun>().ammo = originalAmmo;
                     currentGun.GetComponent<Gun>().reloadTimer = 0;
                 }
@@ -718,8 +723,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
+    void DeactivateHealthbar(bool boolean)
+    {
+        nickname.gameObject.SetActive(boolean);
+        healthbar.gameObject.SetActive(boolean);
+    }
+
+    /*[PunRPC]
     void UpdateHealth()
     {
         health = myHealth;
-    }
+    }*/
 }

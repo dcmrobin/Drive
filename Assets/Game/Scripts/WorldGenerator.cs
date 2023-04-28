@@ -101,7 +101,7 @@ public class WorldGenerator : MonoBehaviour
                         if (probability > 730)
                         {
                             GameObject simpleStructure = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "SimpleStructure"), new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
-                            simpleStructure.transform.parent = new GameObject().transform.parent = tile.transform;
+                            //simpleStructure.transform.parent = new GameObject().transform.parent = tile.transform;
                         }
                         else if (probability < 730)
                         {
