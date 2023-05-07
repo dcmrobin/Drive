@@ -10504,10 +10504,10 @@ MonoBehaviour:
   ammoNumber: {fileID: 7529765537029296928}
   ammoCanvas: {fileID: 8709318029733425645}
   reloadSlider: {fileID: 141094242852077763}
-  maxAmmo: 3
-  damage: 25
+  maxAmmo: 5
+  damage: 10
   timeToReload: 17
-  ammo: 3
+  ammo: 5
   reloadTimer: 0
 --- !u!1 &6030376849348002897
 GameObject:

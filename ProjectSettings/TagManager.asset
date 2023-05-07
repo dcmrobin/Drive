@@ -13,6 +13,7 @@ TagManager:
   - car
   - gun
   - bootSeat
+  - gettable
   layers:
   - Default
   - TransparentFX

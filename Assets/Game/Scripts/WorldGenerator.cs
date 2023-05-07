@@ -10,6 +10,7 @@ public class WorldGenerator : MonoBehaviour
     public GameObject roadPrefab;
     public GameObject rockPrefab;
     public GameObject wheelPrefab;
+    public GameObject magazinePrefab;
     public GameObject simpleStructurePrefab;
     public int worldSize = 10; // the size of the world (in tiles) around the player
     public int tileSize = 1; // the size of each tile in world units
@@ -101,6 +102,7 @@ public class WorldGenerator : MonoBehaviour
                         if (probability > 730)
                         {
                             GameObject simpleStructure = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "SimpleStructure"), new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
+                            GameObject magazine = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", magazinePrefab.name), new Vector3(simpleStructure.transform.position.x, simpleStructure.transform.position.y + 1, simpleStructure.transform.position.z), Quaternion.identity);
                             //simpleStructure.transform.parent = new GameObject().transform.parent = tile.transform;
                         }
                         else if (probability < 730)

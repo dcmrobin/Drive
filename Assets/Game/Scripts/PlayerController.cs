@@ -14,17 +14,21 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public Text nickname;
     public string ncknm;
     public TMP_Text screenspaceHealthNum;
+    public TMP_Text coordsText;
     public Slider healthbar;
     public Slider Screenspacehealthbar;
-    public GameObject objTarget;
-    public GameObject gunTarget;
     GameObject[] playerCrosshairs;
     public GameObject[] allCars;
     public GameObject[] allGuns;
+    public GameObject playerModel;
+    public GameObject magazineModel;
+    public GameObject objTarget;
+    public GameObject gunTarget;
     public GameObject pauseMenu;
     public GameObject crosshair;
     public Sprite normalCrosshair;
     public Sprite carCrosshair;
+    public Sprite canGetCrosshair;
     public Sprite pickupableCrosshair;
     public Sprite pickedUpCrosshair;
     public Sprite getInCrosshair;
@@ -36,6 +40,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public float groundDistance = 0.1f;
     public float maxHealth = 100;
     public float health;
+    public int amountOfMagazines;
     public LayerMask groundMask;
     public LayerMask clickMask;
     public LayerMask camCollideMask;
@@ -98,6 +103,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     void Update()
     {
+        //coordsText.text = "X: " + transform.position.x + "Y: " + transform.position.y + "Z: " + transform.position.z;
         myHealth = health;
         healthbar.value = health;
         Screenspacehealthbar.value = health;
@@ -111,6 +117,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (pv.IsMine)
         {
+            // show the small magazine on the player's belt?
+            if (amountOfMagazines > 0)
+            {
+                magazineModel.SetActive(true);
+            }
+            else if (amountOfMagazines <= 0)
+            {
+                magazineModel.SetActive(false);
+            }
+
             // anti-roll bars enabled?
             if (pauseMenu.GetComponent<PauseMenu>().antiRollEnabled)
             {
@@ -299,10 +315,17 @@ public class PlayerController : MonoBehaviourPunCallbacks
         // check if player is looking at pickupable
         if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask))
         {
-            if (hit.collider.transform.CompareTag("pickupable") || hit.collider.transform.CompareTag("gun") && !driving)
+            if (hit.collider.transform.CompareTag("pickupable") || hit.collider.transform.CompareTag("gun") || hit.collider.transform.CompareTag("gettable") && !driving)
             {
                 currentObject = hit.transform.gameObject;
-                crosshair.GetComponent<Image>().sprite = pickupableCrosshair;
+                if (hit.collider.transform.CompareTag("pickupable") || hit.collider.transform.CompareTag("gun"))
+                {
+                    crosshair.GetComponent<Image>().sprite = pickupableCrosshair;
+                }
+                else if (hit.collider.transform.CompareTag("gettable"))
+                {
+                    crosshair.GetComponent<Image>().sprite = canGetCrosshair;
+                }
                 canGrabby = true;
             }
             else if (!Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask) || !hit.collider.transform.CompareTag("pickupable"))
@@ -313,7 +336,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
 
         // grab the object
-        if (canGrabby && currentObject.transform.tag != "gun" && currentGun == null)
+        if (canGrabby && currentObject.transform.tag != "gun" && currentObject.transform.tag != "gettable" && currentGun == null)
         {
             if (canGrabby && Input.GetMouseButtonDown(0))
             {
@@ -369,6 +392,14 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 holdingGun = false;
                 grabby = false;
                 currentGun = null;
+            }
+        }
+        else if (canGrabby && currentObject.transform.tag == "gettable")
+        {
+            if (canGrabby && Input.GetMouseButtonDown(0))
+            {
+                amountOfMagazines += 1;
+                PhotonNetwork.Destroy(currentObject);
             }
         }
 
@@ -651,7 +682,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
     public void gunReloadControl()
     {
-        if (currentGun != null)
+        if (amountOfMagazines > 0 && currentGun != null)
         {
             int originalAmmo = currentGun.GetComponent<Gun>().maxAmmo;
             if (currentGun.GetComponent<Gun>().ammo <= 0)
@@ -666,6 +697,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 }
                 if (currentGun.GetComponent<Gun>().reloadTimer >= currentGun.GetComponent<Gun>().timeToReload)
                 {
+                    amountOfMagazines -= 1;
                     currentGun.GetComponent<Gun>().reloadSlider.gameObject.SetActive(false);
                     currentGun.GetComponent<Gun>().ammo = originalAmmo;
                     currentGun.GetComponent<Gun>().reloadTimer = 0;
@@ -683,13 +715,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [PunRPC]
     void GetColor(float r, float g, float b)
     {
-        gameObject.GetComponent<MeshRenderer>().material.color = new Color(r, g, b);
+        playerModel.GetComponent<MeshRenderer>().material.color = new Color(r, g, b);
     }
 
     [PunRPC]
     void UpdatePlayerColor(float r, float g, float b)
     {
-        gameObject.GetComponent<MeshRenderer>().material.color = new Color(r, g, b);
+        playerModel.GetComponent<MeshRenderer>().material.color = new Color(r, g, b);
     }
 
     [PunRPC]
