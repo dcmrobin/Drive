@@ -5,7 +5,7 @@ Library
 .vscode
 Assets/Plugins
 Build
-Build/Mac build.zip
 Build/Mac build
-Build/Windows build.zip
 Build/Windows build
+Build/Mac build.zip
+Build/Windows build.zip
