@@ -53,6 +53,7 @@
      <Compile Include="Assets\Game\Scripts\AntiRollBar.cs" />
      <Compile Include="Assets\Game\Scripts\dontdoit.cs" />
      <Compile Include="Assets\Game\Scripts\WorldGenerator.cs" />
+     <Compile Include="Assets\Game\Scripts\baddie.cs" />
      <Compile Include="Assets\Game\Scripts\SimpleCarController.cs" />
      <Compile Include="Assets\Game\Scripts\CarDoor.cs" />
      <Compile Include="Assets\Game\Scripts\WindyRoad.cs" />
