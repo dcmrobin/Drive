@@ -98,6 +98,28 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
+        if (currentObject != null)
+        {
+            currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, true, pv.ViewID);
+        }
+        if (currentGun != null)
+        {
+            currentGun.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, true, pv.ViewID);
+        }
+
+        if (currentDoor != null)
+        {
+            if (currentDoor.GetComponent<CarDoor>().status == CarDoor.stat.Closed)
+            {
+                currentDoor.GetComponent<CarDoor>().status = CarDoor.stat.Open;
+                currentDoor.GetComponent<PhotonView>().RPC("UpdateDoorValue", RpcTarget.All, true);
+            }
+            else if (currentDoor.GetComponent<CarDoor>().status == CarDoor.stat.Open)
+            {
+                currentDoor.GetComponent<CarDoor>().status = CarDoor.stat.Closed;
+                currentDoor.GetComponent<PhotonView>().RPC("UpdateDoorValue", RpcTarget.All, false);
+            }
+        }
         pv.Owner.SetCustomProperties(myProperties);
     }
 
