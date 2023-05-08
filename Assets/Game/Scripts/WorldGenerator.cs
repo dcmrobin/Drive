@@ -102,14 +102,20 @@ public class WorldGenerator : MonoBehaviour
                         if (probability > 730)
                         {
                             GameObject simpleStructure = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "SimpleStructure"), new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
-                            GameObject magazine = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", magazinePrefab.name), new Vector3(simpleStructure.transform.position.x, simpleStructure.transform.position.y + 1, simpleStructure.transform.position.z), Quaternion.identity);
+                            for (int i = 0; i < Random.Range(0, 5); i++)
+                            {
+                                GameObject magazine = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", magazinePrefab.name), new Vector3(simpleStructure.transform.position.x, simpleStructure.transform.position.y + 1, simpleStructure.transform.position.z), Quaternion.identity);
+                            }
                             //simpleStructure.transform.parent = new GameObject().transform.parent = tile.transform;
                         }
                         else if (probability < 730)
                         {
-                            GameObject rock = Instantiate(rockPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
-                            rock.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
-                            rock.transform.parent = new GameObject().transform.parent = tile.transform;
+                            for (int i = 0; i < Random.Range(0, 10); i++)
+                            {
+                                GameObject rock = Instantiate(rockPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
+                                rock.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
+                                rock.transform.parent = new GameObject().transform.parent = tile.transform;
+                            }
                         }
                     }
                     else if (probability >= 900)
