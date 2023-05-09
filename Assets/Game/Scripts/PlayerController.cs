@@ -98,6 +98,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
+        pv.RPC("UpdateAmtMags", RpcTarget.All, amountOfMagazines);
         if (currentObject != null)
         {
             currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, true, pv.ViewID);
@@ -123,10 +124,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
         if (amountOfMagazines > 0 && !magazineModel.activeSelf)
         {
+            pv.RPC("ToggleAmmoModel", RpcTarget.All, false);
             pv.RPC("ToggleAmmoModel", RpcTarget.All, true);
         }
         else if (amountOfMagazines <= 0 && magazineModel.activeSelf)
         {
+            pv.RPC("ToggleAmmoModel", RpcTarget.All, true);
             pv.RPC("ToggleAmmoModel", RpcTarget.All, false);
         }
 
@@ -823,6 +826,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     void ToggleAmmoModel(bool boolean)
     {
         magazineModel.gameObject.SetActive(boolean);
+    }
+
+    [PunRPC]
+    void UpdateAmtMags(int amt)
+    {
+        amountOfMagazines = amt;
     }
 
     /*[PunRPC]

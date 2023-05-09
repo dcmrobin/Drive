@@ -14,4 +14,4 @@ Add the ability to get hurt by a fast moving car (the damage inflicted by the ca
 #BUGS#
 when player enters room, the health bar of the opposite player returns to full health! the actual player's health is still the same, but the screenspace healthbar is bugged.
 
-players cannot see eachother's magazines on eachother's belts.
+player who just entered the game cannot see other player's magazines on their belts.
