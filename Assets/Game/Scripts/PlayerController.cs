@@ -120,6 +120,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 currentDoor.GetComponent<PhotonView>().RPC("UpdateDoorValue", RpcTarget.All, false);
             }
         }
+
+        if (amountOfMagazines > 0 && !magazineModel.activeSelf)
+        {
+            pv.RPC("ToggleAmmoModel", RpcTarget.All, true);
+        }
+        else if (amountOfMagazines <= 0 && magazineModel.activeSelf)
+        {
+            pv.RPC("ToggleAmmoModel", RpcTarget.All, false);
+        }
+
         pv.Owner.SetCustomProperties(myProperties);
     }
 
@@ -140,13 +150,27 @@ public class PlayerController : MonoBehaviourPunCallbacks
         if (pv.IsMine)
         {
             // show the small magazine on the player's belt?
-            if (amountOfMagazines > 0)
+            if (lobbyController != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
             {
-                magazineModel.SetActive(true);
+                if (amountOfMagazines > 0 && !magazineModel.activeSelf)
+                {
+                    pv.RPC("ToggleAmmoModel", RpcTarget.All, true);
+                }
+                else if (amountOfMagazines <= 0 && magazineModel.activeSelf)
+                {
+                    pv.RPC("ToggleAmmoModel", RpcTarget.All, false);
+                }
             }
-            else if (amountOfMagazines <= 0)
+            else if (lobbyController != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
             {
-                magazineModel.SetActive(false);
+                if (amountOfMagazines > 0 && !magazineModel.activeSelf)
+                {
+                    magazineModel.SetActive(true);
+                }
+                else if (amountOfMagazines <= 0 && magazineModel.activeSelf)
+                {
+                    magazineModel.SetActive(false);
+                }
             }
 
             // anti-roll bars enabled?
@@ -425,7 +449,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     if (currentObject.GetComponent<PhotonView>().AmOwner)
                     {
-                        Destroy(currentObject);
                         amountOfMagazines += 1;
                         PhotonNetwork.Destroy(currentObject);
                     }
@@ -794,6 +817,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         nickname.gameObject.SetActive(boolean);
         healthbar.gameObject.SetActive(boolean);
+    }
+
+    [PunRPC]
+    void ToggleAmmoModel(bool boolean)
+    {
+        magazineModel.gameObject.SetActive(boolean);
     }
 
     /*[PunRPC]
