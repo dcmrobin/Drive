@@ -420,8 +420,21 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (canGrabby && Input.GetMouseButtonDown(0))
             {
-                amountOfMagazines += 1;
-                PhotonNetwork.Destroy(currentObject);
+                currentObject.GetComponent<PhotonView>().RequestOwnership();
+                if (lobbyController != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
+                {
+                    if (currentObject.GetComponent<PhotonView>().AmOwner)
+                    {
+                        Destroy(currentObject);
+                        amountOfMagazines += 1;
+                        PhotonNetwork.Destroy(currentObject);
+                    }
+                }
+                else if (lobbyController != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
+                {
+                    amountOfMagazines += 1;
+                    Destroy(currentObject);
+                }
             }
         }
 
@@ -756,7 +769,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    void GetHurt(int amt)
+    public void GetHurt(int amt)
     {
         health -= amt;
         Quaternion origRot = playerCameraPivot.transform.rotation;

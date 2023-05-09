@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 8230606855282674765}
   - component: {fileID: 5589735745250971639}
   - component: {fileID: 1968221164949160564}
-  - component: {fileID: 4170334179384269861}
   - component: {fileID: 6305067931810764330}
   - component: {fileID: 5965901527847805053}
+  - component: {fileID: 2191052312265429119}
+  - component: {fileID: 8206042502830831107}
   m_Layer: 0
   m_Name: badGuy
   m_TagString: baddie
@@ -77,27 +78,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
---- !u!65 &4170334179384269861
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4607332347778905486}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.9931693, y: 3.8277855, z: 1}
-  m_Center: {x: 0.005841859, y: 0.09440089, z: 0}
+  damage: 5
 --- !u!114 &6305067931810764330
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137,6 +118,47 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &2191052312265429119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4607332347778905486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410585bc6060af24f81d6e143ffba2ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 50
+  onDeath: 0
+  explosionEffect: {fileID: 19800004, guid: b69972c441e65954cb6bc4711d909596, type: 3}
+  steamEffect: {fileID: 19800004, guid: f8eb3a9d71d12a74ca3f9f9c2e194e02, type: 3}
+  lobbyController: {fileID: 0}
+  isSteaming: 0
+--- !u!136 &8206042502830831107
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4607332347778905486}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.0226136
+  m_Height: 3.8146737
+  m_Direction: 1
+  m_Center: {x: -0, y: 0.071807556, z: -0}
 --- !u!1001 &7574804649926755937
 PrefabInstance:
   m_ObjectHideFlags: 0

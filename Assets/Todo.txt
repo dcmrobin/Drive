@@ -8,8 +8,6 @@ Add sound!
 
 Make the car customizable. Maybe have spray-paint cans which can change the color of certain bits of the car?
 
-Maybe add creatures (Maybe some could be hostile?) that can be found all over the world?
-
 Add the ability to get hurt by a fast moving car (the damage inflicted by the car depends on how fast the car is going)
 
 

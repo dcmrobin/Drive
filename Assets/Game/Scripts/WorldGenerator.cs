@@ -12,6 +12,7 @@ public class WorldGenerator : MonoBehaviour
     public GameObject wheelPrefab;
     public GameObject magazinePrefab;
     public GameObject simpleStructurePrefab;
+    public GameObject badGuyPrefab;
     public int worldSize = 10; // the size of the world (in tiles) around the player
     public int tileSize = 1; // the size of each tile in world units
     private int probability = 0;
@@ -123,6 +124,25 @@ public class WorldGenerator : MonoBehaviour
                         GameObject smallRock = Instantiate(rockPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), Random.Range(-2.3f, -0.7f), tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
                         smallRock.transform.localRotation = Quaternion.Euler(0, Random.Range(0, 360), 0);
                         smallRock.transform.parent = new GameObject().transform.parent = tile.transform;
+
+                        // enemies
+                        /*if (GetComponent<PlayerController>().lobbyController != null)
+                        {
+                            if (GetComponent<PlayerController>().lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
+                            {
+                                if (probability > 300)
+                                {
+                                    GameObject badGuy = Instantiate(badGuyPrefab, new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 5, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
+                                }
+                            }
+                            else if (GetComponent<PlayerController>().lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
+                            {
+                                if (probability > 300)
+                                {
+                                    GameObject badGuy = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", badGuyPrefab.name), new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 5, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
+                                }
+                            }
+                        }*/
                     }
                     //thing.transform.parent = new GameObject().transform.parent = tile.transform;
                     tiles.Add(tilePos, tile);
