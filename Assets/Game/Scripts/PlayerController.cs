@@ -51,8 +51,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     RaycastHit hit;
 
     public GameObject playerCameraPivot;
-
-    private float myHealth;
     private Rigidbody rb;
     public bool isGrounded;
     private float lookX;
@@ -133,13 +131,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
             pv.RPC("ToggleAmmoModel", RpcTarget.All, false);
         }
 
-        pv.Owner.SetCustomProperties(myProperties);
+        //pv.Owner.SetCustomProperties(myProperties);
+        pv.RPC("UpdateHealth", RpcTarget.All, health);
     }
 
     void Update()
     {
         //coordsText.text = "X: " + transform.position.x + "Y: " + transform.position.y + "Z: " + transform.position.z;
-        myHealth = health;
         healthbar.value = health;
         Screenspacehealthbar.value = health;
         screenspaceHealthNum.text = health.ToString();
@@ -834,9 +832,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
         amountOfMagazines = amt;
     }
 
-    /*[PunRPC]
-    void UpdateHealth()
+    [PunRPC]
+    void UpdateHealth(float hlth)
     {
-        health = myHealth;
-    }*/
+        health = hlth;
+    }
 }
