@@ -154,8 +154,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 if (pv.IsMine)
                 {
                     Destroy(c);
+                    pv.RPC("UpdateHealth", RpcTarget.All, health);
                 }
-                //pv.RPC("UpdateHealth", RpcTarget.All, health);
             }
         }
         // get the horizontal and vertical mouse input

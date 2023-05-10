@@ -12,7 +12,6 @@ Make the crosshair into something else when the gun is pointed at another player
 
 
 #BUGS#
-when player enters room, the health bar of the opposite player returns to full health! the actual player's health is still the same, but the screenspace healthbar is bugged.
 
 player who just entered the game cannot see other player's magazines on their belts.
 
