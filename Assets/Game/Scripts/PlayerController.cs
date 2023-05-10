@@ -17,9 +17,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public TMP_Text coordsText;
     public Slider healthbar;
     public Slider Screenspacehealthbar;
-    GameObject[] playerCrosshairs;
+    //GameObject[] playerCrosshairs;
+    public GameObject[] playerCanvases;
     public GameObject[] allCars;
     public GameObject[] allGuns;
+    public GameObject screenspaceCanvas;
     public GameObject playerModel;
     public GameObject magazineModel;
     public GameObject objTarget;
@@ -132,7 +134,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
 
         //pv.Owner.SetCustomProperties(myProperties);
-        pv.RPC("UpdateHealth", RpcTarget.All, health);
+        //pv.RPC("UpdateHealth", RpcTarget.All, health);
     }
 
     void Update()
@@ -143,7 +145,19 @@ public class PlayerController : MonoBehaviourPunCallbacks
         screenspaceHealthNum.text = health.ToString();
         allCars = GameObject.FindGameObjectsWithTag("car");
         allGuns = GameObject.FindGameObjectsWithTag("gun");
-        playerCrosshairs = GameObject.FindGameObjectsWithTag("crosshair");
+        //playerCrosshairs = GameObject.FindGameObjectsWithTag("crosshair");
+        playerCanvases = GameObject.FindGameObjectsWithTag("playerScreenspaceCanvas");
+        foreach (GameObject c in playerCanvases)
+        {
+            if (c != screenspaceCanvas)
+            {
+                if (pv.IsMine)
+                {
+                    Destroy(c);
+                }
+                //pv.RPC("UpdateHealth", RpcTarget.All, health);
+            }
+        }
         // get the horizontal and vertical mouse input
         float mouseX = Input.GetAxis("Mouse X") * lookSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * lookSensitivity;
@@ -636,13 +650,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (!isPaused && Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
-            foreach (GameObject ch in playerCrosshairs)
+            /*foreach (GameObject ch in playerCrosshairs)
             {
                 if (ch != crosshair && ch != null)
                 {
                     Destroy(ch);
                 }
-            }
+            }*/
             isPaused = true;
             pauseMenu.SetActive(true);
         }

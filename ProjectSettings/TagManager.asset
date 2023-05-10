@@ -14,6 +14,7 @@ TagManager:
   - gun
   - bootSeat
   - gettable
+  - playerScreenspaceCanvas
   layers:
   - Default
   - TransparentFX

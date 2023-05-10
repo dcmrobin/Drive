@@ -108,7 +108,7 @@ public class SimpleCarController : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision other) {
-        if (GetComponent<Rigidbody>().velocity.magnitude >= 50)
+        if (GetComponent<Rigidbody>().velocity.magnitude >= 20)
         {
             if (other.gameObject.GetComponent<Damageable>() != null)
             {

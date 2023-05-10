@@ -791,7 +791,7 @@ GameObject:
   - component: {fileID: 2508726181643955867}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: playerScreenspaceCanvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3842,8 +3842,10 @@ MonoBehaviour:
   coordsText: {fileID: 6476287938460748073}
   healthbar: {fileID: 2413522481122139800}
   Screenspacehealthbar: {fileID: 5558353617331280920}
+  playerCanvases: []
   allCars: []
   allGuns: []
+  screenspaceCanvas: {fileID: 2508726181643955868}
   playerModel: {fileID: 4345891675642908121}
   magazineModel: {fileID: 5777915231028986748}
   objTarget: {fileID: 7511496887255828248}
