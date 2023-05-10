@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public GameObject[] playerCanvases;
     public GameObject[] allCars;
     public GameObject[] allGuns;
+    public GameObject[] allPlayers;
     public GameObject screenspaceCanvas;
     public GameObject playerModel;
     public GameObject magazineModel;
@@ -82,12 +83,25 @@ public class PlayerController : MonoBehaviourPunCallbacks
         healthbar.maxValue = maxHealth;
         Screenspacehealthbar.maxValue = maxHealth;
         lobbyController = GameObject.FindGameObjectWithTag("lobbyController");
+        allPlayers = GameObject.FindGameObjectsWithTag("Player");
         rb = GetComponent<Rigidbody>();
         if (pv.Owner != null)
         {
             nickname.text = pv.Owner.NickName;
         }
         myProperties.Add("health", health);
+
+        for (int i = 0; i < allPlayers.Length; i++)
+        {
+            if (allPlayers[i].GetComponent<PlayerController>().amountOfMagazines > 0 && !allPlayers[i].GetComponent<PlayerController>().magazineModel.activeSelf)
+            {
+                allPlayers[i].GetComponent<PlayerController>().pv.RPC("ToggleAmmoModel", RpcTarget.All, true);
+            }
+            else if (allPlayers[i].GetComponent<PlayerController>().amountOfMagazines <= 0 && allPlayers[i].GetComponent<PlayerController>().magazineModel.activeSelf)
+            {
+                allPlayers[i].GetComponent<PlayerController>().pv.RPC("ToggleAmmoModel", RpcTarget.All, false);
+            }
+        }
     }
 
     void OnConnectionFail(DisconnectCause cause)
@@ -121,20 +135,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 currentDoor.GetComponent<PhotonView>().RPC("UpdateDoorValue", RpcTarget.All, false);
             }
         }
-
-        if (amountOfMagazines > 0 && !magazineModel.activeSelf)
-        {
-            pv.RPC("ToggleAmmoModel", RpcTarget.All, false);
-            pv.RPC("ToggleAmmoModel", RpcTarget.All, true);
-        }
-        else if (amountOfMagazines <= 0 && magazineModel.activeSelf)
-        {
-            pv.RPC("ToggleAmmoModel", RpcTarget.All, true);
-            pv.RPC("ToggleAmmoModel", RpcTarget.All, false);
-        }
-
-        //pv.Owner.SetCustomProperties(myProperties);
-        //pv.RPC("UpdateHealth", RpcTarget.All, health);
     }
 
     void Update()
