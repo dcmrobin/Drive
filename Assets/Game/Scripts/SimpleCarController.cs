@@ -108,15 +108,22 @@ public class SimpleCarController : MonoBehaviour {
     }
 
     private void OnCollisionEnter(Collision other) {
-        if (other.gameObject.GetComponent<Damageable>() != null)
+        if (GetComponent<Rigidbody>().velocity.magnitude >= 50)
         {
-            if (!other.gameObject.CompareTag("Player"))
+            if (other.gameObject.GetComponent<Damageable>() != null)
             {
-                other.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, Mathf.RoundToInt(GetComponent<Rigidbody>().velocity.magnitude));
+                if (!other.gameObject.CompareTag("Player"))
+                {
+                    other.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, Mathf.RoundToInt(GetComponent<Rigidbody>().velocity.magnitude));
+                }
             }
-            else if (other.gameObject.CompareTag("Player"))
+    
+            if (other.gameObject.CompareTag("Player"))
             {
-                other.gameObject.GetComponent<PhotonView>().RPC("GetHurt", RpcTarget.All, Mathf.RoundToInt(GetComponent<Rigidbody>().velocity.magnitude));
+                if (other.gameObject.GetComponent<Rigidbody>().velocity.magnitude < GetComponent<Rigidbody>().velocity.magnitude - 10)
+                {
+                    other.gameObject.GetComponent<PhotonView>().RPC("GetHurt", RpcTarget.All, Mathf.RoundToInt(GetComponent<Rigidbody>().velocity.magnitude));
+                }
             }
         }
     }
