@@ -106,4 +106,18 @@ public class SimpleCarController : MonoBehaviour {
             currentDriver = null;
         }
     }
+
+    private void OnCollisionEnter(Collision other) {
+        if (other.gameObject.GetComponent<Damageable>() != null)
+        {
+            if (!other.gameObject.CompareTag("Player"))
+            {
+                other.gameObject.GetComponent<PhotonView>().RPC("TakeDamage", RpcTarget.All, Mathf.RoundToInt(GetComponent<Rigidbody>().velocity.magnitude));
+            }
+            else if (other.gameObject.CompareTag("Player"))
+            {
+                other.gameObject.GetComponent<PhotonView>().RPC("GetHurt", RpcTarget.All, Mathf.RoundToInt(GetComponent<Rigidbody>().velocity.magnitude));
+            }
+        }
+    }
 }
