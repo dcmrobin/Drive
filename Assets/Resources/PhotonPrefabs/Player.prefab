@@ -3845,6 +3845,7 @@ MonoBehaviour:
   playerCanvases: []
   allCars: []
   allGuns: []
+  allPlayers: []
   screenspaceCanvas: {fileID: 2508726181643955868}
   playerModel: {fileID: 4345891675642908121}
   magazineModel: {fileID: 5777915231028986748}

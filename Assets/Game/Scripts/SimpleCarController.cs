@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
+using TMPro;
 
 [System.Serializable]
 public class AxleInfo {
@@ -17,6 +18,7 @@ public class SimpleCarController : MonoBehaviour {
     public float maxSteeringAngle;
     public Transform steeringWheel;
     public GameObject currentDriver;
+    public TMP_Text speedNumText;
     public PhotonView pv;
      
     // finds the corresponding visual wheel
@@ -39,6 +41,7 @@ public class SimpleCarController : MonoBehaviour {
      
     public void FixedUpdate()
     {
+        speedNumText.text = Mathf.Round(GetComponent<Rigidbody>().velocity.magnitude).ToString();
         if (GetComponent<Damageable>() != null)
         {
             maxMotorTorque = GetComponent<Damageable>().health;
