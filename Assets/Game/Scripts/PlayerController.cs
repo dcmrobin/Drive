@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private float lookY;
     public bool driving;
     public bool inBoot;
+    public bool inSeat;
     public GameObject currentCar;
     public GameObject currentObject;
     public GameObject currentGun;
@@ -74,6 +75,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     int screenshotNum = 0;
     public GameObject lobbyController;
     public GameObject gunImactEffect;
+
+    GameObject[] allCurSeats;
 
     public ExitGames.Client.Photon.Hashtable myProperties;
     void Start()
@@ -134,6 +137,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 currentDoor.GetComponent<CarDoor>().status = CarDoor.stat.Closed;
                 currentDoor.GetComponent<PhotonView>().RPC("UpdateDoorValue", RpcTarget.All, false);
             }
+        }
+
+        if (currentCar != null && driving)
+        {
+            currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, true, pv.ViewID);
         }
     }
 
@@ -516,15 +524,31 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     {
                         inBoot = false;
                         driving = true;
+                        inSeat = false;
                         currentCar.GetComponent<PhotonView>().RequestOwnership();
                         currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, true, pv.ViewID);
                         GetComponent<CapsuleCollider>().isTrigger = true;
                         pv.RPC("UpdatePlayerCollider", RpcTarget.All, true);
-                        transform.parent = currentCar.transform.Find("seatTarget");
+                        transform.parent = currentCar.transform.Find("driverSeatTarget");
                         GetComponent<Rigidbody>().isKinematic = true;
                         pv.RPC("UpdatePlayerRigidbody", RpcTarget.All, true);
-                        transform.position = currentCar.transform.Find("seatTarget").transform.position;
+                        transform.position = currentCar.transform.Find("driverSeatTarget").transform.position;
                         currentCar.GetComponent<SimpleCarController>().enabled = true;
+                    }
+                    else
+                    {
+                        if (currentCar.transform.Find("seatTarget").transform.childCount == 0)
+                        {
+                            inBoot = false;
+                            driving = false;
+                            inSeat = true;
+                            GetComponent<CapsuleCollider>().isTrigger = true;
+                            pv.RPC("UpdatePlayerCollider", RpcTarget.All, true);
+                            transform.parent = currentCar.transform.Find("seatTarget");
+                            GetComponent<Rigidbody>().isKinematic = true;
+                            pv.RPC("UpdatePlayerRigidbody", RpcTarget.All, true);
+                            transform.position = currentCar.transform.Find("seatTarget").transform.position;
+                        }
                     }
                 }
             }
@@ -537,6 +561,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     currentCar = hit.collider.gameObject;
                     driving = false;
                     inBoot = true;
+                    inSeat = false;
                     GetComponent<CapsuleCollider>().isTrigger = true;
                     pv.RPC("UpdatePlayerCollider", RpcTarget.All, true);
                     transform.parent = currentCar.transform.Find("bootSeatTarget");
@@ -555,6 +580,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             inBoot = false;
             pv.RPC("DeactivateHealthbar", RpcTarget.All, true);
             driving = false;
+            inSeat = false;
             currentCar.GetComponent<PhotonView>().RPC("UpdateDriver", RpcTarget.All, false, pv.ViewID);
             transform.parent = null;
             GetComponent<Rigidbody>().isKinematic = false;
@@ -565,11 +591,12 @@ public class PlayerController : MonoBehaviourPunCallbacks
             currentCar.GetComponent<SimpleCarController>().enabled = false;
             currentCar = null;
         }
-        else if (inBoot && Input.GetKeyDown(KeyCode.E))
+        else if (inBoot || inSeat && Input.GetKeyDown(KeyCode.E))
         {
             pv.RPC("DeactivateHealthbar", RpcTarget.All, true);
             driving = false;
             inBoot = false;
+            inSeat = false;
             transform.parent = null;
             GetComponent<Rigidbody>().isKinematic = false;
             pv.RPC("UpdatePlayerRigidbody", RpcTarget.All, false);
