@@ -4000,7 +4000,6 @@ MonoBehaviour:
   isGrounded: 0
   driving: 0
   inBoot: 0
-  inSeat: 0
   currentCar: {fileID: 0}
   currentObject: {fileID: 0}
   currentGun: {fileID: 0}

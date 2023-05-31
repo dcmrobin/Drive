@@ -691,6 +691,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     {
                         currentGun.GetComponent<PhotonView>().RPC("Shoot", RpcTarget.All, 1);
                         pv.RPC("ShootGun", RpcTarget.All);
+                        //currentGun.GetComponent<PhotonView>().RPC("UpdateAmmo", RpcTarget.All);
                     }
                     else if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
                     {
