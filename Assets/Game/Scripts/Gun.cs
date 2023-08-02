@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 using UnityEngine.UI;
 
-public class Gun : MonoBehaviour
+public class Gun : MonoBehaviourPunCallbacks
 {
     public TMP_Text ammoNumber;
     public GameObject ammoCanvas;
@@ -29,9 +30,9 @@ public class Gun : MonoBehaviour
     }
 
     [PunRPC]
-    public void UpdateAmmo()
+    public void UpdateAmmo(int amt)
     {
-        ammo = myAmmo;
+        ammo = amt;
     }
 
     private void Update() {
@@ -41,5 +42,16 @@ public class Gun : MonoBehaviour
         {
             ammoNumber.text = ammo.ToString();
         }
+    }
+
+    public override void OnPlayerEnteredRoom(Player newPlayer)
+    {
+        base.OnPlayerEnteredRoom(newPlayer);
+        Invoke("UpdateRPC", 2);
+    }
+
+    public void UpdateRPC()
+    {
+        GetComponent<PhotonView>().RPC("UpdateAmmo", RpcTarget.All, myAmmo);
     }
 }

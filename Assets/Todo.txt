@@ -13,6 +13,4 @@ Make the crosshair into something else when the gun is pointed at another player
 
 #BUGS#
 
-something is wrong with the ammo syncing between players... ammo is not updated when player enters the game, and
-that means that when a player enters the game, the player that was there before sees that the gun's ammo is 0,
-which is normal, but the player who has just entered sees it as 5.
+Nothing at the moment!

@@ -43,12 +43,12 @@ public class GameSetupController : MonoBehaviourPunCallbacks
         base.OnPlayerEnteredRoom(newPlayer);
         player.GetComponent<PhotonView>().RPC("UpdatePlayerColor", RpcTarget.All, playerCol.r, playerCol.g, playerCol.b);
         //player.GetComponent<PhotonView>().RPC("UpdateHealth", RpcTarget.All);
-        for (int i = 0; i < allGuns.Length; i++)
+        /*for (int i = 0; i < allGuns.Length; i++)
         {
             if (allGuns[i].GetComponent<PhotonView>() != null)
             {
                 allGuns[i].GetComponent<PhotonView>().RPC("UpdateAmmo", RpcTarget.All);
             }
-        }
+        }*/
     }
 }
