@@ -1,14 +1,13 @@
-Make the car repairable.
-
-Make the car have changable tires... so that maybe when a tire gets shot by the gun, it comes off?
-
 Make the terrain better. (More structures? Mountains? Hills?)
 
 Add sound!
 
-Make the car customizable. Maybe have spray-paint cans which can change the color of certain bits of the car?
+More weapons!
+    Sniper rifle
 
-Make the crosshair into something else when the gun is pointed at another player.
+Make the crosshair into something else when the gun is pointed at another player. (but only when holding a sniper rifle)
+
+Add a plane?
 
 
 #BUGS#
