@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public bool isGrounded;
     private float lookX;
     private float lookY;
+    private float origFOV;
     public bool driving;
     public bool inBoot;
     public GameObject currentCar;
@@ -79,6 +80,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public ExitGames.Client.Photon.Hashtable myProperties;
     void Start()
     {
+        origFOV = playerCameraPivot.GetComponentInChildren<Camera>().fieldOfView;
         myProperties = new ExitGames.Client.Photon.Hashtable();
         health = maxHealth;
         healthbar.maxValue = maxHealth;
@@ -277,9 +279,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 if (!Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask) || hit.collider.gameObject.layer == 0 || hit.collider.gameObject.layer == 6 || hit.collider.gameObject.layer == 1 || hit.collider.gameObject.layer == 3)
                 {
-                    crosshair.GetComponent<Image>().sprite = normalCrosshair;
-                    canGrabby = false;
-                    currentObject = null;
+                    if (currentGun == null)
+                    {
+                        crosshair.GetComponent<Image>().sprite = normalCrosshair;
+                        canGrabby = false;
+                        currentObject = null;
+                    }
+                    else if (hit.transform == null)
+                    {
+                        crosshair.GetComponent<Image>().sprite = normalCrosshair;
+                    }
                 }
             }
         }
@@ -503,6 +512,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 grabby = false;
                 holdingGun = false;
                 currentGun = null;
+                playerCameraPivot.GetComponentInChildren<Camera>().fieldOfView = origFOV;
             }
         //}
     }
@@ -683,9 +693,24 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (currentGun != null && currentGun.GetComponent<Gun>() != null && holdingGun && currentGun.GetComponent<Gun>().ammo > 0)
         {
-            if (currentGun.GetComponent<Gun>().gunType == Gun.type.SniperRifle && hit.collider.gameObject.CompareTag("Player"))
+            if (currentGun.GetComponent<Gun>().gunType == Gun.type.SniperRifle)
             {
-                crosshair.GetComponent<Image>().sprite = targetedCrosshair;
+                if (hit.transform != null)
+                {
+                    if (hit.collider.gameObject.CompareTag("Player"))
+                    {
+                        crosshair.GetComponent<Image>().sprite = targetedCrosshair;
+                    }
+                }
+                playerCameraPivot.GetComponentInChildren<Camera>().fieldOfView += -Input.mouseScrollDelta.y * 2;
+                if (playerCameraPivot.GetComponentInChildren<Camera>().fieldOfView >= origFOV)
+                {
+                    playerCameraPivot.GetComponentInChildren<Camera>().fieldOfView = origFOV;
+                }
+                else if (playerCameraPivot.GetComponentInChildren<Camera>().fieldOfView <= 10)
+                {
+                    playerCameraPivot.GetComponentInChildren<Camera>().fieldOfView = 10;
+                }
             }
 
             if (Input.GetMouseButtonDown(1))
