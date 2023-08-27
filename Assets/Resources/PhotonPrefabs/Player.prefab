@@ -3977,6 +3977,7 @@ MonoBehaviour:
     type: 3}
   pickedUpCrosshair: {fileID: 21300000, guid: f52e8f132eba46b4da23f704002177d2, type: 3}
   getInCrosshair: {fileID: 21300000, guid: 772c8316a5d0ea643a28d2d8dfb3356f, type: 3}
+  targetedCrosshair: {fileID: 21300000, guid: b106d72b15c23ee49a2ea91e0d7f085b, type: 3}
   walkSpeed: 5
   runSpeed: 10
   jumpForce: 7

@@ -3,9 +3,6 @@ Make the terrain better. (More structures? Mountains? Hills?)
 Add sound!
 
 More weapons!
-    Sniper rifle
-
-Make the crosshair into something else when the gun is pointed at another player. (but only when holding a sniper rifle)
 
 Add a plane?
 

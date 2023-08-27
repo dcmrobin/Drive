@@ -35,6 +35,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public Sprite pickupableCrosshair;
     public Sprite pickedUpCrosshair;
     public Sprite getInCrosshair;
+    public Sprite targetedCrosshair;
     public float walkSpeed = 5f;
     public float runSpeed = 10f;
     public float jumpForce = 7f;
@@ -682,6 +683,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     {
         if (currentGun != null && currentGun.GetComponent<Gun>() != null && holdingGun && currentGun.GetComponent<Gun>().ammo > 0)
         {
+            if (currentGun.GetComponent<Gun>().gunType == Gun.type.SniperRifle && hit.collider.gameObject.CompareTag("Player"))
+            {
+                crosshair.GetComponent<Image>().sprite = targetedCrosshair;
+            }
+
             if (Input.GetMouseButtonDown(1))
             {
                 RaycastHit hit;

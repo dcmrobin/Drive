@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class Gun : MonoBehaviourPunCallbacks
 {
+    public enum type{Handgun, SniperRifle}
+    public type gunType;
     public TMP_Text ammoNumber;
     public GameObject ammoCanvas;
     public Slider reloadSlider;
