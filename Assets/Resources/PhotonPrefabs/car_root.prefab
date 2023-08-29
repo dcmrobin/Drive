@@ -5555,7 +5555,7 @@ PrefabInstance:
     - target: {fileID: 2992085722208106396, guid: 59d7797993c962541a0252210bfbcc35,
         type: 3}
       propertyPath: m_Name
-      value: cube
+      value: BuilderCube
       objectReference: {fileID: 0}
     - target: {fileID: 4042760722861089613, guid: 59d7797993c962541a0252210bfbcc35,
         type: 3}

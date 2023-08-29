@@ -17,8 +17,8 @@ GameObject:
   - component: {fileID: 17364308804745902}
   - component: {fileID: 5536632805336481927}
   - component: {fileID: 3508437894275957717}
-  m_Layer: 7
-  m_Name: Cube
+  m_Layer: 9
+  m_Name: BuilderCube
   m_TagString: pickupable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,3 +204,5 @@ MonoBehaviour:
   onDeath: 0
   explosionEffect: {fileID: 19800004, guid: b69972c441e65954cb6bc4711d909596, type: 3}
   steamEffect: {fileID: 19800004, guid: f8eb3a9d71d12a74ca3f9f9c2e194e02, type: 3}
+  lobbyController: {fileID: 0}
+  isSteaming: 0

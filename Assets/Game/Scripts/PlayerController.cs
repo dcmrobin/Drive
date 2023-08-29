@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviourPunCallbacks
 {
     public Text nickname;
     public string ncknm;
+    public GameObject templateBlock;
+    public Material seethroughGreen;
+    public Material seethroughRed;
     public TMP_Text screenspaceHealthNum;
     public TMP_Text coordsText;
     public Slider healthbar;
@@ -25,10 +28,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public GameObject screenspaceCanvas;
     public GameObject playerModel;
     public GameObject magazineModel;
+    public GameObject buildingBlock;
     public GameObject objTarget;
     public GameObject gunTarget;
     public GameObject pauseMenu;
     public GameObject crosshair;
+    public GameObject currentCar;
+    public GameObject currentObject;
+    public GameObject currentGun;
+    public GameObject currentDoor;
     public Sprite normalCrosshair;
     public Sprite carCrosshair;
     public Sprite canGetCrosshair;
@@ -48,7 +56,6 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public LayerMask groundMask;
     public LayerMask clickMask;
     public LayerMask camCollideMask;
-    public float gunImpactForce = 30;
     /*public LayerMask seatMask;
     public LayerMask pickupableMask;
     public LayerMask doorMask;*/
@@ -62,11 +69,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     private float origFOV;
     public bool driving;
     public bool inBoot;
-    public GameObject currentCar;
-    public GameObject currentObject;
-    public GameObject currentGun;
-    public GameObject currentDoor;
     public bool canGrabby;
+    public bool canBuild;
     public bool grabby;
     public bool holdingGun;
     public bool thirdPersonViewActive = false;
@@ -263,14 +267,22 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 playerCameraPivot.transform.localRotation = Quaternion.Euler(lookY, 0f, 0f);
 
                 // execute methods
-                pickUp();
-                drive();
-                door();
-                thirdPersonControl();
-                gunControl();
-                gunReloadControl();
+                PickUp();
+                Drive();
+                Door();
+                ThirdPersonControl();
+                GunControl();
+                GunReloadControl();
+                if (canBuild)
+                {
+                    Build();
+                }
+                else
+                {
+                    templateBlock.SetActive(false);
+                }
             }
-            handlePause();
+            HandlePause();
         }
 
         if (pv.IsMine)
@@ -386,7 +398,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void pickUp()
+    public void PickUp()
     {
         // check if player is looking at pickupable
         if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask))
@@ -422,6 +434,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
             {
                 grabby = true;
                 crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
+                if (currentObject.name == "BuilderCube")
+                {
+                    canBuild = true;
+                }
                 currentObject.GetComponent<Rigidbody>().isKinematic = true;
                 currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, true, pv.ViewID);
 
@@ -432,6 +448,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
             }
             else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null && currentGun == null)
             {
+                if (currentObject.name == "BuilderCube")
+                {
+                    canBuild = false;
+                }
                 grabby = false;
                 currentObject.GetComponent<Rigidbody>().isKinematic = false;
                 currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
@@ -517,7 +537,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         //}
     }
 
-    public void drive()
+    public void Drive()
     {
         // check if player is looking at car
         if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask))
@@ -610,7 +630,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void door()
+    public void Door()
     {
         if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out hit, Mathf.Infinity, clickMask))
         {
@@ -636,7 +656,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void thirdPersonControl()
+    public void ThirdPersonControl()
     {
         if (thirdPersonViewActive)
         {
@@ -662,7 +682,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void handlePause()
+    public void HandlePause()
     {
         if (!isPaused && Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
@@ -689,11 +709,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void gunControl()
+    public void GunControl()
     {
         if (currentGun != null && currentGun.GetComponent<Gun>() != null && holdingGun && currentGun.GetComponent<Gun>().ammo > 0)
         {
-            if (currentGun.GetComponent<Gun>().gunType == Gun.type.SniperRifle)
+            if (currentGun.GetComponent<Gun>().gunType == Gun.Type.SniperRifle)
             {
                 if (hit.transform != null)
                 {
@@ -757,7 +777,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
                         // add impact force to the target
                         if (hit.rigidbody != null)
                         {
-                            hit.rigidbody.AddForce(-hit.normal * gunImpactForce);
+                            hit.rigidbody.AddForce(-hit.normal * currentGun.GetComponent<Gun>().impactForce);
                         }
 
                         // decrease health of the target if it isn't the player
@@ -790,7 +810,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
-    public void gunReloadControl()
+    public void GunReloadControl()
     {
         if (amountOfMagazines > 0 && currentGun != null)
         {
@@ -812,6 +832,35 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     currentGun.GetComponent<Gun>().ammo = originalAmmo;
                     currentGun.GetComponent<Gun>().reloadTimer = 0;
                 }
+            }
+        }
+    }
+
+    public void Build()
+    {
+        if (Physics.Raycast(playerCameraPivot.transform.position, playerCameraPivot.transform.forward, out RaycastHit hitpos, 100))
+        {
+            templateBlock.SetActive(true);
+            templateBlock.transform.position = new Vector3(Mathf.RoundToInt(hitpos.transform.position.x), Mathf.RoundToInt(hitpos.transform.position.y), Mathf.RoundToInt(hitpos.transform.position.z));
+            templateBlock.transform.rotation = Quaternion.identity;
+            if (!templateBlock.GetComponent<CheckIfColliding>().IsColliding())
+            {
+                templateBlock.GetComponent<MeshRenderer>().material = seethroughGreen;
+                if (Input.GetMouseButtonDown(1))
+                {
+                    if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
+                    {
+                        PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", buildingBlock.name), new Vector3(Mathf.RoundToInt(hitpos.transform.position.x), Mathf.RoundToInt(hitpos.transform.position.y), Mathf.RoundToInt(hitpos.transform.position.z)), Quaternion.identity);
+                    }
+                    else if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
+                    {
+                        GameObject.Instantiate(buildingBlock, new Vector3(Mathf.RoundToInt(hitpos.transform.position.x), Mathf.RoundToInt(hitpos.transform.position.y), Mathf.RoundToInt(hitpos.transform.position.z)), Quaternion.identity);
+                    }
+                }
+            }
+            else
+            {
+                templateBlock.GetComponent<MeshRenderer>().material = seethroughRed;
             }
         }
     }

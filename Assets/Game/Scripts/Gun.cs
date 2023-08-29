@@ -8,13 +8,14 @@ using UnityEngine.UI;
 
 public class Gun : MonoBehaviourPunCallbacks
 {
-    public enum type{Handgun, SniperRifle}
-    public type gunType;
+    public enum Type{Handgun, SniperRifle}
+    public Type gunType;
     public TMP_Text ammoNumber;
     public GameObject ammoCanvas;
     public Slider reloadSlider;
     public int maxAmmo = 3;
     public int damage = 25;
+    public float impactForce = 15;
     public float timeToReload = 17;
     public int ammo;
     public float reloadTimer = 0;

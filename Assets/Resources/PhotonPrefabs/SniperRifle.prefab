@@ -5439,6 +5439,7 @@ MonoBehaviour:
   reloadSlider: {fileID: 3360008454062581228}
   maxAmmo: 1
   damage: 50
+  impactForce: 30
   timeToReload: 25
   ammo: 1
   reloadTimer: 0
