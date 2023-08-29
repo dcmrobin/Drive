@@ -301,6 +301,35 @@ public class PlayerController : MonoBehaviourPunCallbacks
                     {
                         crosshair.GetComponent<Image>().sprite = normalCrosshair;
                     }
+                    else if (currentGun != null)
+                    {
+                        if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
+                        {
+                            if (!hit.collider.gameObject.CompareTag("Player"))
+                            {
+                                crosshair.GetComponent<Image>().sprite = normalCrosshair;
+                                canGrabby = false;
+                                currentObject = null;
+                            }
+                            else
+                            {
+                                crosshair.GetComponent<Image>().sprite = targetedCrosshair;
+                            }
+                        }
+                        else if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
+                        {
+                            if (!hit.collider.gameObject.CompareTag("baddie"))
+                            {
+                                crosshair.GetComponent<Image>().sprite = normalCrosshair;
+                                canGrabby = false;
+                                currentObject = null;
+                            }
+                            else
+                            {
+                                crosshair.GetComponent<Image>().sprite = targetedCrosshair;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -715,13 +744,13 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             if (currentGun.GetComponent<Gun>().gunType == Gun.Type.SniperRifle)
             {
-                if (hit.transform != null)
+                /*if (hit.transform != null)
                 {
-                    if (hit.collider.gameObject.CompareTag("Player"))
+                    if (hit.collider.gameObject.CompareTag("baddie") || hit.collider.gameObject.CompareTag("Player"))
                     {
                         crosshair.GetComponent<Image>().sprite = targetedCrosshair;
                     }
-                }
+                }*/
                 playerCameraPivot.GetComponentInChildren<Camera>().fieldOfView += -Input.mouseScrollDelta.y * 2;
                 if (playerCameraPivot.GetComponentInChildren<Camera>().fieldOfView >= origFOV)
                 {

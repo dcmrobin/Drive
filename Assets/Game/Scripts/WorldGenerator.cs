@@ -105,7 +105,14 @@ public class WorldGenerator : MonoBehaviour
                             GameObject simpleStructure = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", "SimpleStructure"), new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 0, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
                             for (int i = 0; i < Random.Range(0, 5); i++)
                             {
-                                GameObject magazine = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", magazinePrefab.name), new Vector3(simpleStructure.transform.position.x, simpleStructure.transform.position.y + 1, simpleStructure.transform.position.z), Quaternion.identity);
+                                if (GetComponent<PlayerController>().lobbyController.GetComponent<LobbyController>() != null && GetComponent<PlayerController>().lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
+                                {
+                                    GameObject magazine = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", magazinePrefab.name), new Vector3(simpleStructure.transform.position.x, simpleStructure.transform.position.y + 1, simpleStructure.transform.position.z), Quaternion.identity);
+                                }
+                                else if (GetComponent<PlayerController>().lobbyController.GetComponent<LobbyController>() != null && GetComponent<PlayerController>().lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
+                                {
+                                    GameObject magazine = Instantiate(magazinePrefab, new Vector3(simpleStructure.transform.position.x, simpleStructure.transform.position.y + 1, simpleStructure.transform.position.z), Quaternion.identity);
+                                }
                             }
                             //simpleStructure.transform.parent = new GameObject().transform.parent = tile.transform;
                         }

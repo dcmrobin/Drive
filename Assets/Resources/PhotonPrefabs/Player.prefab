@@ -4006,6 +4006,9 @@ MonoBehaviour:
   camCollideMask:
     serializedVersion: 2
     m_Bits: 763
+  targetableMask:
+    serializedVersion: 2
+    m_Bits: 1280
   playerCameraPivot: {fileID: 7290564772093562209}
   isGrounded: 0
   driving: 0
