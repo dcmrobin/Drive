@@ -17,6 +17,7 @@ TagManager:
   - playerScreenspaceCanvas
   - cockpit
   - baddie
+  - brick
   layers:
   - Default
   - TransparentFX

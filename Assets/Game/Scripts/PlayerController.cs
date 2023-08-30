@@ -895,6 +895,21 @@ public class PlayerController : MonoBehaviourPunCallbacks
             else
             {
                 templateBlock.GetComponent<MeshRenderer>().material = seethroughRed;
+
+                if (templateBlock.GetComponent<CheckIfColliding>().collidingObj != null)
+                {
+                    if (Input.GetMouseButtonDown(1))
+                    {
+                        if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
+                        {
+                            PhotonNetwork.Destroy(templateBlock.GetComponent<CheckIfColliding>().collidingObj);
+                        }
+                        else if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
+                        {
+                            Destroy(templateBlock.GetComponent<CheckIfColliding>().collidingObj);
+                        }
+                    }
+                }
             }
         }
     }

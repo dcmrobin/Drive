@@ -5,6 +5,7 @@ using UnityEngine;
 public class CheckIfColliding : MonoBehaviour
 {
     public LayerMask collisionMask;
+    public GameObject collidingObj;
 
     public bool IsColliding()
     {
@@ -13,6 +14,14 @@ public class CheckIfColliding : MonoBehaviour
         //Check when there is a new collider coming into contact with the box
         while (i < hitColliders.Length)
         {
+            if (hitColliders.Length > 0 && hitColliders[i].CompareTag("brick"))
+            {
+                collidingObj = hitColliders[i].gameObject;
+            }
+            else
+            {
+                collidingObj = null;
+            }
             i++;
         }
 

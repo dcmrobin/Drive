@@ -5303,6 +5303,7 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 203
+  collidingObj: {fileID: 0}
 --- !u!4 &6468673462049511340 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6722446626666033746, guid: 539ce627dfa1c714799f775c70786104,
