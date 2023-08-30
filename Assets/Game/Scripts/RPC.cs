@@ -6,6 +6,13 @@ using Photon.Realtime;
 
 public class RPC : MonoBehaviour
 {
+    private void Start() {
+        if (CompareTag("pickupable") || CompareTag("gun"))
+        {
+            transform.parent = null;
+        }
+    }
+
     [PunRPC]
     void UpdateParent(bool boolean, int ID)
     {

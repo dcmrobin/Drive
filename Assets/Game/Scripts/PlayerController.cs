@@ -455,115 +455,120 @@ public class PlayerController : MonoBehaviourPunCallbacks
         // grab the object
         if (canGrabby && currentObject.transform.tag != "gun" && currentObject.transform.tag != "gettable" && currentGun == null)
         {
-            if (canGrabby && Input.GetMouseButtonDown(0))
+            if (currentObject.transform.parent == null)
             {
-                currentObject.GetComponent<PhotonView>().RequestOwnership();
-            }
-            if (canGrabby && Input.GetMouseButton(0))
-            {
-                grabby = true;
-                crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
-                if (currentObject.name == "BuilderCube")
+                if (canGrabby && Input.GetMouseButtonDown(0))
                 {
-                    canBuild = true;
+                    currentObject.GetComponent<PhotonView>().RequestOwnership();
                 }
-                currentObject.GetComponent<Rigidbody>().isKinematic = true;
-                currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, true, pv.ViewID);
+                if (canGrabby && Input.GetMouseButton(0))
+                {
+                    grabby = true;
+                    crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
+                    canBuild = true;
+                    currentObject.GetComponent<Rigidbody>().isKinematic = true;
+                    currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, true, pv.ViewID);
 
-                currentObject.transform.parent = objTarget.transform;
-                currentObject.transform.position = objTarget.transform.position;
-                currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, true, pv.ViewID);
-                currentObject.GetComponent<PhotonView>().RPC("UpdatePosition", RpcTarget.All, pv.ViewID);
-            }
-            else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null && currentGun == null)
-            {
-                if (currentObject.name == "BuilderCube")
+                    currentObject.transform.parent = objTarget.transform;
+                    currentObject.transform.position = objTarget.transform.position;
+                    currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, true, pv.ViewID);
+                    currentObject.GetComponent<PhotonView>().RPC("UpdatePosition", RpcTarget.All, pv.ViewID);
+                }
+                else if (grabby && Input.GetMouseButtonUp(0) && currentObject != null && currentGun == null)
                 {
                     canBuild = false;
+                    grabby = false;
+                    currentObject.GetComponent<Rigidbody>().isKinematic = false;
+                    currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
+                    currentObject.transform.parent = null;
+                    currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
                 }
-                grabby = false;
-                currentObject.GetComponent<Rigidbody>().isKinematic = false;
-                currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
-                currentObject.transform.parent = null;
-                currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
             }
         }
         else if (canGrabby && currentObject.transform.tag == "gun")
         {
-            if (canGrabby && Input.GetMouseButtonDown(0))
+            if (currentObject.transform.parent == null)
             {
-                currentGun = currentObject;
-                currentGun.GetComponent<PhotonView>().RequestOwnership();
-                currentGun.transform.parent = gunTarget.transform;
-                currentGun.GetComponent<PhotonView>().RPC("UpdateGunParent", RpcTarget.All, true, pv.ViewID);
-                currentGun.transform.localRotation = Quaternion.Euler(0, 0, 0);
-            }
-            if (canGrabby && Input.GetMouseButton(0) && currentGun != null)
-            {
-                crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
-                currentGun.GetComponent<Rigidbody>().isKinematic = true;
-                currentGun.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, true, pv.ViewID);
-                currentGun.transform.position = gunTarget.transform.position;
-                currentGun.GetComponent<PhotonView>().RPC("UpdateGunPosition", RpcTarget.All, pv.ViewID);
-                holdingGun = true;
-                grabby = true;
-            }
-            else if (grabby && !Input.GetMouseButton(0) && currentGun != null)
-            {
-                currentGun.GetComponent<Rigidbody>().isKinematic = false;
-                currentGun.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
-                currentGun.transform.parent = null;
-                currentGun.GetComponent<PhotonView>().RPC("UpdateGunParent", RpcTarget.All, false, pv.ViewID);
-                holdingGun = false;
-                grabby = false;
-                currentGun = null;
+                if (canGrabby && Input.GetMouseButtonDown(0))
+                {
+                    currentGun = currentObject;
+                    currentGun.GetComponent<PhotonView>().RequestOwnership();
+                    currentGun.transform.parent = gunTarget.transform;
+                    currentGun.GetComponent<PhotonView>().RPC("UpdateGunParent", RpcTarget.All, true, pv.ViewID);
+                    currentGun.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                }
+                if (canGrabby && Input.GetMouseButton(0) && currentGun != null)
+                {
+                    crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
+                    currentGun.GetComponent<Rigidbody>().isKinematic = true;
+                    currentGun.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, true, pv.ViewID);
+                    currentGun.transform.position = gunTarget.transform.position;
+                    currentGun.GetComponent<PhotonView>().RPC("UpdateGunPosition", RpcTarget.All, pv.ViewID);
+                    holdingGun = true;
+                    grabby = true;
+                }
+                else if (grabby && !Input.GetMouseButton(0) && currentGun != null)
+                {
+                    currentGun.GetComponent<Rigidbody>().isKinematic = false;
+                    currentGun.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
+                    currentGun.transform.parent = null;
+                    currentGun.GetComponent<PhotonView>().RPC("UpdateGunParent", RpcTarget.All, false, pv.ViewID);
+                    holdingGun = false;
+                    grabby = false;
+                    currentGun = null;
+                }
             }
         }
         else if (canGrabby && currentObject.transform.tag == "gettable")
         {
-            if (canGrabby && Input.GetMouseButtonDown(0))
+            if (currentObject.transform.parent == null)
             {
-                currentObject.GetComponent<PhotonView>().RequestOwnership();
-                if (lobbyController != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
+                if (canGrabby && Input.GetMouseButtonDown(0))
                 {
-                    if (currentObject.GetComponent<PhotonView>().AmOwner)
+                    currentObject.GetComponent<PhotonView>().RequestOwnership();
+                    if (lobbyController != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
+                    {
+                        if (currentObject.GetComponent<PhotonView>().AmOwner)
+                        {
+                            amountOfMagazines += 1;
+                            PhotonNetwork.Destroy(currentObject);
+                        }
+                    }
+                    else if (lobbyController != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
                     {
                         amountOfMagazines += 1;
-                        PhotonNetwork.Destroy(currentObject);
+                        Destroy(currentObject);
                     }
-                }
-                else if (lobbyController != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
-                {
-                    amountOfMagazines += 1;
-                    Destroy(currentObject);
                 }
             }
         }
 
         // drop override
-        //if (grabby)
-        //{
-            if (currentObject != null && Input.GetMouseButtonUp(0) || currentObject != null && driving)
-            {
+        if (currentObject != null && currentObject.transform.parent == objTarget.transform && Input.GetMouseButtonUp(0) || currentObject != null && driving)
+        {
+            //if ()
+            //{
                 currentObject.GetComponent<Rigidbody>().isKinematic = false;
                 currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
                 currentObject.transform.parent = null;
                 currentObject.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
                 grabby = false;
                 holdingGun = false;
-            }
-            else if (currentGun != null && !Input.GetMouseButton(0))
-            {
-                currentGun.GetComponent<Rigidbody>().isKinematic = false;
-                currentGun.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
-                currentGun.transform.parent = null;
-                currentGun.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
-                grabby = false;
-                holdingGun = false;
-                currentGun = null;
-                playerCameraPivot.GetComponentInChildren<Camera>().fieldOfView = origFOV;
-            }
-        //}
+                canBuild = false;
+            //}
+        }
+        else if (currentGun != null && !Input.GetMouseButton(0))
+        {
+            currentGun.GetComponent<Rigidbody>().isKinematic = false;
+            currentGun.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, false, pv.ViewID);
+            currentGun.transform.parent = null;
+            currentGun.GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, false, pv.ViewID);
+            grabby = false;
+            holdingGun = false;
+            currentGun = null;
+            canBuild = false;
+            playerCameraPivot.GetComponentInChildren<Camera>().fieldOfView = origFOV;
+        }
     }
 
     public void Drive()
