@@ -7,6 +7,4 @@ More weapons!
 
 #BUGS#
 
-Player B still has canBuild enabled when Player A leaves and he is holding a builderBlock that Player A spawned.
-
 Crosshair is not changing in multiplayer mode when holding a sniper and pointing at a player...

@@ -116,6 +116,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
         Debug.Log(cause);
     }
 
+    public override void OnPlayerLeftRoom(Player otherPlayer)
+    {
+        base.OnPlayerLeftRoom(otherPlayer);
+        if (currentObject != null)
+        {
+            grabby = false;
+            canBuild = false;
+        }
+    }
+
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
         base.OnPlayerEnteredRoom(newPlayer);
@@ -465,7 +475,10 @@ public class PlayerController : MonoBehaviourPunCallbacks
                 {
                     grabby = true;
                     crosshair.GetComponent<Image>().sprite = pickedUpCrosshair;
-                    canBuild = true;
+                    if (currentObject.name == "BuilderCube")
+                    {
+                        canBuild = true;
+                    }
                     currentObject.GetComponent<Rigidbody>().isKinematic = true;
                     currentObject.GetComponent<PhotonView>().RPC("UpdateRigidbody", RpcTarget.All, true, pv.ViewID);
 
