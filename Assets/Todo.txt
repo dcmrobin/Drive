@@ -7,4 +7,4 @@ More weapons!
 
 #BUGS#
 
-Crosshair is not changing in multiplayer mode when holding a sniper and pointing at a player...
+None!
