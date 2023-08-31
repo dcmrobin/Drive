@@ -18,6 +18,7 @@ TagManager:
   - cockpit
   - baddie
   - brick
+  - builderBlock
   layers:
   - Default
   - TransparentFX

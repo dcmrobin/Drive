@@ -24,6 +24,7 @@ public class GameSetupController : MonoBehaviourPunCallbacks
     }
 
     private void Update() {
+        //Debug.Log("We are now connected the " + PhotonNetwork.CloudRegion + " server!");
         allGuns = GameObject.FindGameObjectsWithTag("gun");
     }
 
