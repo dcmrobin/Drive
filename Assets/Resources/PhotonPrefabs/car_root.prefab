@@ -5190,36 +5190,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 780434f036ca2ec4799f1c5079c25531, type: 3}
---- !u!114 &4532958358320149106 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 141094242852077763, guid: 780434f036ca2ec4799f1c5079c25531,
-    type: 3}
-  m_PrefabInstance: {fileID: 4547802105116783281}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &6030446677054834307 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7831050180694357042, guid: 780434f036ca2ec4799f1c5079c25531,
     type: 3}
   m_PrefabInstance: {fileID: 4547802105116783281}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &6296613060997964177 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7529765537029296928, guid: 780434f036ca2ec4799f1c5079c25531,
-    type: 3}
-  m_PrefabInstance: {fileID: 4547802105116783281}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5036652577610940014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5243,16 +5219,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SniperRifle
       objectReference: {fileID: 0}
-    - target: {fileID: 7128106815650944293, guid: c3ff9d43c6dad184ab6c78bfb27f93b1,
-        type: 3}
-      propertyPath: ammoNumber
-      value: 
-      objectReference: {fileID: 6296613060997964177}
-    - target: {fileID: 7128106815650944293, guid: c3ff9d43c6dad184ab6c78bfb27f93b1,
-        type: 3}
-      propertyPath: reloadSlider
-      value: 
-      objectReference: {fileID: 4532958358320149106}
     - target: {fileID: 7831050180694357042, guid: c3ff9d43c6dad184ab6c78bfb27f93b1,
         type: 3}
       propertyPath: m_RootOrder

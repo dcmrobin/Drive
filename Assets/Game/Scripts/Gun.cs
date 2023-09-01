@@ -10,7 +10,7 @@ public class Gun : MonoBehaviourPunCallbacks
 {
     public enum Type{Handgun, SniperRifle}
     public Type gunType;
-    public TMP_Text ammoNumber;
+    public Text ammoNumber;
     public GameObject ammoCanvas;
     public Slider reloadSlider;
     public int maxAmmo = 3;
