@@ -828,6 +828,10 @@ MonoBehaviour:
   currentDriver: {fileID: 0}
   speedNumText: {fileID: 922980424965584685}
   pv: {fileID: 0}
+  objectsInCar:
+  - {fileID: 6708654105945159309}
+  - {fileID: 7886414377289681584}
+  - {fileID: 1070081896903666478}
 --- !u!114 &8761405568193001921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5196,6 +5200,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4547802105116783281}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7886414377289681584 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5940008201236838401, guid: 780434f036ca2ec4799f1c5079c25531,
+    type: 3}
+  m_PrefabInstance: {fileID: 4547802105116783281}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5036652577610940014
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5279,6 +5289,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3ff9d43c6dad184ab6c78bfb27f93b1, type: 3}
+--- !u!1 &1070081896903666478 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5421341115171919168, guid: c3ff9d43c6dad184ab6c78bfb27f93b1,
+    type: 3}
+  m_PrefabInstance: {fileID: 5036652577610940014}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8554107121743814312 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3698444642130583750, guid: c3ff9d43c6dad184ab6c78bfb27f93b1,
@@ -5714,6 +5730,12 @@ PrefabInstance:
 --- !u!4 &5513864120302150236 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4042760722861089613, guid: 59d7797993c962541a0252210bfbcc35,
+    type: 3}
+  m_PrefabInstance: {fileID: 8403694094511554833}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6708654105945159309 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2992085722208106396, guid: 59d7797993c962541a0252210bfbcc35,
     type: 3}
   m_PrefabInstance: {fileID: 8403694094511554833}
   m_PrefabAsset: {fileID: 0}

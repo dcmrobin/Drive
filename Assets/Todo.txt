@@ -1,10 +1,9 @@
-Make the terrain better. (More structures? Mountains? Hills?)
+Make the player's choices at the menu (player color and name and region) not reset when player dies.
 
-Add sound!
-
-More weapons!
-
+Add an option for going back to the menu.
 
 #BUGS#
 
-None!
+When player is driving and reaches a certain speed, the car thinks the player is crashing into it, and the player dies.
+(I can't reproduce this bug while I'm playing multiplayer by myselft... it's when a player is riding a car that another player
+spawned for the first time that it happens, and it only happens when the car's speed reaches 20 m/s.)

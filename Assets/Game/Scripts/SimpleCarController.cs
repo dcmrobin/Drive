@@ -20,7 +20,17 @@ public class SimpleCarController : MonoBehaviour {
     public GameObject currentDriver;
     public TMP_Text speedNumText;
     public PhotonView pv;
-     
+    public GameObject[] objectsInCar;
+
+    private void Start() {
+        if (objectsInCar != null)
+        {
+            for (int i = 0; i < objectsInCar.Length; i++)
+            {
+                objectsInCar[i].GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, true, pv.ViewID);
+            }
+        }
+    }
     // finds the corresponding visual wheel
     // correctly applies the transform
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
@@ -125,6 +135,7 @@ public class SimpleCarController : MonoBehaviour {
             {
                 if (other.gameObject.GetComponent<Rigidbody>().velocity.magnitude < GetComponent<Rigidbody>().velocity.magnitude - 10)
                 {
+                    Debug.Log("ouch");
                     other.gameObject.GetComponent<PhotonView>().RPC("GetHurt", RpcTarget.All, Mathf.RoundToInt(GetComponent<Rigidbody>().velocity.magnitude));
                 }
             }
