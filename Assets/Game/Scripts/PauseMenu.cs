@@ -69,10 +69,11 @@ public class PauseMenu : MonoBehaviour
         DontDestroyOnLoad(newCanvas);
         newCanvas.SetActive(true);
         newCanvas.name = "template";
-        PhotonNetwork.LeaveRoom();
+        StartCoroutine(player.GetComponent<PlayerController>().Die());
+        /*PhotonNetwork.LeaveRoom();
         PhotonNetwork.Disconnect();
         PhotonNetwork.AutomaticallySyncScene = false;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0);*/
     }// WHY WON'T IT CONNECT AFTER SCENE LOAD
 
     public void DestroyAllDontDestroyOnLoadObjects() {
