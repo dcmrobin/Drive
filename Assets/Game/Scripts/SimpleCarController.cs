@@ -22,13 +22,10 @@ public class SimpleCarController : MonoBehaviour {
     public PhotonView pv;
     public GameObject[] objectsInCar;
 
-    private void Start() {
-        if (objectsInCar != null)
+    private void Awake() {
+        for (int i = 0; i < objectsInCar.Length; i++)
         {
-            for (int i = 0; i < objectsInCar.Length; i++)
-            {
-                objectsInCar[i].GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, true, pv.ViewID);
-            }
+            objectsInCar[i].GetComponent<PhotonView>().RPC("UpdateParent", RpcTarget.All, true, pv.ViewID);
         }
     }
     // finds the corresponding visual wheel
@@ -120,7 +117,7 @@ public class SimpleCarController : MonoBehaviour {
         }
     }
 
-    private void OnCollisionEnter(Collision other) {
+    /*private void OnCollisionEnter(Collision other) {
         if (GetComponent<Rigidbody>().velocity.magnitude >= 20)
         {
             if (other.gameObject.GetComponent<Damageable>() != null)
@@ -140,5 +137,5 @@ public class SimpleCarController : MonoBehaviour {
                 }
             }
         }
-    }
+    }*/
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -45,12 +46,12 @@ public class PauseMenu : MonoBehaviour
         Application.Quit();
     }
 
-    public void enableAntiRoll(bool antiRoll)
+    public void EnableAntiRoll(bool antiRoll)
     {
         antiRollEnabled = antiRoll;
     }
 
-    public void showAmmo(bool visible)
+    public void ShowAmmo(bool visible)
     {
         gunAmmoVisible = visible;
     }
@@ -58,5 +59,11 @@ public class PauseMenu : MonoBehaviour
     public void ResetCooldown()
     {
         buttonCooldown = false;
+    }
+
+    public void MainMenu()
+    {
+        PhotonNetwork.Disconnect();
+        SceneManager.LoadScene(0);
     }
 }
