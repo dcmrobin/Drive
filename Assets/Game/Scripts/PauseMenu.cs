@@ -73,7 +73,7 @@ public class PauseMenu : MonoBehaviour
         PhotonNetwork.Disconnect();
         PhotonNetwork.AutomaticallySyncScene = false;
         SceneManager.LoadScene(0);
-    }
+    }// WHY WON'T IT CONNECT AFTER SCENE LOAD
 
     public void DestroyAllDontDestroyOnLoadObjects() {
 
