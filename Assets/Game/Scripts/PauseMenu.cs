@@ -63,7 +63,25 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
+        GameObject oldCanvas = player.GetComponent<PlayerController>().lobbyController.GetComponent<LobbyController>().theCanvas;
+        GameObject newCanvas = Instantiate(oldCanvas);
+        DestroyAllDontDestroyOnLoadObjects();
+        DontDestroyOnLoad(newCanvas);
+        newCanvas.SetActive(true);
+        newCanvas.name = "template";
+        PhotonNetwork.LeaveRoom();
         PhotonNetwork.Disconnect();
+        PhotonNetwork.AutomaticallySyncScene = false;
         SceneManager.LoadScene(0);
+    }
+
+    public void DestroyAllDontDestroyOnLoadObjects() {
+
+        var go = new GameObject("Sacrificial Lamb");
+        DontDestroyOnLoad(go);
+
+        foreach(var root in go.scene.GetRootGameObjects())
+            Destroy(root);
+
     }
 }

@@ -18,10 +18,21 @@ public class LobbyController : MonoBehaviourPunCallbacks
     public int singleplayerSceneIndex = 2;
     public enum mode{Singleplayer, Multiplayer};
     public mode gameMode;
+    public GameObject theCanvas;
+    public GameObject templateCanvas;
 
     void Awake()
     {
         DontDestroyOnLoad(this);
+        templateCanvas = GameObject.Find("template");
+        theCanvas = GameObject.Find("theCanvas");
+    }
+    private void Start() {
+        if (templateCanvas != null)
+        {
+            theCanvas.transform.Find("usernameInputField").GetComponent<InputField>().text = templateCanvas.transform.Find("usernameInputField").GetComponent<InputField>().text;
+            Destroy(templateCanvas);
+        }
     }
     public override void OnConnectedToMaster()
     {
@@ -34,7 +45,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
     {
         gameMode = mode.Singleplayer;
         SceneManager.LoadScene(singleplayerSceneIndex);
-        GameObject.Find("theCanvas").SetActive(false);
+        theCanvas.SetActive(false);
     }
 
     public void GameButton()
