@@ -4,14 +4,17 @@ using UnityEngine;
 using Photon.Pun;
 using System.IO;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenu : MonoBehaviour
 {
     public GameObject player;
     public GameObject carPrefab;
+    public Button continueButton;
     public bool buttonCooldown = false;
     public bool antiRollEnabled = true;
     public bool gunAmmoVisible = true;
+    public bool exiting;
 
     public void Continue()
     {
@@ -63,26 +66,32 @@ public class PauseMenu : MonoBehaviour
 
     public void MainMenu()
     {
+        continueButton.interactable = false;
         GameObject oldCanvas = player.GetComponent<PlayerController>().lobbyController.GetComponent<LobbyController>().theCanvas;
+        oldCanvas.name = "oldCanvas";
+        oldCanvas.SetActive(true);
         GameObject newCanvas = Instantiate(oldCanvas);
-        DestroyAllDontDestroyOnLoadObjects();
+        //DestroyAllDontDestroyOnLoadObjects();
         DontDestroyOnLoad(newCanvas);
         newCanvas.SetActive(true);
         newCanvas.name = "template";
+        exiting = true;
+        Time.timeScale = 1;
+        //PhotonNetwork.LeaveRoom();
+        //PhotonNetwork.Disconnect();
         StartCoroutine(player.GetComponent<PlayerController>().Die());
-        /*PhotonNetwork.LeaveRoom();
-        PhotonNetwork.Disconnect();
-        PhotonNetwork.AutomaticallySyncScene = false;
-        SceneManager.LoadScene(0);*/
-    }// WHY WON'T IT CONNECT AFTER SCENE LOAD
+        //SceneManager.LoadScene(0);
+    }
 
     public void DestroyAllDontDestroyOnLoadObjects() {
 
-        var go = new GameObject("Sacrificial Lamb");
+        var go = new GameObject("Bill");
         DontDestroyOnLoad(go);
 
         foreach(var root in go.scene.GetRootGameObjects())
+        {
             Destroy(root);
+        }
 
     }
 }

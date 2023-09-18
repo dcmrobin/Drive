@@ -8,6 +8,7 @@ using System.IO;
 using System;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Unity.VisualScripting;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -373,6 +374,11 @@ public class PlayerController : MonoBehaviourPunCallbacks
     public IEnumerator Die()
     {
         yield return new WaitForSeconds(1f);
+        if (pv.IsMine)
+        {
+            Destroy(GameObject.Find("oldLobbyController"));
+            Destroy(GameObject.Find("oldCanvas"));
+        }
         SceneManager.LoadScene(0);
         PhotonNetwork.LeaveRoom();
     }
@@ -733,7 +739,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             Cursor.lockState = CursorLockMode.Locked;
             Time.timeScale = 1;
         }
-        else if (isPaused)
+        else if (isPaused && !pauseMenu.GetComponent<PauseMenu>().exiting)
         {
             Cursor.lockState = CursorLockMode.None;
             Time.timeScale = 0;

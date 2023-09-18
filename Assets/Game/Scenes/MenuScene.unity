@@ -1601,6 +1601,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4114687472536148002, guid: 01fe96590c161634ca0c72d6721d4a8c,
+        type: 3}
+      propertyPath: lobbyController
+      value: 
+      objectReference: {fileID: 2004342088}
     - target: {fileID: 7585185690485310002, guid: 01fe96590c161634ca0c72d6721d4a8c,
         type: 3}
       propertyPath: m_RootOrder
@@ -3206,7 +3211,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1941384279}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2004342088}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc67951ae07fd1042b4f4d8c61cb0919, type: 3}
@@ -3292,6 +3297,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987463273}
   m_CullTransparentMesh: 0
+--- !u!1 &2004342088 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8925273334174957390, guid: 1c40ecebac9e4cd4fb67b9013d669efc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1941384279}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2032972806
 GameObject:
   m_ObjectHideFlags: 0

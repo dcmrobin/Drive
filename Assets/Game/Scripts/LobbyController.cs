@@ -31,6 +31,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
         if (templateCanvas != null)
         {
             theCanvas.transform.Find("usernameInputField").GetComponent<InputField>().text = templateCanvas.transform.Find("usernameInputField").GetComponent<InputField>().text;
+            theCanvas.transform.Find("pickbutton").transform.Find("color").GetComponent<Image>().color = templateCanvas.transform.Find("pickbutton").transform.Find("color").GetComponent<Image>().color;
             Destroy(templateCanvas);
         }
     }
@@ -45,6 +46,7 @@ public class LobbyController : MonoBehaviourPunCallbacks
     {
         gameMode = mode.Singleplayer;
         SceneManager.LoadScene(singleplayerSceneIndex);
+        gameObject.name = "oldLobbyController";
         theCanvas.SetActive(false);
     }
 

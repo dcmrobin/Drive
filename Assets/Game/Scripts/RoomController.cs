@@ -7,6 +7,7 @@ public class RoomController : MonoBehaviourPunCallbacks
 {
     [SerializeField]
     private int multiplayerSceneIndex;
+    public GameObject lobbyController;
 
     public override void OnEnable()
     {
@@ -29,6 +30,7 @@ public class RoomController : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient)
         {
             Debug.Log("Starting Game");
+            lobbyController.gameObject.name = "oldLobbyController";
             PhotonNetwork.LoadLevel(multiplayerSceneIndex);
         }
     }
