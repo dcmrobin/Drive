@@ -876,7 +876,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
             if (!templateBlock.GetComponent<CheckIfColliding>().IsColliding())
             {
                 templateBlock.GetComponent<MeshRenderer>().material = seethroughGreen;
-                if (Input.GetMouseButtonDown(1))
+                if (Input.GetMouseButton(1))
                 {
                     if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
                     {
@@ -894,7 +894,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
 
                 if (templateBlock.GetComponent<CheckIfColliding>().collidingObj != null)
                 {
-                    if (Input.GetMouseButtonDown(1))
+                    if (Input.GetMouseButton(2))
                     {
                         if (lobbyController != null && lobbyController.GetComponent<LobbyController>() != null && lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Multiplayer)
                         {
