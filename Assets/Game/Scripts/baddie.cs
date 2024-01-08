@@ -6,28 +6,33 @@ using Photon.Pun;
 public class baddie : MonoBehaviour
 {
     Transform target;
-    public double moveSpeed = 1;
+    public float moveSpeed = 1;
     public int damage = 5;
+
+    private Rigidbody rb;
     //public double health = 10;
     // Start is called before the first frame update
     void Start()
     {
         GetComponent<PhotonView>().RequestOwnership();
+        rb = GetComponent<Rigidbody>();
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        var step =  (float)moveSpeed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+        // Determine the direction to the target
+        Vector3 direction = (target.position - transform.position).normalized;
+
+        // Set the velocity to move towards the target
+        rb.velocity = direction * moveSpeed;
 
         // Determine which direction to rotate towards
-        Vector3 targetDirection = target.position - transform.position;
-        // Rotate the forward vector towards the target direction by one step
-        Vector3 newDirection = Vector3.RotateTowards(transform.forward, new Vector3(targetDirection.x, 0, targetDirection.z), step, 0.0f);
-        // Calculate a rotation a step closer to the target and applies rotation to this object
-        transform.rotation = Quaternion.LookRotation(newDirection);
+        Quaternion targetRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+
+        // Rotate towards the target direction gradually
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * moveSpeed);
 
         if (gameObject.transform.position.y <= -2000)
         {

@@ -133,7 +133,7 @@ public class WorldGenerator : MonoBehaviour
                         smallRock.transform.parent = new GameObject().transform.parent = tile.transform;
 
                         // enemies
-                        /*if (GetComponent<PlayerController>().lobbyController != null)
+                        if (GetComponent<PlayerController>().lobbyController != null)
                         {
                             if (GetComponent<PlayerController>().lobbyController.GetComponent<LobbyController>().gameMode == LobbyController.mode.Singleplayer)
                             {
@@ -149,7 +149,7 @@ public class WorldGenerator : MonoBehaviour
                                     GameObject badGuy = PhotonNetwork.Instantiate(Path.Combine("PhotonPrefabs", badGuyPrefab.name), new Vector3(tile.transform.position.x + Random.Range(-tileSize/2, tileSize/2), 5, tile.transform.position.z + Random.Range(-tileSize/2, tileSize/2)), Quaternion.identity);
                                 }
                             }
-                        }*/
+                        }
                     }
                     //thing.transform.parent = new GameObject().transform.parent = tile.transform;
                     tiles.Add(tilePos, tile);
