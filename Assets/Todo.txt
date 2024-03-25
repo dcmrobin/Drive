@@ -2,6 +2,8 @@ Make the player's choices at the menu (player color and name and region) not res
 
 Add an option for going back to the menu.
 
+There could be cubes that would randomly generate in the map that would follow Conway's game of life rules
+
 #BUGS#
 
 loads
