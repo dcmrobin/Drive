@@ -3,4 +3,5 @@ Multiplayer-FPS-Driving game. The flat world is infinite, with sparse rocks and 
 
 And here's a screenshot of some gameplay:<br>
 ![image](https://github.com/user-attachments/assets/2da3fbad-5ba3-497b-934f-f777ae2c8f90)<br>
-You can build with the green box, shoot other players with the guns, and break the sound barrier with the car.
+You can build with the green box, shoot other players with the guns, and break the sound barrier with the car.<br>
+This game has a lot of bugs.
